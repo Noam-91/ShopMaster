@@ -5,7 +5,7 @@
     android:width="1dp"
     android:color="#99ffffff"
     />
-    <solid android:color="#efffffff"/>
+    <solid android:color="#ffffffff"/>
 <!--设置倒角-->
 <corners
     android:radius="10dp"

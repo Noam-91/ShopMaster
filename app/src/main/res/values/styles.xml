@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <style name="myButton" parent="TextAppearance.AppCompat">
+        <item name="android:background">#0523CC</item>
+        <item name="android:textColor">#EC0C0C</item>
+    </style>
+</resources>

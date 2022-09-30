@@ -14,28 +14,36 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Button mBtn_signin;
-    private Button mBtn_signup;
-    private Button mBtn_guest;
-    private EditText mEt_username;
-    private EditText mEt_password;
+    private Button mBtnSignin;
+    private Button mBtnSignup;          // Sign up has not been implemented yet.
+    private Button mBtnGuest;
+    private EditText mEtUsername;
+    private EditText mEtPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mBtn_signin.findViewById(R.id.btn_main_signin);
-        mBtn_signup.findViewById(R.id.btn_main_signup);
-        mBtn_guest.findViewById(R.id.btn_main_guest);
-        mEt_username.findViewById(R.id.et_main_username);
-        mEt_password.findViewById(R.id.et_main_password);
 
+        mBtnSignin=findViewById(R.id.btn_main_signin);
+        mBtnSignup=findViewById(R.id.btn_main_signup);
+        mBtnGuest=findViewById(R.id.btn_main_guest);
+        mEtUsername=findViewById(R.id.et_main_username);
+        mEtPassword=findViewById(R.id.et_main_password);
 
+        mBtnSignin.setOnClickListener(this::onClick);
+        mBtnGuest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, UserActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void onClick(View view){
-        String username = mEt_username.getText().toString();
-        String password = mEt_password.getText().toString();
+        String username = mEtUsername.getText().toString();
+        String password = mEtPassword.getText().toString();
 
         // Pop Out Msg
         String sucMsg   = "You successfully Signed in.";

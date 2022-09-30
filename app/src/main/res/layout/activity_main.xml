@@ -7,7 +7,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:padding="10dp"
-    android:background="@drawable/bg_main"
+    android:background="@drawable/bg_main_3"
 
     >
 
@@ -15,25 +15,25 @@
         android:id="@+id/tv__main_appname"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="120dp"
         android:text="ShopMaster"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="45sp"
-        android:textStyle="bold|italic"
+        android:fontFamily="@font/eraser_regular"
         android:gravity="center"/>
 
     <EditText
         android:id="@+id/et_main_username"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="180dp"
+        android:layout_marginTop="142dp"
         android:layout_gravity="center"
         android:hint="    username"
         android:maxLines="1"
         android:background="@drawable/bg_login_et"/>
     <EditText
         android:id="@+id/et_main_password"
-        android:layout_width="300dp"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
@@ -41,13 +41,12 @@
         android:maxLines="1"
         android:background="@drawable/bg_login_et"/>
 
-
     <LinearLayout
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         >
         <Button
             android:id="@+id/btn_main_signin"
@@ -55,7 +54,9 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:text="Sign In"
+            android:textAllCaps="false"
             android:gravity="center"
+            android:backgroundTint="#89AE61"
             />
         <Button
             android:id="@+id/btn_main_signup"
@@ -64,7 +65,9 @@
             android:layout_weight="1"
             android:layout_marginLeft="15dp"
             android:text="Sign Up"
+            android:textAllCaps="false"
             android:gravity="center"
+            android:backgroundTint="#89AE61"
             />
 
     </LinearLayout>
@@ -75,7 +78,9 @@
         android:layout_height="50dp"
         android:layout_gravity="center"
         android:text="Guest"
+        android:textAllCaps="false"
         android:gravity="center"
+        android:backgroundTint="#89AE61"
         />
 
 

@@ -3,8 +3,15 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/drawable/bg_button_clear.xml" value="0.2105" />
         <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/drawable/bg_login_et.xml" value="0.2635" />
-        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/drawable/circle_frame.xml" value="0.2065" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2105" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/drawable/round_button.xml" value="0.2105" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/font/appname.xml" value="0.29034749034749036" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/layout/activity_user.xml" value="0.25" />
+        <entry key="..\:/Study/CS 465/shopmaster/app/src/main/res/layout/layout_user_rv.xml" value="0.2291577597263788" />
       </map>
     </option>
   </component>
