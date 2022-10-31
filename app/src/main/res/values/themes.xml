@@ -2,7 +2,7 @@
     <!-- Base application theme. -->
     <style name="Theme.ShopMaster" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/cerulean</item>
+        <item name="colorPrimary">@color/peacock</item>
         <item name="colorPrimaryVariant">@color/azure</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
