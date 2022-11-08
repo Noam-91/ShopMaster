@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">ShopMaster</string>
+    <string name="database_id">Item ID</string>
+    <string name="database_name">Name</string>
+    <string name="database_cate">Category</string>
+    <string name="database_store">Store</string>
+    <string name="database_price">Price</string>
+    <string name="database_qty">Quantity</string>
+    <string name="database_date">History Date</string>
+    <string name="btn_jumpToDB">Jump to Database Test</string>
 </resources>
