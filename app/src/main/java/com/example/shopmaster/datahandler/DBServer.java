@@ -28,9 +28,7 @@ public class DBServer {
     public void addItem(Grocery entity, String tableName)
     {
         if (tableName.equals("grocery")){
-            // grocery table should not be edited.
-            Log.e(TAG,"Grocery table should not be edited.");
-            return;
+            throw new IllegalStateException("Grocery table should not be edited.");
         }
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         String[] arrayOfString = new String[2];
@@ -135,9 +133,7 @@ public class DBServer {
     public void deleteItem(Grocery entity, String tableName)
     {
         if (tableName.equals("grocery")){
-            // grocery table should not be edited.
-            Log.e(TAG,"Grocery table should not be edited.");
-            return;
+            throw new IllegalStateException("Grocery table should not be edited.");
         }
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         Object[] arrayOfObject = new Object[2];
@@ -158,8 +154,7 @@ public class DBServer {
     {
         if (Objects.equals(tableName, "grocery")){
             // grocery table should not be edited. We are not considering inventory.
-            Log.e(TAG,"Grocery table should not be edited.");
-            return;
+            throw new IllegalStateException("Grocery table should not be edited.");
         }
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         Object[] arrayOfObject = new Object[3];
