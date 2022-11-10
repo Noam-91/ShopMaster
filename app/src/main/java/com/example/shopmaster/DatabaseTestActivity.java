@@ -10,7 +10,11 @@ import android.widget.TextView;
 
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
+import com.example.shopmaster.datahandler.PlanCalculator;
 import com.example.shopmaster.network.DownloadImageTask;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseTestActivity extends AppCompatActivity {
@@ -49,7 +53,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
         randomItem2 = db.findItemById(231,"20221001","history");
         displayItem(randomItem2);
 
-        //find an item by partial name, add to cart, then edit the quantity.
+        //find an item by partial name and stores, add to cart, then edit the quantity.
         String[] stores = {"Target", "Costco","",""};   //You must add "" for placeholder.
         List<Grocery> itemCollection = db.findItemByNameAndStores("Bacon",stores);
         Grocery randomItem3 = itemCollection.get(1);
@@ -65,6 +69,14 @@ public class DatabaseTestActivity extends AppCompatActivity {
         db.deleteItem(randomItem4,"cart");
         itemCollection = db.findItemsByCategoryInTable("Meat & Seafood","cart");
         displayItem(itemCollection.get(0));
+
+        // PlanCalculator Test
+        List<String> shoplist = Arrays.asList("Banana", "Beef", "Bread");
+        PlanCalculator planCalculator = new PlanCalculator(this,shoplist,"time",2);
+        itemCollection = planCalculator.calculate();
+        for (Grocery item : itemCollection){
+            Log.d(TAG,"PlanCalculator Test: "+item.toString());
+        }
     }
 
     /**

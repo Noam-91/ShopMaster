@@ -70,7 +70,7 @@ public class Grocery {
 
     @NonNull
     public String toString() {
-        return "Grocery Item--->"+"Id: "+item_id+"  name: "+name+" category: "+cate
-                +" Store: "+store+" Quantity: "+quantity+" History Date: "+date;
+        return "Grocery Item--->"+"Id: "+item_id+",  name: "+name+", category: "+cate
+                +", Store: "+store+", Quantity: "+quantity+", History Date: "+date;
     }
 }

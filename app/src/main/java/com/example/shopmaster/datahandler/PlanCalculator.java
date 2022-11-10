@@ -44,6 +44,7 @@ public class PlanCalculator {
         }
 
         List<Grocery> resultList = new ArrayList<>();
+        // User chooses time.
         if (primaryFactor.equals("time")){
             String[] stores = {"Target", "County Market","",""};
             if(numOfStops==1){stores = new String[]{"Target","","",""};}
@@ -55,11 +56,11 @@ public class PlanCalculator {
                     resultList.add(itemList.get(0));
                 }
                 else{
-                    throw new RuntimeException("The item does not exist in Target/County Market");
+                    throw new RuntimeException("The item "+item+" does not exist in Target/County Market");
                 }
             }
         }
-        // User choose Money.
+        // User chooses Money.
         else {
             Set<String> stores = new HashSet<>(numOfStops);
             DBServer db = new DBServer(context);
