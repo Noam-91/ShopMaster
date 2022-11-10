@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -105,7 +106,40 @@ public class DBServer {
         List<Grocery> localArrayList=new ArrayList<>();
         Log.d(TAG,"Find item by name: before cursor");
         Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT *  FROM grocery "
-                +"WHERE name LIKE '%"+partialName+"%'",null );
+                +"WHERE name LIKE '%"+partialName+"%' ORDER BY price DESC",null );
+        if (localCursor.getCount()==0){
+            return localArrayList;
+        }
+        while (localCursor.moveToNext())
+        {
+            Grocery temp=new Grocery();
+            temp.setId(localCursor.getInt(localCursor.getColumnIndex("item_id")));
+            temp.setName(localCursor.getString(localCursor.getColumnIndex("name")));
+            temp.setPrice(localCursor.getString(localCursor.getColumnIndex("price")));
+            temp.setStore(localCursor.getString(localCursor.getColumnIndex("store")));
+            temp.setImgUrl(localCursor.getString(localCursor.getColumnIndex("imgurl")));
+            temp.setCate(localCursor.getString(localCursor.getColumnIndex("cate")));
+            localArrayList.add(temp);
+        }
+        localSQLiteDatabase.close();
+        localCursor.close();
+        return localArrayList;
+    }
+
+    /**
+     * Find an grocery item in the grocery table by key word in item name and limited in stores.
+     * @param partialName - key word in item name.
+     * @param stores - list of stores.
+     * @return A list of grocery item that contains the key word.
+     */
+    @SuppressLint("Range")
+    public List<Grocery> findItemByNameAndStores(String partialName, String[] stores)
+    {
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        List<Grocery> localArrayList=new ArrayList<>();
+        Log.d(TAG,"Find item by name: before cursor");
+                Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT *  FROM grocery "
+                +"WHERE name LIKE '%"+partialName+"%' AND store IN (?,?,?,?) ORDER BY price DESC",stores);
         if (localCursor.getCount()==0){
             return localArrayList;
         }

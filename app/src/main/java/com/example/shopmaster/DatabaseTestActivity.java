@@ -50,10 +50,11 @@ public class DatabaseTestActivity extends AppCompatActivity {
         displayItem(randomItem2);
 
         //find an item by partial name, add to cart, then edit the quantity.
-        List<Grocery> itemCollection = db.findItemByName("Bacon");
+        String[] stores = {"Target", "Costco","",""};   //You must add "" for placeholder.
+        List<Grocery> itemCollection = db.findItemByNameAndStores("Bacon",stores);
         Grocery randomItem3 = itemCollection.get(1);
         db.addItem(randomItem3,"cart");
-        db.addItem(itemCollection.get(2),"cart");
+        db.addItem(itemCollection.get(0),"cart");
         db.updateItemQuantity(randomItem3,"cart", 99);
         randomItem3 = db.findItemById(randomItem3.getId(), "-1","cart");
         displayItem(randomItem3);
