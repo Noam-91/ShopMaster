@@ -1,0 +1,584 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="fill_horizontal"
+    tools:context=".DatabaseTestActivity">
+
+    <TextView
+        android:id="@+id/list_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="Shopping List"
+        android:textSize="25sp"/>
+
+    <LinearLayout
+        android:id="@+id/list_content"
+        android:layout_width="match_parent"
+        android:layout_height="540dp"
+        android:orientation="vertical">
+<!--enable user to scroll within this box-->
+        <LinearLayout
+            android:id="@+id/list_content_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+    <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+    <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <!--                    android:id="@+id/imageButton_minus"-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <!--                    android:id="@+id/imageButton_minus"-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <!--                    android:id="@+id/imageButton_minus"-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <!--                    android:id="@+id/imageButton_minus"-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <!--                    android:id="@+id/imageButton_minus"-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/list_content_9"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="250dp"
+                android:layout_height="wrap_content"
+                android:text="add item w variable testing long strings of text bababa"
+                android:textSize="20sp" />
+            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+
+            <LinearLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center">
+
+                <!--                    android:id="@+id/imageButton_minus"-->
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:src="@drawable/minus_solid"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:textSize="25sp"
+                    android:text="1"/>
+                <!-- make displayed text connect to function -->
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/plus_solid"/>
+
+                <ImageButton
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_vertical"
+                    android:scaleType="fitXY"
+                    android:padding="10dp"
+                    android:gravity="center"
+                    android:src="@drawable/edit_solid"
+                    android:contentDescription="TODO" />
+                <!--        padding 5 or 10 or 0 dp? can get thinner and similar icons as needed-->
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="Save"
+        android:textSize="15sp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="150dp"
+        android:text="Next"
+        android:textSize="15sp" />
+
+
+    <!--how to put this on the bottom...-->
+    </LinearLayout>
+</LinearLayout>

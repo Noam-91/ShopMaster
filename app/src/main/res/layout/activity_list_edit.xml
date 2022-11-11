@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="fill_horizontal"
+    tools:context=".DatabaseTestActivity">
+
+    <SearchView
+        android:id="@+id/list_edit_search"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="#aaaaaaaa"
+        android:textSize="25sp"/>
+<!--add border to this -->
+
+    <LinearLayout
+        android:id="@+id/list_content"
+        android:layout_width="match_parent"
+        android:layout_height="540dp"
+        android:orientation="vertical"
+        android:padding="10dp">
+    <!--enable user to scroll within this box-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:background="#aaaaaaaa"
+            android:orientation="vertical">
+        <!-- store section -->
+            <TextView
+                android:id="@+id/list_store_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:text="Target"
+                android:textSize="25sp"/>
+            <!-- make store name come from variable -->
+
+            <LinearLayout
+                android:id="@+id/list_content_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:background="#aaaaaaaa"
+                android:padding="10dp">
+<!-- item list side scroll -->
+<!-- items start below this -->
+
+                <LinearLayout
+                    android:layout_width="150dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:background="#ffaaaaaa">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:gravity="center"
+                        android:src>
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="add item name"
+                        android:textSize="20sp" />
+                    <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
