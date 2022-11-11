@@ -11,6 +11,8 @@ public class Grocery {
     private String store;
     private Integer quantity=1;
     private String date="-1";
+    public static String [] cateList = {"Meat & Seafood","Bakery & Bread","Produce"};
+    public static String [] storeList = {"Target","County Market","Walmart","Costco"};
 
     public Integer getId() {
         return item_id;
@@ -67,6 +69,9 @@ public class Grocery {
     public void setHistDate(String date) {
         this.date = date;
     }
+
+    public static String [] getCateList(){return cateList;}
+    public static String [] getStoreList(){return storeList;}
 
     @NonNull
     public String toString() {

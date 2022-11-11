@@ -7,7 +7,7 @@
     android:gravity="fill_horizontal"
     tools:context=".DatabaseTestActivity">
 
-    <SearchView
+    <android.widget.SearchView
         android:id="@+id/list_edit_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -58,8 +58,7 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="100dp"
-                        android:gravity="center"
-                        android:src>
+                        android:gravity="center">
                     </ImageView>
 
                     <TextView

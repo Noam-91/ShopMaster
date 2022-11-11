@@ -179,6 +179,17 @@ public class DBServer {
     }
 
     /**
+     * Remove all items from cart.
+     */
+    public void clearCart() {
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+//        localSQLiteDatabase.execSQL("DELETE FROM cart",null);
+        localSQLiteDatabase.delete("cart","1=1",null);
+        localSQLiteDatabase.close();
+
+    }
+
+    /**
      * Update the quantity of an item.
      * @param entity:   item waits to be updated
      * @param tableName:    three kinds of tables {'grocery','cart','history'}
