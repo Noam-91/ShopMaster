@@ -9,92 +9,98 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="580dp"
             android:orientation="vertical"
             android:gravity="center"
             android:padding="20dp"
             android:layout_gravity="top"
             tools:context=".DatabaseTestActivity">
 
+
             <TextView
-                android:id="@+id/option_factor_id"
-                android:layout_width="wrap_content"
+                android:id="@+id/option_factor_prompt"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:gravity="center"
                 android:text="I want to save"
                 android:textSize="25dp"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:textSize="25dp"
-                    android:text="Time"/>
-                <Button
-                    android:layout_width="150dp"
-                    android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:textSize="25dp"
-                    android:text="Money"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/option_num_shop_id"
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/option_factor_toggle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="I want to go to at most"
-                android:textSize="25sp"
-                android:layout_marginTop="20dp"/>
+                android:textOn="Money"
+                android:textOff="Time">
+            </androidx.appcompat.widget.SwitchCompat>
 
             <LinearLayout
-                android:layout_width="300dp"
-                android:layout_height="wrap_content">
+                android:id="@+id/option_shop_prompt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                android:orientation="horizontal"
+                android:gravity="center|center_vertical">
 
-                <ScrollView
-                    android:layout_width="200dp"
-                    android:layout_height="60dp"
-                    android:fillViewport="false"
-                    android:textSize="25dp">
-
-                    <LinearLayout
-                        android:orientation="vertical" android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <TextView android:id="@+id/option_num_1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25dp"
-                            android:layout_marginTop="15dp"
-                            android:text="1"
-                            android:layout_gravity="center"/>
-
-                        <TextView android:id="@+id/option_num_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25dp"
-                            android:text="2"
-                            android:layout_gravity="center"/>
-
-                        <TextView android:id="@+id/option_num_3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25dp"
-                            android:text="3"
-                            android:layout_gravity="center"/>
-
-                        <TextView android:id="@+id/option_num_4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textSize="25dp"
-                            android:text="4+"
-                            android:layout_gravity="center"/>
-
-                    </LinearLayout>
-                </ScrollView>
                 <TextView
-                    android:id="@+id/option_num_shop2_id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="I want to go to "
+                    android:textSize="25sp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="at most"
+                    android:textSize="25sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <RadioGroup
+                    android:id="@+id/option_shop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RadioButton
+                        android:id="@+id/option_shop_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="1"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textSize="25sp"/>
+                    <RadioButton
+                        android:id="@+id/option_shop_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="2"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textSize="25sp"/>
+                    <RadioButton
+                        android:id="@+id/option_shop_3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textSize="25sp"/>
+                    <RadioButton
+                        android:id="@+id/option_shop_4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4+"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:textSize="25sp"/>
+                </RadioGroup>
+
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -103,10 +109,10 @@
                     android:textSize="25sp"/>
 
             </LinearLayout>
-
         </LinearLayout>
 
     <Button
+        android:id="@+id/option_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
