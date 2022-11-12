@@ -2,6 +2,8 @@ package com.example.shopmaster.datahandler;
 
 import androidx.annotation.NonNull;
 
+import java.util.Comparator;
+
 public class Grocery {
     private Integer item_id;
     private String cate;
@@ -77,5 +79,17 @@ public class Grocery {
     public String toString() {
         return "Grocery Item--->"+"Id: "+item_id+",  name: "+name+", category: "+cate
                 +", Store: "+store+", Quantity: "+quantity+", History Date: "+date;
+    }
+    public static class SortbyStoreCate implements Comparator<Grocery>
+    {
+
+        @Override
+        public int compare(Grocery g1, Grocery g2) {
+            int c = g1.getStore().compareTo(g2.getStore());
+            if(c==0){
+                c = g1.getCate().compareTo(g2.getCate());
+            }
+            return c;
+        }
     }
 }

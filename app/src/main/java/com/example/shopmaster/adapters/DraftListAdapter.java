@@ -1,6 +1,8 @@
 package com.example.shopmaster.adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.util.Log;
@@ -13,11 +15,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.shopmaster.R;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
+import com.example.shopmaster.dialog.DeleteConfirmDialog;
 import com.example.shopmaster.network.DownloadImageTask;
 
 import java.util.List;
@@ -27,15 +35,15 @@ public class DraftListAdapter extends RecyclerView.Adapter{
     private static final int VIEW_TYPE_TITLE = 0;
     private static final int VIEW_TYPE_ITEM = 1;
 
-    private Context mContext;
+    private final Context mContext;
     private LayoutInflater mInflater;
     private List<Object> storeShopList;
-    private DBServer db;
+    private final DBServer db;
 
     public DraftListAdapter(Context context, List<Object> storeShopList){
         this.mContext = context;
         this.storeShopList = storeShopList;
-        DBServer db = new DBServer(mContext);
+        db = new DBServer(mContext);
 
     }
 
@@ -55,46 +63,65 @@ public class DraftListAdapter extends RecyclerView.Adapter{
         return viewHolder;
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (storeShopList.get(position) instanceof String){
-            String storeName = (String) storeShopList.get(position);
+        int pos = holder.getAdapterPosition();
+        if (storeShopList.get(pos) instanceof String){
+            String storeName = (String) storeShopList.get(pos);
             ((TitleHolder)holder).tv_store.setText(storeName);
         }
         else{
-            Grocery item = (Grocery) storeShopList.get(position);
+            Grocery item = (Grocery) storeShopList.get(pos);
             ((ItemHolder)holder).tv_name.setText(item.getName());
             ((ItemHolder)holder).tv_price.setText("$"+item.getPrice());
             ((ItemHolder)holder).tv_cate.setText(item.getCate());
             Log.d(TAG,"Show items: quantity = "+item.getQuantity());
             ((ItemHolder)holder).tv_quantity.setText(String.valueOf(item.getQuantity()));
+            RequestOptions reqOpt = RequestOptions
+                    .fitCenterTransform()
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .override(((ItemHolder)holder).iv_image.getWidth(),((ItemHolder)holder).iv_image.getHeight());
+            Glide.with(mContext)
+                    .load(item.getImgUrl())
+                    .apply(reqOpt)
+                    .into(((ItemHolder)holder).iv_image);
 
-            new DownloadImageTask(((ItemHolder)holder).iv_image).execute(item.getImgUrl());
-            ((ItemHolder)holder).btn_inc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int newQuantity = item.getQuantity()+1;
+            ((ItemHolder)holder).btn_inc.setOnClickListener(view -> {
+                int newQuantity = item.getQuantity()+1;
+                item.setQuantity(newQuantity);
+                ((Grocery) storeShopList.get(pos)).setQuantity(newQuantity);
+                notifyItemChanged(pos);
+                db.updateItemQuantity(item,"cart",newQuantity);
+            });
+            ((ItemHolder)holder).btn_dec.setOnClickListener(view -> {
+                int newQuantity = item.getQuantity()-1;
+                Log.d(TAG,"newQuantity: "+newQuantity);
+                // quantity=0, delete item.
+                if(newQuantity==0){
+                    Log.d(TAG,"TRigger");
+                    AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
+                    alert.setTitle("Delete Item");
+                    alert.setMessage("Are you sure you want to delete?");
+                    alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                        db.deleteItem(item,"cart");
+                        storeShopList.remove(item);
+                        notifyItemRemoved(pos);
+                    });
+                    alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
+                        // close dialog
+                        dialog.cancel();
+                    });
+                    alert.show();
+                }else{
                     item.setQuantity(newQuantity);
-                    ((ItemHolder)holder).tv_quantity.setText(String.valueOf(newQuantity));
+                    Log.d(TAG,"Quantity decrement: "+item.getQuantity());
+                    notifyItemChanged(pos);
                     db.updateItemQuantity(item,"cart",newQuantity);
                 }
+
             });
-            ((ItemHolder)holder).btn_dec.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int newQuantity = item.getQuantity()-1;
-                    item.setQuantity(newQuantity);
-                    ((ItemHolder)holder).tv_quantity.setText(String.valueOf(newQuantity));
-                    db.updateItemQuantity(item,"cart",newQuantity);
-                    //TODO: quantity==0, delete dialog.
-                }
-            });
-            ((ItemHolder)holder).btn_alt.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    //TODO: Link to Edit List.
-                }
+            ((ItemHolder)holder).btn_alt.setOnClickListener(view -> {
+                //TODO: Link to Edit List.
             });
 
         }
@@ -116,7 +143,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
         }
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_store, tv_name, tv_price,tv_cate,tv_quantity;
         public ImageView iv_image;
         public Button btn_inc, btn_dec, btn_alt;
@@ -128,7 +155,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
 
         public TitleHolder(View viewHolder) {
             super(viewHolder);
-            tv_store= (TextView) viewHolder.findViewById(R.id.tv_draftlist_store);
+            tv_store= viewHolder.findViewById(R.id.tv_draftlist_store);
         }
     }
 
@@ -136,14 +163,14 @@ public class DraftListAdapter extends RecyclerView.Adapter{
 
         public ItemHolder(final View viewHolder) {
             super(viewHolder);
-            tv_name =(TextView)viewHolder.findViewById(R.id.tv_draftlist_name);
-            tv_price=(TextView)viewHolder.findViewById(R.id.tv_draftlist_price);
-            tv_cate=(TextView)viewHolder.findViewById(R.id.tv_draftlist_cate);
-            tv_quantity=(TextView)viewHolder.findViewById(R.id.tv_draftlist_quantity);
-            iv_image =(ImageView) viewHolder.findViewById(R.id.iv_draftlist_image);
-            btn_inc=(Button)viewHolder.findViewById(R.id.btn_draftlist_increment);
-            btn_dec=(Button)viewHolder.findViewById(R.id.btn_draftlist_decrement);
-            btn_alt=(Button)viewHolder.findViewById(R.id.btn_draftlist_alternative);
+            tv_name = viewHolder.findViewById(R.id.tv_draftlist_name);
+            tv_price= viewHolder.findViewById(R.id.tv_draftlist_price);
+            tv_cate= viewHolder.findViewById(R.id.tv_draftlist_cate);
+            tv_quantity= viewHolder.findViewById(R.id.tv_draftlist_quantity);
+            iv_image = viewHolder.findViewById(R.id.iv_draftlist_image);
+            btn_inc= viewHolder.findViewById(R.id.btn_draftlist_increment);
+            btn_dec= viewHolder.findViewById(R.id.btn_draftlist_decrement);
+            btn_alt= viewHolder.findViewById(R.id.btn_draftlist_alternative);
         }
     }
 

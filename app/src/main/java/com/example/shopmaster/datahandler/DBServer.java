@@ -183,7 +183,6 @@ public class DBServer {
      */
     public void clearCart() {
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
-//        localSQLiteDatabase.execSQL("DELETE FROM cart",null);
         localSQLiteDatabase.delete("cart","1=1",null);
         localSQLiteDatabase.close();
 

@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 import com.example.shopmaster.datahandler.PlanCalculator;
@@ -46,30 +49,30 @@ public class DatabaseTestActivity extends AppCompatActivity {
 
         DBServer db = new DBServer(this);
 
-//        //show an item from grocery table.
-//        Grocery randomItem1 = db.findAllItemsInTable("grocery").get(9);
-//        displayItem(randomItem1);
+        //show an item from grocery table.
+        Grocery randomItem1 = db.findAllItemsInTable("grocery").get(9);
+        displayItem(randomItem1);
+
+        //add an item to shopping history.
+        Grocery randomItem2 = db.findItemById(231,"-1","grocery");
+        Log.d(TAG, "Found item from the grocery table.");
+        randomItem2.setHistDate("20221001");
+        db.addItem(randomItem2,"history");
+        db.addItem(randomItem2,"history");
+        db.addItem(randomItem2,"history");
+        randomItem2 = db.findItemById(231,"20221001","history");
+        displayItem(randomItem2);
 //
-//        //add an item to shopping history.
-//        Grocery randomItem2 = db.findItemById(231,"-1","grocery");
-//        Log.d(TAG, "Found item from the grocery table.");
-//        randomItem2.setHistDate("20221001");
-//        db.addItem(randomItem2,"history");
-//        db.addItem(randomItem2,"history");
-//        db.addItem(randomItem2,"history");
-//        randomItem2 = db.findItemById(231,"20221001","history");
-//        displayItem(randomItem2);
-//
-//        //find an item by partial name and stores, add to cart, then edit the quantity.
-//        String[] stores = {"Target", "Costco","",""};   //You must add "" for placeholder.
-//        List<Grocery> itemCollection = db.findItemByNameAndStores("Bacon",stores);
-//        Grocery randomItem3 = itemCollection.get(1);
-//        db.addItem(randomItem3,"cart");
-//        db.addItem(itemCollection.get(0),"cart");
-//        db.updateItemQuantity(randomItem3,"cart", 99);
-//        randomItem3 = db.findItemById(randomItem3.getId(), "-1","cart");
-//        displayItem(randomItem3);
-//
+        //find an item by partial name and stores, add to cart, then edit the quantity.
+        String[] stores = {"Target", "Costco","",""};   //You must add "" for placeholder.
+        List<Grocery> itemCollection = db.findItemByNameAndStores("Bacon",stores);
+        Grocery randomItem3 = itemCollection.get(1);
+        db.addItem(randomItem3,"cart");
+        db.addItem(itemCollection.get(0),"cart");
+        db.updateItemQuantity(randomItem3,"cart", 99);
+        randomItem3 = db.findItemById(randomItem3.getId(), "-1","cart");
+        displayItem(randomItem3);
+
 //        //Find a list of item by category, and then delete one from current cart.
 //        itemCollection = db.findItemsByCategoryInTable("Meat & Seafood","cart");
 //        Grocery randomItem4 = itemCollection.get(0);
@@ -93,25 +96,25 @@ public class DatabaseTestActivity extends AppCompatActivity {
         randomItem = db.findItemById(20,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
-        randomItem = db.findItemById(120,"-1","grocery");
+        randomItem = db.findItemById(50,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
-        randomItem = db.findItemById(70,"-1","grocery");
+        randomItem = db.findItemById(71,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
-        randomItem = db.findItemById(220,"-1","grocery");
+        randomItem = db.findItemById(121,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
-        randomItem = db.findItemById(240,"-1","grocery");
+        randomItem = db.findItemById(180,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
-        randomItem = db.findItemById(290,"-1","grocery");
+        randomItem = db.findItemById(229,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
         randomItem = db.findItemById(320,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
-        randomItem = db.findItemById(350,"-1","grocery");
+        randomItem = db.findItemById(380,"-1","grocery");
         randomItem.setQuantity(5);
         db.addItem(randomItem,"cart");
         }
@@ -130,7 +133,19 @@ public class DatabaseTestActivity extends AppCompatActivity {
         tv_store.setText("Store: "+item.getStore());
         tv_quantity.setText("Quantity: "+item.getQuantity());
         tv_date.setText("History Date: "+item.getHistDate());
-        new DownloadImageTask(iv_img).execute(item.getImgUrl());
+//        new DownloadImageTask(iv_img).execute(item.getImgUrl());
+        RequestOptions reqOpt = RequestOptions
+                .fitCenterTransform()
+                .diskCacheStrategy(DiskCacheStrategy.ALL) // It will cache your image after loaded for first time
+                .override(iv_img.getWidth(),iv_img.getHeight()); // Overrides size of downloaded image and converts it's bitmaps to your desired image size;
+        Glide.with(this)
+                .load(item.getImgUrl())
+                .apply(reqOpt)
+                .into(iv_img);
+//        Glide.with(this).load(item.getImgUrl())
+//                .placeholder(R.drawable.ic_launcher_background)
+//                .error(R.drawable.ic_launcher_background)
+//                .into(iv_img);
     }
 
     public void onClick(View view){

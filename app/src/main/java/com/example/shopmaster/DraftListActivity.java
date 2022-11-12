@@ -12,6 +12,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
 import com.example.shopmaster.adapters.DraftListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
@@ -19,6 +20,8 @@ import com.example.shopmaster.datahandler.Grocery;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,9 +50,10 @@ public class DraftListActivity extends AppCompatActivity {
         DraftListAdapter adapter = new DraftListAdapter(this,storeShopList);
         mRv.setLayoutManager(new LinearLayoutManager(DraftListActivity.this));
         mRv.setAdapter(adapter);
+        ((SimpleItemAnimator) mRv.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        mBtnSave.setOnClickListener(this::onClick);
-        mBtnNext.setOnClickListener(this::onClick);
+//        mBtnSave.setOnClickListener(this::onClick);
+//        mBtnNext.setOnClickListener(this::onClick);
 
 }
     public void onClick(View view){
@@ -63,25 +67,29 @@ public class DraftListActivity extends AppCompatActivity {
     }
     /**
      * Categorize the items by Store and return an object list for the recyclerView adapter.
-     * @param shopList
-     * @return
+     * @param shopList : shopList
+     * @return : Sorted list with Stores name included.
      */
     public List<Object> organizeGroceriesByStore(List<Grocery> shopList){
         Log.d(TAG,"There are "+shopList.size()+" items to organize.");
-        Map<Grocery,String> storeMap = new HashMap<>();
+        List<Object []> storeItemPairList = new ArrayList<>();
+        Collections.sort(shopList, new Grocery.SortbyStoreCate());
         for (Grocery item : shopList){
             String store = item.getStore();
-            storeMap.put(item,store);
+            Object[] storeItemPair ={store,item};
+            storeItemPairList.add(storeItemPair);
         }
         List<Object> storeShopList = new ArrayList<>();
-        for (Map.Entry<Grocery,String> entry: storeMap.entrySet()){
-            Grocery item = entry.getKey();
-            String store = entry.getValue();
+
+        for (Object[] pair : storeItemPairList){
+            String store = (String)pair[0];
+            Grocery item = (Grocery) pair[1];
             if(!storeShopList.contains(store)){
                 storeShopList.add(store);
             }
             storeShopList.add(item);
         }
+
         Log.d(TAG,"There are "+storeShopList.size()+" items organized.");
         return storeShopList;
     }
