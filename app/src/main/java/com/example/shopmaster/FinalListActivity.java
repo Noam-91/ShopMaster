@@ -19,12 +19,17 @@ import com.example.shopmaster.adapters.FinalListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 public class FinalListActivity extends AppCompatActivity {
     private final String TAG = FinalListActivity.class.getSimpleName();
+    private final String HISTORY = "history";
+    private DBServer db;
+
     RecyclerView mRv;
     TextView mTvTitle;
     Button mBtnDone;
@@ -40,7 +45,7 @@ public class FinalListActivity extends AppCompatActivity {
         mTvTitle = findViewById(R.id.tv_finallist_title);
         mBtnDone = findViewById(R.id.btn_finallist_done);
 
-        DBServer db = new DBServer(this);
+        db = new DBServer(this);
         shopList = db.findAllItemsInTable("cart");
         List<Object> storeShopList = organizeGroceriesByStore(shopList);
 
@@ -56,6 +61,15 @@ public class FinalListActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()){
             case R.id.btn_finallist_done:
+                //Save shopping history.
+                Date date = new Date();
+                for (Grocery item : shopList){
+                    item.setHistDate(date.toString());
+                    db.addItem(item,"history");
+                }
+                Toast.makeText(this, "Your shopping history on "+date+" has been saved",
+                        Toast.LENGTH_SHORT).show();
+
                 intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 break;
