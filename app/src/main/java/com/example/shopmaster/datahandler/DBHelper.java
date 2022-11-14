@@ -29,7 +29,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String COLUMN_IMGURL = "imgurl";
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String  COLUMN_DATE = "date";
-    private final String TAG = getClass().getName();
+    private final String TAG = DBHelper.class.getSimpleName();
 
     private final String grocSQL;
     private final String histSQL;

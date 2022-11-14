@@ -25,13 +25,11 @@ import com.bumptech.glide.request.RequestOptions;
 import com.example.shopmaster.R;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
-import com.example.shopmaster.dialog.DeleteConfirmDialog;
-import com.example.shopmaster.network.DownloadImageTask;
 
 import java.util.List;
 
 public class DraftListAdapter extends RecyclerView.Adapter{
-    private static final String TAG = DraftListAdapter.class.getName();
+    private static final String TAG = DraftListAdapter.class.getSimpleName();
     private static final int VIEW_TYPE_TITLE = 0;
     private static final int VIEW_TYPE_ITEM = 1;
 

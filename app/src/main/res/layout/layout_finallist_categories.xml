@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/tv_draftlist_store"
+        android:id="@+id/tv_finallist_store"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="20dp"
             android:gravity="center"
             android:text="Qty"/>
 

@@ -7,8 +7,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
-    private Button mBtnJump;
+    private final String TAG = MainActivity.class.getSimpleName();
+    private final String KEY_NEW_SHOPPING_LIST = "New Shopping List";
+    private String [] testKeywordList = {"Banana","Beef","Bread"};
+
+
+    private Button mBtnJump,mBtnOpt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,10 +25,26 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         mBtnJump=findViewById(R.id.btn_main_jump);
+        mBtnOpt=findViewById(R.id.btn_main_optimize);
 
-        mBtnJump.setOnClickListener(view -> {
-            Intent intent = new Intent(MainActivity.this,DatabaseTestActivity.class);
-            startActivity(intent);
-        });
+        mBtnJump.setOnClickListener(this::onClick);
+        mBtnOpt.setOnClickListener(this::onClick);
+    }
+
+    private void onClick(View view){
+        Intent intent;
+        switch (view.getId()){
+            case R.id.btn_main_jump:
+                intent = new Intent(MainActivity.this,DatabaseTestActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btn_main_optimize:
+                intent = new Intent(MainActivity.this,OptimizeListActivity.class);
+                List<String> testKeywordArray = new ArrayList<String>(Arrays.asList(testKeywordList));
+                intent.putStringArrayListExtra(KEY_NEW_SHOPPING_LIST, (ArrayList<String>) testKeywordArray);
+                startActivity(intent);
+                break;
+
+        }
     }
 }

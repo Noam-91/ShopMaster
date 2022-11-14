@@ -8,12 +8,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.util.Log;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class DBServer {
-    private static final String TAG = DBServer.class.toString();
+    private static final String TAG = DBServer.class.getSimpleName();
     private final DBHelper dbhelper;
     public DBServer(Context context)
     {
@@ -63,6 +64,39 @@ public class DBServer {
         localCursor.close();
     }
 
+    /**
+     * Add a list of groceries to an EMPTY database table.
+     * @param shopList: List of grocery items.
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
+     */
+    public void addList(List<Grocery> shopList, String tableName) throws IOException {
+        if (tableName.equals("grocery")){
+            throw new IllegalStateException("Grocery table should not be edited.");
+        }
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT * FROM "+tableName,null);
+        if (localCursor.getCount()>0) {
+            localSQLiteDatabase.close();
+            localCursor.close();
+            throw new IOException("The table you selected is not empty, this method is not allowed.");
+        }
+        for (Grocery entity : shopList){
+            Object[] arrayOfObject = new Object[8];
+            arrayOfObject[0] = entity.getId();
+            arrayOfObject[1] = entity.getName();
+            arrayOfObject[2] = entity.getCate();
+            arrayOfObject[3] = entity.getPrice();
+            arrayOfObject[4] = entity.getImgUrl();
+            arrayOfObject[5] = entity.getStore();
+            arrayOfObject[6] = entity.getQuantity();
+            arrayOfObject[7] = entity.getHistDate();
+            localSQLiteDatabase.execSQL("INSERT OR IGNORE INTO "+tableName+
+                    "(item_id,name,cate,price,imgurl,store,quantity,date)"
+                    +" VALUES(?,?,?,?,?,?,?,?)", arrayOfObject);
+        }
+        localSQLiteDatabase.close();
+        localCursor.close();
+    }
 
     /**
      * Find a grocery item by its unique id in the db table.

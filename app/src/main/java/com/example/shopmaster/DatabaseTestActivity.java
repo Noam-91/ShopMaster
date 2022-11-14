@@ -24,7 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class DatabaseTestActivity extends AppCompatActivity {
-    private final String TAG = this.getClass().toString();
+    private final String TAG = DatabaseTestActivity.class.getSimpleName();
     private TextView tv_id,tv_name,tv_cate,tv_price,tv_store,tv_quantity,tv_date;
     private ImageView iv_img;
     private Button btn_test_draftlist;

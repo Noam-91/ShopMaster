@@ -11,6 +11,7 @@ import java.util.Random;
 import java.util.Set;
 
 public class PlanCalculator {
+    private static final String TAG = PlanCalculator.class.getSimpleName();
     private final List<String> shopList;
     private final String primaryFactor;
     private final Integer numOfStops;
@@ -22,7 +23,6 @@ public class PlanCalculator {
         this.primaryFactor=primaryFactor;
         this.numOfStops=numOfStops;
         this.context = context;
-
     }
 
     /**

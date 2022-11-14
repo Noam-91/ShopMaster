@@ -2,12 +2,10 @@ package com.example.shopmaster;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,71 +15,53 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.example.shopmaster.adapters.DraftListAdapter;
+import com.example.shopmaster.adapters.FinalListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class DraftListActivity extends AppCompatActivity {
-    private final String TAG = DraftListActivity.class.getSimpleName();
+public class FinalListActivity extends AppCompatActivity {
+    private final String TAG = FinalListActivity.class.getSimpleName();
     RecyclerView mRv;
     TextView mTvTitle;
-    Button mBtnSave, mBtnNext;
+    Button mBtnDone;
     List<Grocery> shopList;
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_draft_list);
+        setContentView(R.layout.activity_final_list);
 
-        mRv = findViewById(R.id.rv_draftlist);
-        mTvTitle = findViewById(R.id.tv_draftlist_title);
-        mBtnSave = findViewById(R.id.btn_draftlist_save);
-        mBtnNext = findViewById(R.id.btn_draftlist_next);
+        mRv = findViewById(R.id.rv_finallist);
+        mTvTitle = findViewById(R.id.tv_finallist_title);
+        mBtnDone = findViewById(R.id.btn_finallist_done);
 
         DBServer db = new DBServer(this);
         shopList = db.findAllItemsInTable("cart");
         List<Object> storeShopList = organizeGroceriesByStore(shopList);
 
-        DraftListAdapter adapter = new DraftListAdapter(this,storeShopList);
-        mRv.setLayoutManager(new LinearLayoutManager(DraftListActivity.this));
+        FinalListAdapter adapter = new FinalListAdapter(this,storeShopList);
+        mRv.setLayoutManager(new LinearLayoutManager(FinalListActivity.this));
         mRv.setAdapter(adapter);
         ((SimpleItemAnimator) mRv.getItemAnimator()).setSupportsChangeAnimations(false);
 
-        mBtnSave.setOnClickListener(this::onClick);
-        mBtnNext.setOnClickListener(this::onClick);
+        mBtnDone.setOnClickListener(this::onClick);
+    }
 
-}
     public void onClick(View view){
         Intent intent;
         switch (view.getId()){
-            case R.id.btn_draftlist_save:
-                Toast.makeText(this,
-                        "Your shopping list has been saved.",Toast.LENGTH_SHORT).show();
-                final Handler handler = new Handler(Looper.getMainLooper());
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        Intent intent = new Intent(DraftListActivity.this,MainActivity.class);
-                        startActivity(intent);
-                    }
-                }, 800);
-
-                break;
-            case R.id.btn_draftlist_next:
-                //TODO: Change it to Edit List. Test finalList for now.
-                intent = new Intent(DraftListActivity.this,FinalListActivity.class);
+            case R.id.btn_finallist_done:
+                intent = new Intent(this,MainActivity.class);
                 startActivity(intent);
                 break;
         }
     }
+
     /**
      * Categorize the items by Store and return an object list for the recyclerView adapter.
      * @param shopList : shopList

@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <style name="myButton" parent="TextAppearance.AppCompat">
-        <item name="android:background">#0523CC</item>
-        <item name="android:textColor">#EC0C0C</item>
+<!--    <style name="myButton" parent="TextAppearance.AppCompat">-->
+<!--        <item name="android:background">#0523CC</item>-->
+<!--        <item name="android:textColor">#EC0C0C</item>-->
+<!--    </style>-->
+
+    <style name="NumberPickerText">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TitleStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/dark_green</item>
+        <item name="android:fontFamily">@font/archivo_black</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

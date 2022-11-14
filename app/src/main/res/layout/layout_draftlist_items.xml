@@ -16,7 +16,6 @@
         android:contentDescription="Image of grocery item" />
 
     <LinearLayout
-        android:id="@+id/max"
         android:layout_width="190dp"
         android:layout_height="90dp"
         android:orientation="vertical"
@@ -106,9 +105,9 @@
             android:layout_height="30dp"
             android:background="#466F6B"
             android:text="Alternative"
-            android:textSize="9sp"
+            android:textSize="12sp"
             android:drawableLeft="@drawable/edit_solid"
-            android:paddingLeft="3dp"
+            android:paddingLeft="8dp"
             android:textColor="@color/white"
             android:textAllCaps="false"
             android:singleLine="true"
