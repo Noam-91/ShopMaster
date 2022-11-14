@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.back">
+    tools:context=".fragments.OptimizeListFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/title_back"
-        android:textColor="@color/black"/>
+        android:text="@string/hello_blank_fragment" />
 
 </FrameLayout>

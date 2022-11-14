@@ -1,20 +1,21 @@
 package com.example.shopmaster.fragments;
 
 import android.os.Bundle;
+
+import androidx.fragment.app.Fragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import androidx.fragment.app.Fragment;
 
 import com.example.shopmaster.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link menu#newInstance} factory method to
+ * Use the {@link OptimizeListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class menu extends Fragment {
+public class OptimizeListFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -25,7 +26,7 @@ public class menu extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public menu() {
+    public OptimizeListFragment() {
         // Required empty public constructor
     }
 
@@ -35,15 +36,15 @@ public class menu extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment search.
+     * @return A new instance of fragment OptimizeListFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static menu newInstance(String param1, String param2) {
-        menu fragment = new menu();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
+    public static OptimizeListFragment newInstance(String param1, String param2) {
+        OptimizeListFragment fragment = new OptimizeListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(ARG_PARAM1, param1);
+        bundle.putString(ARG_PARAM2, param2);
+        fragment.setArguments(bundle);
         return fragment;
     }
 
@@ -60,6 +61,6 @@ public class menu extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_menu, container, false);
+        return inflater.inflate(R.layout.fragment_optimize_list, container, false);
     }
 }

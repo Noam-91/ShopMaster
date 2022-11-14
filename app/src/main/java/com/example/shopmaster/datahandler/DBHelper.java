@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private final String cartSQL;
 
     public DBHelper(Context context) {
-        // When user create/edit shopping cart
+        // When user create/edit shopping NewListFragment
         super(context, DB_NAME, null, 1);
         // For first time use: copy asset database file to local.
         String databasePath = context.getDatabasePath(DB_NAME).getPath();
@@ -82,7 +82,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(grocSQL);
         Log.d(TAG, "Create/Open table 'grocery'.");
         db.execSQL(cartSQL);
-        Log.d(TAG, "Create/Open table 'cart'.");
+        Log.d(TAG, "Create/Open table 'NewListFragment'.");
         db.execSQL(histSQL);
         Log.d(TAG, "Create/Open table 'history'.");
     }

@@ -2,21 +2,16 @@ package com.example.shopmaster.adapters;
 
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -89,7 +84,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                 item.setQuantity(newQuantity);
                 ((Grocery) storeShopList.get(pos)).setQuantity(newQuantity);
                 notifyItemChanged(pos);
-                db.updateItemQuantity(item,"cart",newQuantity);
+                db.updateItemQuantity(item,"NewListFragment",newQuantity);
             });
             ((ItemHolder)holder).btn_dec.setOnClickListener(view -> {
                 int newQuantity = item.getQuantity()-1;
@@ -101,7 +96,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                     alert.setTitle("Delete Item");
                     alert.setMessage("Are you sure you want to delete?");
                     alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        db.deleteItem(item,"cart");
+                        db.deleteItem(item,"NewListFragment");
                         storeShopList.remove(item);
                         notifyItemRemoved(pos);
                     });
@@ -114,7 +109,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                     item.setQuantity(newQuantity);
                     Log.d(TAG,"Quantity decrement: "+item.getQuantity());
                     notifyItemChanged(pos);
-                    db.updateItemQuantity(item,"cart",newQuantity);
+                    db.updateItemQuantity(item,"NewListFragment",newQuantity);
                 }
 
             });

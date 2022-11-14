@@ -101,7 +101,7 @@ public class OptimizeListActivity extends AppCompatActivity {
                 List<Grocery> shopList = calculator.calculate();
                 try {
                     db.clearCart();
-                    db.addList(shopList,"cart");
+                    db.addList(shopList,"NewListFragment");
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

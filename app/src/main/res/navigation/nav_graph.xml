@@ -7,19 +7,19 @@
 
     <fragment
         android:id="@+id/navigation_back"
-        android:name="com.example.shopmaster.fragments.back"
+        android:name="com.example.shopmaster.fragments.NewListFragment"
         android:label="@string/title_back"
-        tools:layout="@layout/fragment_back" />
+        tools:layout="@layout/fragment_newlist" />
 
     <fragment
         android:id="@+id/navigation_home"
-        android:name="com.example.shopmaster.fragments.home"
+        android:name="com.example.shopmaster.fragments.HomeFragment"
         android:label="@string/title_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_menu"
-        android:name="com.example.shopmaster.fragments.menu"
+        android:name="com.example.shopmaster.fragments.MenuFragment"
         android:label="@string/title_menu"
         tools:layout="@layout/fragment_menu" />
 

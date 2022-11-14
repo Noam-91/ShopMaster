@@ -44,7 +44,7 @@ public class FinalListActivity extends AppCompatActivity {
         mBtnDone = findViewById(R.id.btn_finallist_done);
 
         db = new DBServer(this);
-        shopList = db.findAllItemsInTable("cart");
+        shopList = db.findAllItemsInTable("NewListFragment");
         List<Object> storeShopList = organizeGroceriesByStore(shopList);
 
         FinalListAdapter adapter = new FinalListAdapter(this,storeShopList);

@@ -59,21 +59,21 @@ public class TestDatabaseActivity extends AppCompatActivity {
         randomItem2 = db.findItemById(231,"20221001","history");
         displayItem(randomItem2);
 //
-        //find an item by partial name and stores, add to cart, then edit the quantity.
+        //find an item by partial name and stores, add to NewListFragment, then edit the quantity.
         String[] stores = {"Target", "Costco","",""};   //You must add "" for placeholder.
         List<Grocery> itemCollection = db.findItemByNameAndStores("Bacon",stores);
         Grocery randomItem3 = itemCollection.get(1);
-        db.addItem(randomItem3,"cart");
-        db.addItem(itemCollection.get(0),"cart");
-        db.updateItemQuantity(randomItem3,"cart", 99);
-        randomItem3 = db.findItemById(randomItem3.getId(), "-1","cart");
+        db.addItem(randomItem3,"NewListFragment");
+        db.addItem(itemCollection.get(0),"NewListFragment");
+        db.updateItemQuantity(randomItem3,"NewListFragment", 99);
+        randomItem3 = db.findItemById(randomItem3.getId(), "-1","NewListFragment");
         displayItem(randomItem3);
 
-//        //Find a list of item by category, and then delete one from current cart.
-//        itemCollection = db.findItemsByCategoryInTable("Meat & Seafood","cart");
+//        //Find a list of item by category, and then delete one from current NewListFragment.
+//        itemCollection = db.findItemsByCategoryInTable("Meat & Seafood","NewListFragment");
 //        Grocery randomItem4 = itemCollection.get(0);
-//        db.deleteItem(randomItem4,"cart");
-//        itemCollection = db.findItemsByCategoryInTable("Meat & Seafood","cart");
+//        db.deleteItem(randomItem4,"NewListFragment");
+//        itemCollection = db.findItemsByCategoryInTable("Meat & Seafood","NewListFragment");
 //        displayItem(itemCollection.get(0));
 //
 //        // PlanCalculator Test
@@ -88,37 +88,37 @@ public class TestDatabaseActivity extends AppCompatActivity {
         db.clearCart();
         Grocery randomItem = db.findItemById(1,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(20,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(50,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(71,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(121,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(180,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(229,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(320,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         randomItem = db.findItemById(380,"-1","grocery");
         randomItem.setQuantity(5);
-        db.addItem(randomItem,"cart");
+        db.addItem(randomItem,"NewListFragment");
         }
 
 
     /**
      * Set values to display the item.
-     * For items in "cart" and "grocery", the variable "date" is always -1.
+     * For items in "NewListFragment" and "grocery", the variable "date" is always -1.
      * @param item: item
      */
     private void displayItem(Grocery item){
