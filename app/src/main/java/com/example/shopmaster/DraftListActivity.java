@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.SimpleItemAnimator;
@@ -22,12 +22,8 @@ import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class DraftListActivity extends AppCompatActivity {
     private final String TAG = DraftListActivity.class.getSimpleName();
@@ -35,6 +31,7 @@ public class DraftListActivity extends AppCompatActivity {
     TextView mTvTitle;
     Button mBtnSave, mBtnNext;
     List<Grocery> shopList;
+    CardView cardView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +42,11 @@ public class DraftListActivity extends AppCompatActivity {
         mTvTitle = findViewById(R.id.tv_draftlist_title);
         mBtnSave = findViewById(R.id.btn_draftlist_save);
         mBtnNext = findViewById(R.id.btn_draftlist_next);
+        cardView = findViewById(R.id.cardview_draftlist);
+
+        cardView.setBackgroundResource(R.drawable.bg_card_up_rounded);
+        // cardView.setPreventCornerOverlap(true);
+
 
         DBServer db = new DBServer(this);
         shopList = db.findAllItemsInTable("cart");
@@ -69,7 +71,7 @@ public class DraftListActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Intent intent = new Intent(DraftListActivity.this,MainActivity.class);
+                        Intent intent = new Intent(DraftListActivity.this, TestMainActivity.class);
                         startActivity(intent);
                     }
                 }, 800);

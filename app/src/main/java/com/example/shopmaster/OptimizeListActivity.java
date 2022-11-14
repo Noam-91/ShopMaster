@@ -13,7 +13,6 @@ import android.widget.Toast;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 import com.example.shopmaster.datahandler.PlanCalculator;
-import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
@@ -111,7 +110,7 @@ public class OptimizeListActivity extends AppCompatActivity {
                 break;
             case R.id.btn_optimizelist_back:
                 //TODO: Back to new shopping list activity.
-                intent = new Intent(OptimizeListActivity.this,MainActivity.class);
+                intent = new Intent(OptimizeListActivity.this, TestMainActivity.class);
                 intent.putStringArrayListExtra(KEY_NEW_SHOPPING_LIST, (ArrayList<String>) keywordList);
                 startActivity(intent);
                 break;

@@ -1,50 +1,31 @@
 package com.example.shopmaster;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 public class MainActivity extends AppCompatActivity {
-    private final String TAG = MainActivity.class.getSimpleName();
-    private final String KEY_NEW_SHOPPING_LIST = "New Shopping List";
-    private String [] testKeywordList = {"Banana","Beef","Bread"};
-
-
-    private Button mBtnJump,mBtnOpt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Initialize Bottom Navigation View.
+        BottomNavigationView navView = findViewById(R.id.bottomNav_view);
 
-        mBtnJump=findViewById(R.id.btn_main_jump);
-        mBtnOpt=findViewById(R.id.btn_main_optimize);
-
-        mBtnJump.setOnClickListener(this::onClick);
-        mBtnOpt.setOnClickListener(this::onClick);
+        //Pass the ID's of Different destinations
+//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+//                R.id.navigation_home, R.id.navigation_menu, R.id.navigation_back).build();
+        //Initialize NavController.
+        NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
+//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(navView, navController);
     }
 
-    private void onClick(View view){
-        Intent intent;
-        switch (view.getId()){
-            case R.id.btn_main_jump:
-                intent = new Intent(MainActivity.this,DatabaseTestActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.btn_main_optimize:
-                intent = new Intent(MainActivity.this,OptimizeListActivity.class);
-                List<String> testKeywordArray = new ArrayList<String>(Arrays.asList(testKeywordList));
-                intent.putStringArrayListExtra(KEY_NEW_SHOPPING_LIST, (ArrayList<String>) testKeywordArray);
-                startActivity(intent);
-                break;
-
-        }
-    }
 }

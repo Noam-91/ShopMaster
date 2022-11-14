@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,7 +18,6 @@ import com.example.shopmaster.adapters.FinalListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -70,7 +68,7 @@ public class FinalListActivity extends AppCompatActivity {
                 Toast.makeText(this, "Your shopping history on "+date+" has been saved",
                         Toast.LENGTH_SHORT).show();
 
-                intent = new Intent(this,MainActivity.class);
+                intent = new Intent(this, TestMainActivity.class);
                 startActivity(intent);
                 break;
         }

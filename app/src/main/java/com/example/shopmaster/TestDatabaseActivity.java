@@ -16,15 +16,11 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
-import com.example.shopmaster.datahandler.PlanCalculator;
-import com.example.shopmaster.network.DownloadImageTask;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-public class DatabaseTestActivity extends AppCompatActivity {
-    private final String TAG = DatabaseTestActivity.class.getSimpleName();
+public class TestDatabaseActivity extends AppCompatActivity {
+    private final String TAG = TestDatabaseActivity.class.getSimpleName();
     private TextView tv_id,tv_name,tv_cate,tv_price,tv_store,tv_quantity,tv_date;
     private ImageView iv_img;
     private Button btn_test_draftlist;
@@ -33,7 +29,7 @@ public class DatabaseTestActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_database_test);
+        setContentView(R.layout.activity_test_database);
 
         tv_id = findViewById(R.id.tv_test_id);
         tv_name = findViewById(R.id.tv_test_name);
