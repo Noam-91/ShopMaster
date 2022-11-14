@@ -8,69 +8,161 @@
     tools:context=".DatabaseTestActivity">
 
     <android.widget.SearchView
-        android:id="@+id/list_edit_search"
+        android:id="@+id/edit_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="#aaaaaaaa"
         android:textSize="25sp"/>
-<!--add border to this -->
+    <!--add border to this -->
 
-    <LinearLayout
-        android:id="@+id/list_content"
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/edit_content"
         android:layout_width="match_parent"
-        android:layout_height="540dp"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp">
-    <!--enable user to scroll within this box-->
+        <!--enable user to scroll within this box-->
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:background="#aaaaaaaa"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
-        <!-- store section -->
-            <TextView
-                android:id="@+id/list_store_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:text="Target"
-                android:textSize="25sp"/>
-            <!-- make store name come from variable -->
+            <!--            scroll views can have only 1 child element inside them... -->
 
             <LinearLayout
-                android:id="@+id/list_content_1"
+                android:id="@+id/edit_store_1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="260dp"
                 android:background="#aaaaaaaa"
-                android:padding="10dp">
-<!-- item list side scroll -->
-<!-- items start below this -->
+                android:layout_marginBottom="5dp"
+                android:orientation="vertical">
+                <!-- store section -->
 
                 <LinearLayout
-                    android:layout_width="150dp"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:background="#ffaaaaaa">
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="100dp"
-                        android:gravity="center">
-                    </ImageView>
+                    android:id="@+id/edit_store_1_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="add item name"
-                        android:textSize="20sp" />
-                    <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+                        android:layout_margin="5dp"
+                        android:padding="2dp"
+                        android:text="Target"
+                        android:textSize="25sp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="2dp"
+                        android:text="+ 25 mins"
+                        android:textSize="20sp"/>
+                    <!-- make store name and text come from variable -->
                 </LinearLayout>
+
+                <ScrollView
+                    android:id="@+id/edit_store_1_contain"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:background="#aaaaaaaa"
+                    android:padding="10dp">
+                    <!-- item list side scroll -->
+
+                    <LinearLayout
+                        android:id="@+id/edit_store_1_content"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+                        <!-- items start below this -->
+
+                        <LinearLayout
+                            android:id="@+id/edit_store_1_item1"
+                            android:layout_width="150dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:background="#ffaaaaaa">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="140dp"
+                                android:gravity="center">
+                            </ImageView>
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="add item name long string"
+                                android:textSize="20sp" />
+                            <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/edit_store_1_item2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <!-- items start below this -->
+
+                            <LinearLayout
+                                android:layout_width="150dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:background="#ffaaaaaa">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:gravity="center">
+                                </ImageView>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="add item name long string"
+                                    android:textSize="20sp" />
+                                <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+                            </LinearLayout>
+                        </LinearLayout>
+                        <LinearLayout
+                            android:id="@+id/edit_store_1_item3"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="horizontal">
+                            <!-- items start below this -->
+
+                            <LinearLayout
+                                android:layout_width="150dp"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:background="#ffaaaaaa">
+
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="140dp"
+                                    android:gravity="center">
+                                </ImageView>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:text="add item name long string"
+                                    android:textSize="20sp" />
+                                <!--        either height: wrap_content or 90dp to cut it off at a hardcoded 2 lines-->
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </ScrollView>
             </LinearLayout>
+
         </LinearLayout>
 
-    </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>
