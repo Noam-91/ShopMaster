@@ -12,9 +12,34 @@
     </style>
 
     <style name="TitleStyle">
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:textColor">@color/dark_green</item>
-        <item name="android:fontFamily">@font/archivo_black</item>
+        <item name="android:fontFamily">@font/rocknroll_one</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="BackButton">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:drawableLeft">@drawable/ic_baseline_chevron_left_24</item>
+        <item name="android:paddingRight">40dp</item>
+        <item name="android:text">Back</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="NextButton">
+        <item name="android:layout_width">110dp</item>
+        <item name="android:layout_height">48dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/transparent</item>
+        <item name="android:drawableLeft">@drawable/ic_baseline_chevron_right_24</item>
+        <item name="android:paddingLeft">40dp</item>
+        <item name="android:text">Next</item>
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

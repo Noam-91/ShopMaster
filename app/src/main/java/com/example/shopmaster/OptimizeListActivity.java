@@ -96,15 +96,15 @@ public class OptimizeListActivity extends AppCompatActivity {
         Intent intent;
         switch (view.getId()){
             case R.id.btn_optimizelist_next:
-                Log.d(TAG,"key word list: "+keywordList.toString());
-                PlanCalculator calculator = new PlanCalculator(this,keywordList,primaryFactor,numOfStops);
-                List<Grocery> shopList = calculator.calculate();
-                try {
-                    db.clearCart();
-                    db.addList(shopList,"NewListFragment");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+//                Log.d(TAG,"key word list: "+keywordList.toString());
+//                PlanCalculator calculator = new PlanCalculator(this,keywordList,primaryFactor,numOfStops);
+//                List<Grocery> shopList = calculator.calculate();
+//                try {
+//                    db.clearCart();
+//                    db.addList(shopList,"cart");
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
                 intent = new Intent(OptimizeListActivity.this,DraftListActivity.class);
                 startActivity(intent);
                 break;

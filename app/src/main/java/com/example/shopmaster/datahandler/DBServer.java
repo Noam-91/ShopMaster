@@ -22,9 +22,9 @@ public class DBServer {
     }
 
     /**
-     * Add item into NewListFragment or history. If exist, increment the quantity.
+     * Add item into cart or history. If exist, increment the quantity.
      * @param entity:   item that needs to be added.
-     * @param tableName:  three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:  three kinds of tables {'grocery','cart','history'}
      */
     @SuppressLint("Range")
     public void addItem(Grocery entity, String tableName)
@@ -67,7 +67,7 @@ public class DBServer {
     /**
      * Add a list of groceries to an EMPTY database table.
      * @param shopList: List of grocery items.
-     * @param tableName:    three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
      */
     public void addList(List<Grocery> shopList, String tableName) throws IOException {
         if (tableName.equals("grocery")){
@@ -101,7 +101,7 @@ public class DBServer {
     /**
      * Find a grocery item by its unique id in the db table.
      * @param item_id:  Unique item id.
-     * @param tableName:    three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
      * @return : expected grocery item.
      */
     @SuppressLint("Range")
@@ -139,7 +139,7 @@ public class DBServer {
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         List<Grocery> localArrayList=new ArrayList<>();
         Log.d(TAG,"Find item by name: before cursor");
-        Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT *  FROM grocery "
+        Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT * FROM grocery "
                 +"WHERE name LIKE '%"+partialName+"%' ORDER BY price DESC",null );
         if (localCursor.getCount()==0){
             return localArrayList;
@@ -194,9 +194,9 @@ public class DBServer {
     }
 
     /**
-     * Delete an item from the NewListFragment or history based on item_id and date.
+     * Delete an item from the cart or history based on item_id and date.
      * @param entity:  item needs to be deleted.
-     * @param tableName:    three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
      */
     public void deleteItem(Grocery entity, String tableName)
     {
@@ -213,11 +213,11 @@ public class DBServer {
     }
 
     /**
-     * Remove all items from NewListFragment.
+     * Remove all items from cart.
      */
     public void clearCart() {
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
-        localSQLiteDatabase.delete("NewListFragment","1=1",null);
+        localSQLiteDatabase.delete("cart","1=1",null);
         localSQLiteDatabase.close();
 
     }
@@ -225,7 +225,7 @@ public class DBServer {
     /**
      * Update the quantity of an item.
      * @param entity:   item waits to be updated
-     * @param tableName:    three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
      * @param newQuantity:  Integer.
      */
     public void updateItemQuantity(Grocery entity, String tableName, Integer newQuantity)
@@ -247,7 +247,7 @@ public class DBServer {
     /**
      * Find items by category. Be used to show items in categories.
      * @param cate: category name.
-     * @param tableName:    three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
      * @return A list of grocery item that belongs to the category.
      */
     @SuppressLint("Range")
@@ -278,7 +278,7 @@ public class DBServer {
 
     /**
      * Find all items in the table.
-     * @param tableName:    three kinds of tables {'grocery','NewListFragment','history'}
+     * @param tableName:    three kinds of tables {'grocery','cart','history'}
      * @return A list of all the grocery items in the table.
      */
     @SuppressLint("Range")
@@ -286,8 +286,7 @@ public class DBServer {
     {
         List<Grocery> localArrayList=new ArrayList<>();
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
-        Cursor localCursor = localSQLiteDatabase.rawQuery("select * from "+tableName+" " +
-                "where 1=1 ", null);
+        Cursor localCursor = localSQLiteDatabase.rawQuery("select * from "+tableName, null);
         while (localCursor.moveToNext())
         {
             Grocery temp=new Grocery();
@@ -305,6 +304,15 @@ public class DBServer {
         localSQLiteDatabase.close();
         localCursor.close();
         return localArrayList;
+    }
+
+    public boolean tableIsEmpty(String tableName){
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        Cursor localCursor = localSQLiteDatabase.rawQuery("select * from "+tableName, null);
+        if (localCursor.getCount()>0){
+            return true;
+        }
+        return false;
     }
 
 }

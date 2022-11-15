@@ -16,6 +16,7 @@
     <color name="silver">#C0C0C0</color>
     <color name="darkgray">#a9a9a9</color>
     <color name="gray">#808080</color>
+    <color name="light_gray">#37808080</color>
     <color name="dark_green">#466F6B</color>
 
     <color name="toggle_hover">@color/gray</color>

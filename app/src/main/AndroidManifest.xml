@@ -16,7 +16,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShopMaster"
         tools:targetApi="31">
-
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
         <activity
             android:name=".CoverActivity"
             android:exported="true">
@@ -26,17 +32,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:exported="false">
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".OptimizeListActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".TestDatabaseActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".TestMainActivity"
             android:exported="false" />

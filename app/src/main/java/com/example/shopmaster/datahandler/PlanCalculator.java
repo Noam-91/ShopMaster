@@ -12,14 +12,16 @@ import java.util.Set;
 
 public class PlanCalculator {
     private static final String TAG = PlanCalculator.class.getSimpleName();
-    private final List<String> shopList;
+    private final List<String> nameList;
+    private final List<Integer> quantityList;
     private final String primaryFactor;
     private final Integer numOfStops;
     private final Context context;
     String[] allStores = {"Target","Walmart","Costco","County Market"};
 
-    public PlanCalculator(Context context,List<String> shopList,String primaryFactor,Integer numOfStops){
-        this.shopList=shopList;
+    public PlanCalculator(Context context,List<String> nameList,List<Integer> quantityList, String primaryFactor,Integer numOfStops){
+        this.nameList=nameList;
+        this.quantityList=quantityList;
         this.primaryFactor=primaryFactor;
         this.numOfStops=numOfStops;
         this.context = context;
@@ -33,8 +35,11 @@ public class PlanCalculator {
      */
     public List<Grocery> calculate()
     {
-        if (shopList.size()==0){
+        if (nameList.size()==0){
             throw new ArrayIndexOutOfBoundsException("Shopping list is empty.");
+        }
+        if (nameList.size()!=quantityList.size()){
+            throw new ArrayIndexOutOfBoundsException("Shopping list and Quantity list have different length.");
         }
         if (!(primaryFactor.equals("time")||primaryFactor.equals("money"))){
             throw new IllegalArgumentException("The primary factor should be either time or money.");
@@ -50,13 +55,16 @@ public class PlanCalculator {
             if(numOfStops==1){stores = new String[]{"Target","","",""};}
 
             DBServer db = new DBServer(context);
-            for (String item:shopList){
-                List<Grocery> itemList = db.findItemByNameAndStores(item,stores);
+            for (int i=0; i<nameList.size();i++){
+                String itemName = nameList.get(i);
+                List<Grocery> itemList = db.findItemByNameAndStores(itemName,stores);
                 if (!itemList.isEmpty()){
-                    resultList.add(itemList.get(0));
+                    Grocery item = itemList.get(0);
+                    item.setQuantity(quantityList.get(i));
+                    resultList.add(item);
                 }
                 else{
-                    throw new RuntimeException("The item "+item+" does not exist in Target/County Market");
+                    throw new RuntimeException("The item "+itemName+" does not exist in Target/County Market");
                 }
             }
         }
@@ -64,12 +72,14 @@ public class PlanCalculator {
         else {
             Set<String> stores = new HashSet<>(numOfStops);
             DBServer db = new DBServer(context);
-            for (String item:shopList) {
-                List<Grocery> itemList = db.findItemByName(item);
+            for (int j=0; j<nameList.size();j++) {
+                String itemName = nameList.get(j);
+                List<Grocery> itemList = db.findItemByName(itemName);
                 if (!itemList.isEmpty()) {
                     int i = 0;
                     while (i < itemList.size()) {
                         Grocery foundItem = itemList.get(i);
+                        foundItem.setQuantity(quantityList.get(j));
                         if (stores.contains(foundItem.getStore())) {
                             resultList.add(foundItem);
                             break;

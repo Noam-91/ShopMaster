@@ -6,10 +6,10 @@
     app:startDestination="@+id/navigation_home">
 
     <fragment
-        android:id="@+id/navigation_back"
+        android:id="@+id/navigation_cart"
         android:name="com.example.shopmaster.fragments.NewListFragment"
         android:label="@string/title_back"
-        tools:layout="@layout/fragment_newlist" />
+        tools:layout="@layout/fragment_new_list" />
 
     <fragment
         android:id="@+id/navigation_home"
@@ -18,9 +18,9 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_menu"
-        android:name="com.example.shopmaster.fragments.MenuFragment"
-        android:label="@string/title_menu"
-        tools:layout="@layout/fragment_menu" />
+        android:id="@+id/navigation_history"
+        android:name="com.example.shopmaster.fragments.HistoryFragment"
+        android:label="@string/title_history"
+        tools:layout="@layout/fragment_history" />
 
 </navigation>

@@ -84,7 +84,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                 item.setQuantity(newQuantity);
                 ((Grocery) storeShopList.get(pos)).setQuantity(newQuantity);
                 notifyItemChanged(pos);
-                db.updateItemQuantity(item,"NewListFragment",newQuantity);
+                db.updateItemQuantity(item,"cart",newQuantity);
             });
             ((ItemHolder)holder).btn_dec.setOnClickListener(view -> {
                 int newQuantity = item.getQuantity()-1;
@@ -96,7 +96,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                     alert.setTitle("Delete Item");
                     alert.setMessage("Are you sure you want to delete?");
                     alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        db.deleteItem(item,"NewListFragment");
+                        db.deleteItem(item,"cart");
                         storeShopList.remove(item);
                         notifyItemRemoved(pos);
                     });
@@ -109,7 +109,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                     item.setQuantity(newQuantity);
                     Log.d(TAG,"Quantity decrement: "+item.getQuantity());
                     notifyItemChanged(pos);
-                    db.updateItemQuantity(item,"NewListFragment",newQuantity);
+                    db.updateItemQuantity(item,"cart",newQuantity);
                 }
 
             });

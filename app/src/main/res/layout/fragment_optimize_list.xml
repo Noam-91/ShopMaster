@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,18 +7,38 @@
     android:orientation="vertical"
     tools:context=".fragments.OptimizeListFragment">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/TitleStyle"
-        android:text="Optimize Shopping List"
-        android:layout_marginTop="30dp"/>
+        android:background="@color/light_gray"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_optimizelist_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/BackButton"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="Optimize My Cart"
+            android:theme="@style/TitleStyle" />
+        <Button
+            android:id="@+id/btn_optimizelist_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NextButton"/>
+
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="260dp"
         android:layout_height="300dp"
         android:orientation="vertical"
-        android:layout_marginTop="130dp"
+
         android:layout_gravity="center"
         android:gravity="center">
 
@@ -98,25 +118,4 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="90dp"
-        android:gravity="center"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/btn_optimizelist_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="Back"/>
-        <Button
-            android:id="@+id/btn_optimizelist_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="60dp"
-            android:layout_gravity="center"
-            android:text="Next"/>
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

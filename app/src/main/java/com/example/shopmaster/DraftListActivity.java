@@ -49,7 +49,7 @@ public class DraftListActivity extends AppCompatActivity {
 
 
         DBServer db = new DBServer(this);
-        shopList = db.findAllItemsInTable("NewListFragment");
+        shopList = db.findAllItemsInTable("cart");
         List<Object> storeShopList = organizeGroceriesByStore(shopList);
 
         DraftListAdapter adapter = new DraftListAdapter(this,storeShopList);
