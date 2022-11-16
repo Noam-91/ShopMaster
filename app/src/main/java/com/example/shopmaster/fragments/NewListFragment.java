@@ -45,8 +45,8 @@ public class NewListFragment extends Fragment {
         db = new DBServer(getContext());
 
         // TEST !!!
-        TEST_randomCart();
-
+//        TEST_randomCart();
+        TEST_shortList();
     }
 
     @Override
@@ -75,8 +75,20 @@ public class NewListFragment extends Fragment {
                 .commit();
     }
 
+    public void TEST_shortList(){
+        keywordList.clear();
+        quantityList.clear();
+        String[] itemNames = {"Banana", "Beef","Bread"};
+        for (String itemName : itemNames){
+            keywordList.add(itemName);
+            quantityList.add(new Random().nextInt(10)+1);
+        }
+    }
+
     public void TEST_randomCart(){
         db.clearCart();
+        keywordList.clear();
+        quantityList.clear();
         Grocery randomItem = db.findItemById(1,"-1","grocery");
         keywordList.add(randomItem.getName());
         quantityList.add(new Random().nextInt(10)+1);

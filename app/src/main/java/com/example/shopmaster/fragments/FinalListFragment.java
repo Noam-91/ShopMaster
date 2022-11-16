@@ -3,64 +3,126 @@ package com.example.shopmaster.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.SimpleItemAnimator;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.shopmaster.R;
+import com.example.shopmaster.adapters.FinalListAdapter;
+import com.example.shopmaster.datahandler.DBServer;
+import com.example.shopmaster.datahandler.Grocery;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link FinalListFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
 public class FinalListFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private final String TAG = getClass().getSimpleName();
+    private List<Grocery> shopList;
+    DBServer db;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView rv;
+    Button btnDone,btnBack;
 
     public FinalListFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment FinalListFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static FinalListFragment newInstance(String param1, String param2) {
-        FinalListFragment fragment = new FinalListFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        db = new DBServer(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_final_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_final_list, container, false);
+        rv = view.findViewById(R.id.rv_finallist);
+        btnDone = view.findViewById(R.id.btn_finallist_done);
+        btnBack = view.findViewById(R.id.btn_finallist_back);
+
+        shopList = db.findAllItemsInTable("cart");
+        List<Object> storeShopList = organizeGroceriesByStore(shopList);
+        FinalListAdapter adapter = new FinalListAdapter(getContext(),storeShopList);
+        rv.setLayoutManager(new LinearLayoutManager(getActivity()));
+        rv.setAdapter(adapter);
+        ((SimpleItemAnimator) rv.getItemAnimator()).setSupportsChangeAnimations(false);
+
+        btnDone.setOnClickListener(this::onClick);
+        btnBack.setOnClickListener(this::onClick);
+
+        return view;
+    }
+
+    public void onClick(View view){
+        FragmentManager fragmentManager = getParentFragmentManager();
+        Bundle bundle = new Bundle();
+        switch (view.getId()){
+            case R.id.btn_finallist_done:
+                //Save shopping history.
+                Date date = new java.sql.Date(System.currentTimeMillis());
+                for (Grocery item : shopList){
+                    item.setHistDate(date.toString());
+                    db.addItem(item,"history");
+                }
+                Toast.makeText(getContext(), "Your shopping history on "+date+" has been saved",
+                        Toast.LENGTH_SHORT).show();
+                // Reset Cart
+                db.clearCart();
+                //Reset Cart navigation to NewListFragment.
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
+                // Destroy all Fragments in stack.
+                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                // Switch to Home.
+                BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
+                navView.setSelectedItemId(R.id.navigation_home);
+                break;
+            case R.id.btn_finallist_back:
+                fragmentManager.popBackStack();
+        }
+    }
+
+    /**
+     * Categorize the items by Store and return an object list for the recyclerView adapter.
+     * @param shopList : shopList
+     * @return : Sorted list with Stores name included.
+     */
+    public List<Object> organizeGroceriesByStore(List<Grocery> shopList){
+        Log.d(TAG,"There are "+shopList.size()+" items to organize.");
+        List<Object []> storeItemPairList = new ArrayList<>();
+        Collections.sort(shopList, new Grocery.SortbyStoreCate());
+        for (Grocery item : shopList){
+            String store = item.getStore();
+            Object[] storeItemPair ={store,item};
+            storeItemPairList.add(storeItemPair);
+        }
+        List<Object> storeShopList = new ArrayList<>();
+
+        for (Object[] pair : storeItemPairList){
+            String store = (String)pair[0];
+            Grocery item = (Grocery) pair[1];
+            if(!storeShopList.contains(store)){
+                storeShopList.add(store);
+            }
+            storeShopList.add(item);
+        }
+
+        Log.d(TAG,"There are "+storeShopList.size()+" items organized.");
+        return storeShopList;
     }
 }

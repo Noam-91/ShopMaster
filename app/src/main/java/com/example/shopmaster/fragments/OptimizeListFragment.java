@@ -13,8 +13,6 @@ import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import com.example.shopmaster.DraftListActivity;
-import com.example.shopmaster.OptimizeListActivity;
 import com.example.shopmaster.R;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
@@ -49,7 +47,7 @@ public class OptimizeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        Log.d(TAG,"bundle is empty? "+getArguments().isEmpty());
+        Log.d(TAG,"bundle is empty? "+ (getArguments() != null ? getArguments().isEmpty() : false));
         if (bundle!= null) {
             keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
             quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
@@ -119,22 +117,16 @@ public class OptimizeListFragment extends Fragment {
 
     }
 
-
+    /**
+     * Click Events
+     * @param view : view
+     */
     public void onClick(View view){
         Bundle bundle = new Bundle();
         FragmentManager fragmentManager = getParentFragmentManager();
         switch (view.getId()){
             case R.id.btn_optimizelist_back:
-                NewListFragment newListFragment = new NewListFragment();
-                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
-                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
-                newListFragment.setArguments(bundle);
-
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, newListFragment, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("optimize list")
-                        .commit();
+                fragmentManager.popBackStack();
                 break;
             case R.id.btn_optimizelist_next:
                 Log.d(TAG,"key word list: "+keywordList.toString());
@@ -148,12 +140,8 @@ public class OptimizeListFragment extends Fragment {
                     e.printStackTrace();
                 }
                 // Fragment transformation.
-                DraftListFragment draftListFragment = new DraftListFragment();
-                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
-                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
-                draftListFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, draftListFragment, null)
+                        .replace(R.id.navHostFragment, DraftListFragment.class, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("optimize list")
                         .commit();
