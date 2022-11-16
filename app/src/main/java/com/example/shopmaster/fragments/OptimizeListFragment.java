@@ -54,6 +54,7 @@ public class OptimizeListFragment extends Fragment {
             keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
             quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
         }
+        db = new DBServer(getContext());
         Log.d(TAG, "Get shop list with length = "+keywordList.size());
 
     }
