@@ -136,11 +136,12 @@ public class DBServer {
     @SuppressLint("Range")
     public List<Grocery> findItemByName(String partialName)
     {
+        String validPartialName = partialName.replace("'","''");
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         List<Grocery> localArrayList=new ArrayList<>();
         Log.d(TAG,"Find item by name: before cursor");
         Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT * FROM grocery "
-                +"WHERE name LIKE '%"+partialName+"%' ORDER BY price DESC",null );
+                +"WHERE name LIKE '%"+validPartialName+"%' ORDER BY price DESC",null );
         if (localCursor.getCount()==0){
             return localArrayList;
         }
@@ -313,6 +314,17 @@ public class DBServer {
             return true;
         }
         return false;
+    }
+
+    public String escapeMetaCharacters(String inputString){
+        final String[] metaCharacters = {"\\","^","$","{","}","[","]","(",")",".","*","+","?","|","<",">","-","&","%","'"};
+
+        for (int i = 0 ; i < metaCharacters.length ; i++){
+            if(inputString.contains(metaCharacters[i])){
+                inputString = inputString.replace(metaCharacters[i],"\\"+metaCharacters[i]);
+            }
+        }
+        return inputString;
     }
 
 }
