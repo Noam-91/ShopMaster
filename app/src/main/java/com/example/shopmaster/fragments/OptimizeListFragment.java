@@ -49,7 +49,7 @@ public class OptimizeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        Log.d(TAG,"bundle is empty? "+getArguments());
+        Log.d(TAG,"bundle is empty? "+getArguments().isEmpty());
         if (bundle!= null) {
             keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
             quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
@@ -148,8 +148,12 @@ public class OptimizeListFragment extends Fragment {
                     e.printStackTrace();
                 }
                 // Fragment transformation.
+                DraftListFragment draftListFragment = new DraftListFragment();
+                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
+                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
+                draftListFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, DraftListFragment.class, null)
+                        .replace(R.id.navHostFragment, draftListFragment, null)
                         .setReorderingAllowed(true)
                         .addToBackStack("optimize list")
                         .commit();

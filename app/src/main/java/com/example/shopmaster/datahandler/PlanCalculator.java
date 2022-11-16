@@ -2,6 +2,7 @@ package com.example.shopmaster.datahandler;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,7 +49,8 @@ public class PlanCalculator {
             throw new IllegalArgumentException("The number of stops should be between 1 and 4.");
         }
 
-        List<Grocery> resultList = new ArrayList<>();
+        List<Grocery> resultList = new ArrayList<>(nameList.size());
+        Log.d(TAG,"ResultList length = "+resultList.size());
         // User chooses time.
         if (primaryFactor.equals("time")){
             String[] stores = {"Target", "County Market","",""};
@@ -90,6 +92,10 @@ public class PlanCalculator {
                         } else {
                             i++;
                         }
+                    }
+                    if(resultList.size()<j+1){
+                        throw new ArithmeticException("The shopping List cannot be completed in "
+                                +numOfStops+" stores.");
                     }
                 } else {
                     throw new RuntimeException("The item does not exist in Database");

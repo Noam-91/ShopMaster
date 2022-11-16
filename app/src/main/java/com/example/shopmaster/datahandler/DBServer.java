@@ -316,16 +316,38 @@ public class DBServer {
         return false;
     }
 
-    public String escapeMetaCharacters(String inputString){
-        final String[] metaCharacters = {"\\","^","$","{","}","[","]","(",")",".","*","+","?","|","<",">","-","&","%","'"};
-
-        for (int i = 0 ; i < metaCharacters.length ; i++){
-            if(inputString.contains(metaCharacters[i])){
-                inputString = inputString.replace(metaCharacters[i],"\\"+metaCharacters[i]);
-            }
+    /**
+     * find all items in db table "history" by date.
+     * @param selectedDate
+     * @return list of grocery.
+     */
+    @SuppressLint("Range")
+    public List<Grocery> findAllByDate(String selectedDate){
+        List<Grocery> localArrayList=new ArrayList<>();
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        String[] arrayOfString = new String[1];
+        arrayOfString[0] = selectedDate;
+        Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT * FROM history WHERE date=?", arrayOfString);
+        while (localCursor.moveToNext())
+        {
+            Grocery temp=new Grocery();
+            temp.setId(localCursor.getInt(localCursor.getColumnIndex("item_id")));
+            temp.setName(localCursor.getString(localCursor.getColumnIndex("name")));
+            temp.setCate(localCursor.getString(localCursor.getColumnIndex("cate")));
+            temp.setPrice(localCursor.getString(localCursor.getColumnIndex("price")));
+            temp.setStore(localCursor.getString(localCursor.getColumnIndex("store")));
+            temp.setImgUrl(localCursor.getString(localCursor.getColumnIndex("imgurl")));
+            temp.setQuantity(localCursor.getInt(localCursor.getColumnIndex("quantity")));
+            temp.setHistDate(localCursor.getString(localCursor.getColumnIndex("date")));
+            localArrayList.add(temp);
         }
-        return inputString;
+        localSQLiteDatabase.close();
+        localCursor.close();
+        return localArrayList;
     }
+
+    //TODO: counter of items - Varma
+
 
 }
 

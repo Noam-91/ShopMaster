@@ -79,31 +79,31 @@ public class NewListFragment extends Fragment {
         db.clearCart();
         Grocery randomItem = db.findItemById(1,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(20,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(50,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(71,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(121,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(180,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(229,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(320,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
         randomItem = db.findItemById(380,"-1","grocery");
         keywordList.add(randomItem.getName());
-        quantityList.add(new Random().nextInt(10));
+        quantityList.add(new Random().nextInt(10)+1);
     }
 
 }

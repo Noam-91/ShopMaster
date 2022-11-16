@@ -57,7 +57,7 @@ public class HomeFragment extends Fragment {
         switch (view.getId()){
             case R.id.btn_home_newlist:
                 // If previous cart exist pop delete alert
-                if (db.tableIsEmpty(KEY_CART)){discardExistedCartAlert ();}
+                if (!db.tableIsEmpty(KEY_CART)){discardExistedCartAlert ();}
 
                 // Switch Navigation tab
                 BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("optimize list") // name can be null
+                        .addToBackStack("home") // name can be null
                         .commit();
                 break;
 
