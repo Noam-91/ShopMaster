@@ -12,13 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_weight="0"
         android:text="@string/shopping_history"
+        android:textSize="24sp"
         style="@style/TitleStyle"/>
+
 
     <Spinner
         android:id="@+id/date_dropdown"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:spinnerMode="dropdown"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_weight="0"/>
 
     <androidx.recyclerview.widget.RecyclerView

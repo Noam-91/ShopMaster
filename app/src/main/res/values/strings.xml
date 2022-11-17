@@ -26,4 +26,7 @@
     <string name="save">Save</string>
     <string name="category">Category</string>
 
+    // History
+    <string name="shopping_history">Shopping History</string>
+
 </resources>
