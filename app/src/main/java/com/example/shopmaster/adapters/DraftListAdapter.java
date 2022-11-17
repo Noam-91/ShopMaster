@@ -43,7 +43,6 @@ public class DraftListAdapter extends RecyclerView.Adapter{
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Log.d(TAG,"Draft List View Holder activated.");
         RecyclerView.ViewHolder viewHolder=null;
         mInflater = LayoutInflater.from(mContext);
         switch (viewType){
@@ -122,7 +121,6 @@ public class DraftListAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        Log.d(TAG,"getItemCount: "+storeShopList.size());
         return storeShopList.size();
     }
 

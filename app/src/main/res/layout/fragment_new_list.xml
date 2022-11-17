@@ -87,10 +87,12 @@
             android:textAllCaps="false"/>
 
     </LinearLayout>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_newlist"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
+        android:layout_margin="10dp"
         android:gravity="center"
         android:horizontalSpacing="8dp"
         android:numColumns="auto_fit"

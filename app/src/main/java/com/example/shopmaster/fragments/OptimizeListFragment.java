@@ -137,7 +137,9 @@ public class OptimizeListFragment extends Fragment {
                     db.clearCart();
                     db.addList(shopList,KEY_CART);
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Toast.makeText(getContext(),"Your shopping list cannot be completed. " +
+                            "You can change by changing the primary factor " +
+                            "or increase number of stops.",Toast.LENGTH_LONG).show();
                 }
                 // Fragment transformation.
                 fragmentManager.beginTransaction()
