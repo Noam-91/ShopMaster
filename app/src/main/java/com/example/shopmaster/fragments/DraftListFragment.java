@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.shopmaster.EditActivity;
 import com.example.shopmaster.EditListActivity;
 import com.example.shopmaster.R;
 import com.example.shopmaster.adapters.DraftListAdapter;
@@ -92,7 +93,7 @@ public class DraftListFragment extends Fragment {
                 fragmentManager.popBackStack();
                 break;
             case R.id.btn_draftlist_add:
-                Intent intent = new Intent(getActivity(), EditListActivity.class);
+                Intent intent = new Intent(getActivity(), EditActivity.class);
                 startActivity(intent);
                 break;
         }
