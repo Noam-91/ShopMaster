@@ -112,94 +112,54 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 
         DBServer db = new DBServer(getContext());
 
-//        historyList = db.findAllItemsInTable("grocery");
 //
-//        og_list = db.findAllItemsInTable("history");
-
-//        Grocery randomItem;
-//        randomItem = db.findItemById(7, "-1", "grocery");
-//        randomItem.setHistDate("2022-10-4");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(8, "-1", "grocery");
-//        randomItem.setHistDate("2022-10-4");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(9, "-1", "grocery");
-//        randomItem.setHistDate("2022-10-4");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(68, "-1", "grocery");
-//        randomItem.setHistDate("2022-10-4");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(45, "-1", "grocery");
-//        randomItem.setHistDate("2022-09-3");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(33, "-1", "grocery");
-//        randomItem.setHistDate("2022-09-3");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(111, "-1", "grocery");
-//        randomItem.setHistDate("2022-09-3");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(112, "-1", "grocery");
-//        randomItem.setHistDate("2022-09-23");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(113, "-1", "grocery");
-//        randomItem.setHistDate("2022-09-23");
-//        db.addItem(randomItem, "history");
-//
-//        randomItem = db.findItemById(114, "-1", "grocery");
-//        randomItem.setHistDate("2022-08-11");
-//        db.addItem(randomItem, "history");
-//        randomItem = db.findItemById(115, "-1", "grocery");
-//        randomItem.setHistDate("2022-10-14");
-//        db.addItem(randomItem, "history");
-
-//        og_list = db.findAllItemsInTable("history");
 
         historyList = db.findAllItemsInTable("history");
 
 
         Log.d("GAUTHAM", "Entries in History table : "+ historyList.size());
 
-//        itemNames = getItemNames(historyList);
-//        itemPrices = getItemPrices(historyList);
-//        imageUrls = getImageUrls(historyList);
-//        stores = getStores(historyList);
-
         itemList = getItems(historyList);
 
         // For populating the Spinner where the Dates will be dropped down
-        ArrayAdapter<String> dropDownAdapter;
-        ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
+        try{
+            ArrayAdapter<String> dropDownAdapter;
+            ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
 
-        dropDownAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, unique_dates);
-        dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        dateDropDown.setSelection(1);
-        dateDropDown.setAdapter(dropDownAdapter);
-        dateDropDown.setOnItemSelectedListener(this);
+            dropDownAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, unique_dates);
+            dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            dateDropDown.setSelection(1);
+            dateDropDown.setAdapter(dropDownAdapter);
+            dateDropDown.setOnItemSelectedListener(this);
+        } catch(Exception e){
+            Log.d("SHOPPING_HISTORY", "ERROR: Issue creating adapter for Spinner. Check whether ItemLists has data.");
+        }
 
-//        titles = new ArrayList<>();
-//        prices = new ArrayList<>();
-//        images = new ArrayList<>();
+        setShoppingHistoryLayout(itemList);
+//        adapter = new HistoryAdapter(
+//                getContext(),
+//                itemList,
+//                this);
+//
+//
+//        GridLayoutManager gridLayoutManager;
+//        gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+//        buyAgainList.setLayoutManager(gridLayoutManager);
+//        buyAgainList.setAdapter(adapter);
 
+        return view;
+    }
+
+    private void setShoppingHistoryLayout(List<List<String>> itemList){
         adapter = new HistoryAdapter(
                 getContext(),
                 itemList,
                 this);
 
-
-//        adapter = new HistoryAdapter(
-//                getContext(),
-//                itemNames,
-//                itemPrices,
-//                stores,
-//                imageUrls,
-//                this);
-
         GridLayoutManager gridLayoutManager;
         gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
         buyAgainList.setLayoutManager(gridLayoutManager);
         buyAgainList.setAdapter(adapter);
-
-        return view;
     }
 
     private List<List<String>> getItems(List<Grocery> histList){
@@ -259,11 +219,66 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String date = adapterView.getItemAtPosition(position).toString();
-        Log.d("GAUTHAM", "Date Selected: "+ date);
+        DBServer db = new DBServer(getContext());
+        List<Grocery> date_data = db.findAllByDate(date);
+        itemList = getItems(date_data);
+        setShoppingHistoryLayout(itemList);
+//        Log.d("GAUTHAM", "Date Selected: "+ date);
+//        Log.d("GAUTHAM", "Size for Date: "+ date_data.size());
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
 
+    }
+
+
+
+
+    private void TESTE_addItemsToHistoryTable(){
+
+
+//        historyList = db.findAllItemsInTable("grocery");
+//        og_list = db.findAllItemsInTable("history");
+
+        DBServer db = new DBServer(getContext());
+
+        Grocery randomItem;
+        randomItem = db.findItemById(7, "-1", "grocery");
+        randomItem.setHistDate("2022-10-4");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(8, "-1", "grocery");
+        randomItem.setHistDate("2022-10-4");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(9, "-1", "grocery");
+        randomItem.setHistDate("2022-10-4");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(68, "-1", "grocery");
+        randomItem.setHistDate("2022-10-4");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(45, "-1", "grocery");
+        randomItem.setHistDate("2022-09-3");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(33, "-1", "grocery");
+        randomItem.setHistDate("2022-09-3");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(111, "-1", "grocery");
+        randomItem.setHistDate("2022-09-3");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(112, "-1", "grocery");
+        randomItem.setHistDate("2022-09-23");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(113, "-1", "grocery");
+        randomItem.setHistDate("2022-09-23");
+        db.addItem(randomItem, "history");
+
+        randomItem = db.findItemById(114, "-1", "grocery");
+        randomItem.setHistDate("2022-08-11");
+        db.addItem(randomItem, "history");
+        randomItem = db.findItemById(115, "-1", "grocery");
+        randomItem.setHistDate("2022-10-14");
+        db.addItem(randomItem, "history");
+
+//        og_list = db.findAllItemsInTable("history");
     }
 }
