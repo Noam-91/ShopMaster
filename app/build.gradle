@@ -45,6 +45,5 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.5.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-    //SlideUpPanel
-//    implementation 'com.sothree.slidinguppanel:library:3.4.0'
+
 }

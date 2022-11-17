@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.ListAdapter;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopmaster.R;
@@ -107,32 +108,14 @@ public class NewListFragment extends Fragment {
         btnPopular.setOnClickListener(this::onClick);
         btnDiscard.setOnClickListener(this::onClick);
         btnHistory.setOnClickListener(this::onClick);
+        searchView.setOnClickListener(this::onClick);
 
         NewListAdapter adapter = new NewListAdapter(getContext(),keywordList,quantityList);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.addItemDecoration(getRecyclerViewDivider(R.drawable.inset_recyclerview_divider));
         rv.setAdapter(adapter);
 
-        //Search View
-        searchView.setActivated(true);
-        searchView.setQueryHint("Type your keyword here");
-        searchView.onActionViewExpanded();
-        searchView.setIconified(false);
-        searchView.clearFocus();
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                searchAdapter= new ListAdapter(arrayList);
-//                searchAadapter.getFilter().filter(newText);
-//
-//                return false;
-//            }
-//        });
+
 
         return view;
     }
@@ -182,6 +165,12 @@ public class NewListFragment extends Fragment {
                 Log.d(TAG,"popular button clicked");
                 showPopularItems();
                 break;
+            case R.id.sv_newlist:
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, SearchFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(TAG)
+                        .commit();
         }
 
     }
