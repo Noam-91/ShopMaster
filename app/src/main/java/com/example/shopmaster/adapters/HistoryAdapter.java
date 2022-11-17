@@ -1,11 +1,14 @@
 package com.example.shopmaster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,24 +24,35 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
 
     private final Context histContext;
 
+    List<String> ids;
     List<String> titles;
+    List<String> cates;
     List<String> prices;
     List<String> stores;
     List<String> images;
+    List<String> qty;
+    List<String> dates;
     LayoutInflater inflater;
 
+    private OnHistCardListener onHistCardListener;
+
     public HistoryAdapter(Context ctx,
-                          List<String> titles,
-                          List<String> prices,
-                          List<String> stores,
-                          List<String> images)
+                          List<List<String>> itemList,
+                          OnHistCardListener onHistCardListener)
     {
-        this.titles = titles;
-        this.prices = prices;
-        this.images = images;
-        this.stores = stores;
+
+        this.ids = itemList.get(0);
+        this.titles = itemList.get(1);
+        this.cates = itemList.get(2);
+        this.prices = itemList.get(3);
+        this.stores = itemList.get(4);
+        this.images = itemList.get(5);
+        this.qty = itemList.get(6);
+        this.dates = itemList.get(7);
+
         histContext = ctx;
         this.inflater = LayoutInflater.from(ctx);
+        this.onHistCardListener = onHistCardListener;
 
     }
 
@@ -46,7 +60,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = inflater.inflate(R.layout.history_card, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, onHistCardListener );
     }
 
     @Override
@@ -54,6 +68,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         holder.title.setText(titles.get(position));
         holder.price.setText("$ "+prices.get(position));
         holder.store.setText(stores.get(position));
+
+        holder.id = Integer.parseInt(ids.get(position));
+        holder.cate = cates.get(position);
+        holder.qty = Integer.parseInt(qty.get(position));
+        holder.date = dates.get(position);
+        holder.imgurl = images.get(position);
+
 //        holder.image.setImageResource(images.get(position));
         Glide.with(histContext).load(images.get(position)).into(holder.image);
     }
@@ -62,20 +83,65 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     public int getItemCount() {
         return titles.size();
     }
-    public class ViewHolder extends RecyclerView.ViewHolder{
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, PopupMenu.OnMenuItemClickListener {
 
         TextView title;
         TextView price;
         TextView store;
         ImageView image;
 
-        public ViewHolder(@NonNull View itemView) {
+        Integer id;
+        String cate;
+        Integer qty;
+        String date;
+        String imgurl;
+
+        OnHistCardListener onHistCardListener;
+
+        public ViewHolder(@NonNull View itemView, OnHistCardListener onHistCardListener) {
             super(itemView);
             title = itemView.findViewById(R.id.buy_again_item_name);
             price = itemView.findViewById(R.id.buy_again_item_price);
             image = itemView.findViewById(R.id.buy_again_image);
             store = itemView.findViewById(R.id.hist_store_name);
+
+            this.onHistCardListener = onHistCardListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View view) {
+            PopupMenu hist_popup = new PopupMenu(view.getContext(), view);
+            hist_popup.inflate(R.menu.history_card_popup);
+            hist_popup.setOnMenuItemClickListener(this);
+            hist_popup.show();
+            onHistCardListener.onHistCardClick(getAdapterPosition(), view);
+        }
+
+        @Override
+        public boolean onMenuItemClick(MenuItem menuItem) {
+            switch(menuItem.getItemId()){
+                case R.id.action_add:
+                    Log.d("GAUTHAM", "Selected Add");
+                    String addCartTitle = String.valueOf(title.getText());
+                    String addCartPrice = String.valueOf(price.getText()).substring(2);
+                    String addCartStore = String.valueOf(store.getText());
+                    Log.d("GAUTHAM", addCartTitle + " --> " + addCartPrice + " --> " + title.getText());
+                    return true;
+                case R.id.action_cancel:
+                    Log.d("GAUTHAM", "Selected Cancel");
+                    return true;
+                default:
+                    Log.d("GAUTHAM", "Selected Non");
+                    return false;
+            }
+        }
+    }
+
+    public interface OnHistCardListener{
+        void onHistCardClick(int position, View view);
     }
 
 }
