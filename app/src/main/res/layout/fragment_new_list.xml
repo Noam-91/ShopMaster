@@ -1,18 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:gravity="fill_horizontal"
     tools:context=".fragments.NewListFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:id="@+id/tv_newlist_title"
+    <LinearLayout
+        android:id="@+id/ll_newlist_title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/title_back"
-        android:textSize="30sp"
-        android:clickable="true"
-        android:textColor="@color/black"/>
+        android:layout_height="wrap_content"
+        android:background="@color/light_gray"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-</FrameLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="false"
+            android:background="@color/transparent"/>
+        <TextView
+            android:id="@+id/tv_newlist_title"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="New Shopping List"
+            style="@style/TitleStyle"/>
+        <Button
+            android:id="@+id/btn_newlist_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/NextButton"/>
+    </LinearLayout>
+
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/sv_newlist"
+        android:background="@drawable/bg_btn_newlist"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        app:iconifiedByDefault="false"
+        app:queryBackground="@color/transparent"
+        app:queryHint="Search for Groceries"
+        android:inputType="textAutoComplete"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_newlist_title"/>
+
+    <LinearLayout
+        android:id="@+id/ll_newlist_selectButtons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sv_newlist">
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_newlist_history"
+            android:background="@drawable/bg_btn_newlist"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:padding="8dp"
+            android:text="Select From History"
+            android:textAllCaps="false"
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_down_24"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_newlist_popular"
+            android:background="@drawable/bg_btn_newlist"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="35dp"
+            android:layout_margin="10dp"
+            android:padding="8dp"
+            android:layout_gravity="right|center"
+            android:text="Popular Items"
+
+            android:textAllCaps="false"/>
+
+    </LinearLayout>
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_newlist"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:horizontalSpacing="8dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_default="wrap"
+        app:layout_constraintHeight_max="530dp"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ll_newlist_selectButtons"
+        app:layout_constraintVertical_bias="0" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="565dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Button
+            android:id="@+id/btn_newlist_save"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="40dp"
+            android:background="@drawable/bg_button_rounded"
+            android:text="Save" />
+
+        <Button
+            android:id="@+id/btn_newlist_discard"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:background="@drawable/bg_button_rounded"
+            android:text="Discard" />
+
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

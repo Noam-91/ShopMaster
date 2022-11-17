@@ -28,7 +28,7 @@
         android:id="@+id/tv_finallist_title"
         android:layout_width="0dp"
         android:layout_weight="1"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:text="@string/final_shopping_list"
         android:theme="@style/TitleStyle" />
     <Button
@@ -38,37 +38,23 @@
         android:background="@color/transparent"/>
     </LinearLayout>
 
-    <ScrollView
-        android:id="@+id/scrollView_finallist"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:orientation="vertical"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_finallist"
+        android:layout_width="fill_parent"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:horizontalSpacing="8dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHeight_default="wrap"
         app:layout_constraintHeight_max="530dp"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ll_finallist_title"
-        app:layout_constraintVertical_bias="0">
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_finallist"
-            android:layout_width="fill_parent"
-            android:layout_height="0dp"
-            android:gravity="center"
-            android:horizontalSpacing="8dp"
-            android:numColumns="auto_fit"
-            android:stretchMode="columnWidth"
-            android:verticalSpacing="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHeight_default="wrap"
-            app:layout_constraintHeight_max="530dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </ScrollView>
+        app:layout_constraintTop_toTopOf="@id/ll_finallist_title"
+        app:layout_constraintVertical_bias="0.071" />
 
     <Button
         android:id="@+id/btn_finallist_done"

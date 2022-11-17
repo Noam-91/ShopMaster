@@ -44,6 +44,8 @@ public class NewListFragment extends Fragment {
         }
         db = new DBServer(getContext());
 
+
+
         // TEST !!!
 //        TEST_randomCart();
         TEST_shortList();
@@ -54,7 +56,8 @@ public class NewListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_list, container, false);
-        mTv_title = view.findViewById(R.id.tv_newlist_title);
+
+                mTv_title = view.findViewById(R.id.tv_newlist_title);
 
         mTv_title.setOnClickListener(this::onClick);
         return view;
