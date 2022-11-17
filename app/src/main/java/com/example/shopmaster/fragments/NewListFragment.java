@@ -53,8 +53,8 @@ public class NewListFragment extends Fragment {
 
 
         // TEST !!!
-//        TEST_randomCart();
-        TEST_shortList();
+        TEST_randomCart();
+//        TEST_shortList();
     }
 
     @Override
@@ -74,10 +74,11 @@ public class NewListFragment extends Fragment {
     }
 
     public void onClick(View view) {
-        switch (getId()){
+        Bundle bundle = new Bundle();
+        FragmentManager fragmentManager = getParentFragmentManager();
+        switch (view.getId()){
             case R.id.btn_newlist_next:
-                Bundle bundle = new Bundle();
-                FragmentManager fragmentManager = getParentFragmentManager();
+                Log.d(TAG,"Next Btn onClickListener");
                 OptimizeListFragment optimizeListFragment = new OptimizeListFragment();
                 bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
                 bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
