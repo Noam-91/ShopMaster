@@ -49,8 +49,9 @@ public class FinalListAdapter extends RecyclerView.Adapter{
         return viewHolder;
     }
 
+
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         int pos = holder.getAdapterPosition();
         if (storeShopList.get(pos) instanceof String){
             String storeName = (String) storeShopList.get(pos);

@@ -30,8 +30,19 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
-// EditList uses DraftListAdapter to change/pass back the selected item into the list
 // EditList uses EditListAdapter to get updated search query results of items and store order
+
+//all files involved:
+// EditActivity
+// activity_edit_list     : activity screen layout, holds nestedscrollview and nested recyclerviews
+// layout_editlist_overall: parent recyclerview, holds the store SECTION and store information - store name, any additional distance, and the child recyclerview
+// layout_editlist_store  : child recyclerview, holds the item layout and item information - item_name, item_image, item_price
+// EditListItemFragment
+// EditListAdapter
+
+// EditListActivity and activity_edit_list are blank placeholders that allow the emulator app to run, without using the edit function
+
+
 
 public class EditActivity extends AppCompatActivity {
     SearchView mSv;
@@ -45,47 +56,29 @@ public class EditActivity extends AppCompatActivity {
 
         mSv = findViewById(R.id.edit_search);
         mNsv = findViewById(R.id.edit_content);
-
 //        var: items that are already in the draft list
+// set adapter and fragment per recyclerview - the recycler views shouldn't talk to each other, only to this activity
 
-        // set adapter
-//        shopList = db.findAllItemsInTable("NewListFragment");
-//        List<Object> storeShopList = organizeGroceriesByStore(shopList);
-//
-//        FinalListAdapter adapter = new FinalListAdapter(this,storeShopList);
-//        mRv.setLayoutManager(new LinearLayoutManager(FinalListActivity.this));
-//        mRv.setAdapter(adapter);
+// modify the calculate() function's else{} code from PlanCalculator and use it here:
+//        do the same findItemByName
+//        sort all results into the stores they come from
+//        then in increasing order of price
 
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        save that result into vars
+//        pass it into the fragments/recyclerviews/adapters, so that:
+//             parent recyclerview (store section) has store name, (optional) additional distance
+//             child recyclerview (individual item) has item image, item name, item price
 
+        }
 
-//        Fragment fragmentOne = new FragmentOne();
-//        fragmentTransaction.add(R.id.edit_store_content, fragmentOne);
-//        fragmentTransaction.addToBackStack(TAG)null);
-//
-//        fragmentTransaction.commit();
-//
-//        Fragment fragmentTwo = new FragmentTwo();
-//        fragmentTransaction.replace(R.id.edit_store_contain, fragmentTwo);
-//        fragmentTransaction.addToBackStack(TAG)null);
-//
-//        fragmentTransaction.commit();
-
-    }
 
     public void onClick(View view) {
-        Intent intent;
-
+//      will probably need to do fragment transaction when user clicks on an alternate item, to change screen back to draft list activity
 //        if click item fragment,
 //          replacing its draft list item with the new one
-//          end this activity
-
-    }
-
-    public void onSearch() {
-//    compare and get items w closest strings as typed user input
-//
+//          end this activity and frgment transact with the draft list fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
     }
 

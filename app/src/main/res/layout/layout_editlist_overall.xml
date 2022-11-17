@@ -7,7 +7,15 @@
     android:orientation="vertical"
     android:background="#aaaaaaaa"
     android:layout_marginBottom="5dp">
-<!-- this is the parent recyclerview; it's a store section -->
+<!-- this is the parent recyclerview; it's the store section that holds:
+            - the store's name, AND
+            - any additional distance or time it adds to the user's shopping route
+            on the same horizontal line
+
+            it also holds the child recyclerview that is a store's alternate item options
+
+     this is designed to be used multiple times (with the same fragment and adapter)
+     per store that has alternate item options for the item that the user decided to change -->
 
 
     <LinearLayout
