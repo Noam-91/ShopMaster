@@ -85,7 +85,7 @@ public class DraftListFragment extends Fragment {
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, FinalListFragment.class, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("draft list")
+                        .addToBackStack(TAG)
                         .commit();
                 break;
             case R.id.btn_draftlist_back:

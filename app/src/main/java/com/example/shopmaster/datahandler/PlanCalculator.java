@@ -66,7 +66,7 @@ public class PlanCalculator {
                     resultList.add(item);
                 }
                 else{
-                    throw new RuntimeException("The item "+itemName+" does not exist in Target/County Market");
+                    throw new RuntimeException("The item \""+itemName+"\" does not exist in Target/County Market");
                 }
             }
         }
@@ -95,10 +95,11 @@ public class PlanCalculator {
                     }
                     if(resultList.size()<j+1){
                         throw new ArithmeticException("The shopping List cannot be completed in "
-                                +numOfStops+" stores.");
+                                +numOfStops+" stores due to \""+itemName+"\". You can change by changing" +
+                                " the primary factor or increase number of stops.");
                     }
                 } else {
-                    throw new RuntimeException("The item does not exist in Database");
+                    throw new RuntimeException("The item \""+itemName+"\" does not exist in Database");
                 }
             }
         }

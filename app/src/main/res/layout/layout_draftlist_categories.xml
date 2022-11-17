@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginRight="40dp"
+            android:layout_marginRight="43dp"
             android:gravity="center"
             android:text="Qty"/>
 

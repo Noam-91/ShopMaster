@@ -62,13 +62,13 @@ public class EditActivity extends AppCompatActivity {
 
 //        Fragment fragmentOne = new FragmentOne();
 //        fragmentTransaction.add(R.id.edit_store_content, fragmentOne);
-//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(TAG)null);
 //
 //        fragmentTransaction.commit();
 //
 //        Fragment fragmentTwo = new FragmentTwo();
 //        fragmentTransaction.replace(R.id.edit_store_contain, fragmentTwo);
-//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(TAG)null);
 //
 //        fragmentTransaction.commit();
 

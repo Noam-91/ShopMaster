@@ -1,5 +1,6 @@
 package com.example.shopmaster.fragments;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -24,8 +26,10 @@ import com.example.shopmaster.R;
 import com.example.shopmaster.adapters.NewListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -67,6 +71,7 @@ public class NewListFragment extends Fragment {
         // TEST !!!
 //        TEST_randomCart();
 //        TEST_shortList();
+
     }
 
     @Override
@@ -75,19 +80,6 @@ public class NewListFragment extends Fragment {
         outState.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
         outState.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
     }
-//    @Override
-//    public void onDetach() {
-//        super.onDetach();
-//        if (fragmentManager.findFragmentByTag("MyFragment") != null)
-//            fragmentManager.findFragmentByTag("MyFragment").setRetainInstance(true);
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (fragmentManager.findFragmentByTag("MyFragment") != null)
-//            fragmentManager.findFragmentByTag("MyFragment").getRetainInstance();
-//    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -99,8 +91,6 @@ public class NewListFragment extends Fragment {
             // Restore last state for checked position.
             keywordList = savedInstanceState.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
             quantityList = savedInstanceState.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
-//            boolean checked = savedInstanceState.getBoolean(CHECK_BOX_STATE, false);
-//            cb.setChecked(checked);
         }
         btnNext = view.findViewById(R.id.btn_newlist_next);
         btnSave = view.findViewById(R.id.btn_newlist_save);
@@ -123,6 +113,27 @@ public class NewListFragment extends Fragment {
         rv.addItemDecoration(getRecyclerViewDivider(R.drawable.inset_recyclerview_divider));
         rv.setAdapter(adapter);
 
+        //Search View
+        searchView.setActivated(true);
+        searchView.setQueryHint("Type your keyword here");
+        searchView.onActionViewExpanded();
+        searchView.setIconified(false);
+        searchView.clearFocus();
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                searchAdapter= new ListAdapter(arrayList);
+//                searchAadapter.getFilter().filter(newText);
+//
+//                return false;
+//            }
+//        });
+
         return view;
     }
 
@@ -131,23 +142,41 @@ public class NewListFragment extends Fragment {
 
         switch (view.getId()){
             case R.id.btn_newlist_next:
-                Log.d(TAG,"Next Btn onClickListener");
+                // Save to DB Cart.
+                saveListToDB(keywordList,quantityList);
+                // Switch fragment.
                 OptimizeListFragment optimizeListFragment = new OptimizeListFragment();
-                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
-                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
+                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, 
+                        (ArrayList<String>) keywordList);
+                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, 
+                        (ArrayList<Integer>) quantityList);
                 optimizeListFragment.setArguments(bundle);
                 Log.d(TAG,"Passing bundle to OptListFrag with length = "+keywordList.size());
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, optimizeListFragment, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("new list") // name can be null
+                        .addToBackStack(TAG)
                         .commit();
                 break;
             case R.id.btn_draftlist_save:
+                Toast.makeText(getContext(),"Your shopping cart has been saved.",
+                        Toast.LENGTH_SHORT).show();
+                saveListToDB(keywordList,quantityList);
                 break;
             case R.id.btn_newlist_discard:
+                discardExistedCartAlert();
                 break;
             case R.id.btn_newlist_history:
+                // Switch Navigation tab
+                BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
+                navView.setSelectedItemId(R.id.navigation_history);
+
+                // transfer fragment.
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, HistoryFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(TAG)
+                        .commit();
                 break;
             case R.id.btn_newlist_popular:
                 Log.d(TAG,"popular button clicked");
@@ -197,6 +226,10 @@ public class NewListFragment extends Fragment {
                 keywordList.add("Beef");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_chicken:
                 Log.d(TAG,"Add chicken.");
@@ -212,36 +245,64 @@ public class NewListFragment extends Fragment {
                 keywordList.add("Shrimp");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_bread:
                 keywordList.add("Bread");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_toast:
                 keywordList.add("Toast");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_apple:
                 keywordList.add("Apple");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_banana:
                 keywordList.add("Banana");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_tomato:
                 keywordList.add("Tomato");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
             case R.id.ll_newlist_popular_corn:
                 keywordList.add("Corn");
                 quantityList.add(1);
                 popularItems.dismiss();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
                 break;
         }
     }
@@ -287,6 +348,38 @@ public class NewListFragment extends Fragment {
         randomItem = db.findItemById(380,"-1","grocery");
         keywordList.add(randomItem.getName());
         quantityList.add(new Random().nextInt(10)+1);
+    }
+
+    private void discardExistedCartAlert (){
+        AlertDialog.Builder alert = new AlertDialog.Builder(getContext());
+        alert.setTitle("Reset Cart");
+        alert.setMessage("Are you sure you want to discard existed cart?");
+        alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+            db.clearCart();
+            keywordList.clear();
+            quantityList.clear();                    
+        });
+        alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
+            // close dialog
+            dialog.cancel();
+        });
+        alert.show();
+    }
+    
+    public void saveListToDB(List<String> keywordList,List<Integer> quantityList){
+        List<Grocery> shopList= new ArrayList<>();
+        for (int i=0; i<keywordList.size(); i++){
+            Grocery item = new Grocery();
+            item.setName(keywordList.get(i));
+            item.setQuantity(quantityList.get(i));
+            shopList.add(item);
+        }
+        try {
+            db.clearCart();
+            db.addList(shopList,"cart");
+        } catch (IOException e) {
+            Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_SHORT);
+        }
     }
 
 }

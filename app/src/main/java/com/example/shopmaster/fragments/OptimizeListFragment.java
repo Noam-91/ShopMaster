@@ -55,6 +55,7 @@ public class OptimizeListFragment extends Fragment {
         db = new DBServer(getContext());
         Log.d(TAG, "Get shop list with length = "+keywordList.size());
 
+
     }
 
     @Override
@@ -132,21 +133,19 @@ public class OptimizeListFragment extends Fragment {
                 Log.d(TAG,"key word list: "+keywordList.toString());
                 // Optimize Plan
                 PlanCalculator calculator = new PlanCalculator(getContext(),keywordList,quantityList,primaryFactor,numOfStops);
-                List<Grocery> shopList = calculator.calculate();
                 try {
+                    List<Grocery> shopList = calculator.calculate();
                     db.clearCart();
                     db.addList(shopList,KEY_CART);
-                } catch (IOException e) {
-                    Toast.makeText(getContext(),"Your shopping list cannot be completed. " +
-                            "You can change by changing the primary factor " +
-                            "or increase number of stops.",Toast.LENGTH_LONG).show();
+                    // Fragment transformation.
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.navHostFragment, DraftListFragment.class, null)
+                            .setReorderingAllowed(true)
+                            .addToBackStack(TAG)
+                            .commit();
+                } catch (Exception e) {
+                    Toast.makeText(getContext(),e.getMessage(),Toast.LENGTH_LONG).show();
                 }
-                // Fragment transformation.
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, DraftListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .addToBackStack("optimize list")
-                        .commit();
                 break;
         }
     }

@@ -67,7 +67,7 @@ public class HomeFragment extends Fragment {
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack("home") // name can be null
+                        .addToBackStack(TAG)
                         .commit();
                 break;
 

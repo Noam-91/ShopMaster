@@ -18,8 +18,8 @@ import java.util.List;
 
 
 public class NewListAdapter extends RecyclerView.Adapter{
-    private static final String TAG = DraftListAdapter.class.getSimpleName();
-
+    private static final String TAG = NewListAdapter.class.getSimpleName();
+    private static final String EMPTY_LIST_HINT="The cart is empty now.";
     private final Context mContext;
     private LayoutInflater mInflater;
     private List<String> keywordList;
@@ -44,6 +44,7 @@ public class NewListAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int pos = holder.getAdapterPosition();
+
         String name = keywordList.get(pos);
         Integer quantity = quantityList.get(pos);
         ((NewListAdapter.ItemHolder) holder).tv_name.setText(name);
