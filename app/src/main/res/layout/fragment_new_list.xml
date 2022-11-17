@@ -70,8 +70,7 @@
             android:layout_margin="10dp"
             android:padding="8dp"
             android:text="Select From History"
-            android:textAllCaps="false"
-            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_down_24"/>
+            android:textAllCaps="false"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_newlist_popular"
@@ -80,10 +79,11 @@
             android:layout_weight="1"
             android:layout_height="35dp"
             android:layout_margin="10dp"
-            android:padding="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="15dp"
             android:layout_gravity="right|center"
             android:text="Popular Items"
-
+            android:drawableRight="@drawable/ic_baseline_keyboard_arrow_down_24"
             android:textAllCaps="false"/>
 
     </LinearLayout>

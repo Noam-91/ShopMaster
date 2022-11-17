@@ -5,14 +5,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopmaster.R;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +32,9 @@ public class NewListFragment extends Fragment {
     private static List<Integer> quantityList = new ArrayList<>();
     private DBServer db;
 
-    private TextView mTv_title;
+    private Button btnNext, btnSave, btnDiscard, btnHistory,btnPopular;
+    private SearchView searchView;
+    private RecyclerView rv;
 
     public NewListFragment() {
         // Required empty public constructor
@@ -57,25 +63,52 @@ public class NewListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_list, container, false);
 
-                mTv_title = view.findViewById(R.id.tv_newlist_title);
+        btnNext = view.findViewById(R.id.btn_newlist_next);
+        btnSave = view.findViewById(R.id.btn_newlist_save);
+        btnDiscard = view.findViewById(R.id.btn_newlist_discard);
+        btnHistory = view.findViewById(R.id.btn_newlist_history);
+        btnPopular = view.findViewById(R.id.btn_newlist_discard);
 
-        mTv_title.setOnClickListener(this::onClick);
+        btnNext.setOnClickListener(this::onClick);
         return view;
     }
 
     public void onClick(View view) {
-        Bundle bundle = new Bundle();
-        FragmentManager fragmentManager = getParentFragmentManager();
-        OptimizeListFragment optimizeListFragment = new OptimizeListFragment();
-        bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
-        bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
-        optimizeListFragment.setArguments(bundle);
-        Log.d(TAG,"Passing bundle to OptListFrag with length = "+keywordList.size());
-        fragmentManager.beginTransaction()
-                .replace(R.id.navHostFragment, optimizeListFragment, null)
-                .setReorderingAllowed(true)
-                .addToBackStack("new list") // name can be null
-                .commit();
+        switch (getId()){
+            case R.id.btn_newlist_next:
+                Bundle bundle = new Bundle();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                OptimizeListFragment optimizeListFragment = new OptimizeListFragment();
+                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME, (ArrayList<String>) keywordList);
+                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY, (ArrayList<Integer>) quantityList);
+                optimizeListFragment.setArguments(bundle);
+                Log.d(TAG,"Passing bundle to OptListFrag with length = "+keywordList.size());
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, optimizeListFragment, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack("new list") // name can be null
+                        .commit();
+                break;
+            case R.id.btn_draftlist_save:
+                break;
+            case R.id.btn_newlist_discard:
+                break;
+            case R.id.btn_newlist_history:
+                break;
+            case R.id.btn_newlist_popular:
+                showPopularItems();
+                break;
+        }
+
+    }
+
+    public void showPopularItems(){
+        final BottomSheetDialog popularItems = new BottomSheetDialog(getContext());
+        popularItems.setContentView(R.layout.layout_newlist_popularitems);
+        //TODO: findViewById
+        //setOnClickListener
+        //in onClick, popularItems.dismiss() to close dialog.
+        popularItems.show();
     }
 
     public void TEST_shortList(){
