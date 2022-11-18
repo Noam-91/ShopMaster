@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView;
 
@@ -16,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.shopmaster.R;
+import com.example.shopmaster.datahandler.DBServer;
+import com.example.shopmaster.datahandler.Grocery;
 import com.example.shopmaster.fragments.HistoryFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
@@ -128,6 +132,15 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                     String addCartTitle = String.valueOf(title.getText());
                     String addCartPrice = String.valueOf(price.getText()).substring(2);
                     String addCartStore = String.valueOf(store.getText());
+                    DBServer db = new DBServer(histContext);
+
+                    List<Grocery> a = db.findAllItemsInTable("cart");
+                    Log.d("GAUTHAM", "Size of Cart before: "+ a.size());
+                    Grocery cartItem = db.findItemById(id, "-1", "grocery");
+                    db.addItem(cartItem, "cart");
+                    a = db.findAllItemsInTable("cart");
+                    Log.d("GAUTHAM", "Size of Cart after: "+ a.size());
+
                     Log.d("GAUTHAM", addCartTitle + " --> " + addCartPrice + " --> " + title.getText());
                     return true;
                 case R.id.action_cancel:
