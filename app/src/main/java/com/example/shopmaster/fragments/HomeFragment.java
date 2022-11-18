@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class HomeFragment extends Fragment {
 
     private final String TAG = getClass().getSimpleName();
-    private final static String KEY_CART = "cart";
+    private final static String KEY_NEWLIST = "newlist";
     DBServer db;
 
     private ImageButton ibtnSettings;
@@ -56,8 +56,8 @@ public class HomeFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         switch (view.getId()){
             case R.id.btn_home_newlist:
-                // If previous cart exist pop delete alert
-                if (!db.tableIsEmpty(KEY_CART)){discardExistedCartAlert ();}
+                // If previous cart exist, pop delete alert
+                if (!db.tableIsEmpty(KEY_NEWLIST)){discardExistedCartAlert ();}
 
                 // Switch Navigation tab
                 BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
@@ -84,7 +84,7 @@ public class HomeFragment extends Fragment {
         alert.setTitle("Reset Cart");
         alert.setMessage("Are you sure you want to discard existed cart?");
         alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-            db.clearCart();
+            db.clearNewList();
         });
         alert.setNegativeButton(android.R.string.no, (dialog, which) -> {
             // close dialog

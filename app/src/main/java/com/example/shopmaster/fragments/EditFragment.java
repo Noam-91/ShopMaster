@@ -1,45 +1,38 @@
-package com.example.shopmaster;
+package com.example.shopmaster.fragments;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
-import androidx.appcompat.widget.SearchView;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.SimpleItemAnimator;
 
-import com.example.shopmaster.adapters.DraftListAdapter;
-import com.example.shopmaster.adapters.EditListAdapter;
-import com.example.shopmaster.adapters.FinalListAdapter;
+import com.example.shopmaster.EditActivity;
+import com.example.shopmaster.R;
 import com.example.shopmaster.adapters.ParentItemAdapter;
 import com.example.shopmaster.datahandler.ChildItem;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 import com.example.shopmaster.datahandler.ParentItem;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
-public class EditActivity extends AppCompatActivity {
+public class EditFragment extends Fragment {
+
     private final String TAG = getClass().getSimpleName();
     private static final String KEY_ITEM_NAME = "item name";
     private static final String KEY_CART = "cart";
     private String itemName = null;
+    private String keyword = null;
     private DBServer db;
     Grocery itemRemoving = new Grocery();
 
@@ -47,25 +40,18 @@ public class EditActivity extends AppCompatActivity {
     ImageButton btnBack;
     RecyclerView parentRecyclerView;
 
+    public EditFragment() {
+        // Required empty public constructor
+    }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(savedInstanceState!=null){
-        }
-        itemName = getIntent().getStringExtra(KEY_ITEM_NAME);
+        itemName = getArguments().getString(KEY_ITEM_NAME);
         Log.d(TAG,"onCreate: get itemName: "+itemName);
 
-        setContentView(R.layout.activity_edit);
-        parentRecyclerView = findViewById(R.id.parent_recyclerview);
-        btnBack = findViewById(R.id.btn_edit_back);
-        searchView = findViewById(R.id.sv_edit);
-
-        // DB
-        db = new DBServer(this);
-
+        db = new DBServer(getContext());
         // Extract itemName
-        String keyword = null;
         String[] substrList =  itemName.split(" ");
         for (String substr: substrList){
             if (Grocery.getAllKeywords().contains(substr)){
@@ -74,19 +60,43 @@ public class EditActivity extends AppCompatActivity {
             }
         }
         Log.d(TAG,"Get keyword: "+keyword);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.activity_edit, container, false);
+        parentRecyclerView = view.findViewById(R.id.parent_recyclerview);
+        btnBack = view.findViewById(R.id.btn_edit_back);
+        searchView = view.findViewById(R.id.sv_edit);
+
+        //Set Bottom Navigation invisible.
+        BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
+        navView.setVisibility(View.INVISIBLE);
 
         // RecyclerView
-        LinearLayoutManager layoutManager= new LinearLayoutManager(EditActivity.this);
-        List<ParentItem> parentItemList =ParentItemList(keyword);
-        ParentItemAdapter parentItemAdapter= new ParentItemAdapter(EditActivity.this,
+        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
+        List<ParentItem> parentItemList = ParentItemList(keyword);
+        ParentItemAdapter parentItemAdapter= new ParentItemAdapter(getContext(),
                 parentItemList,itemRemoving);
         parentRecyclerView.setAdapter(parentItemAdapter);
         parentRecyclerView.setLayoutManager(layoutManager);
 
-        //searchView
+        // SearchView
         searchView.setQueryHint(keyword);
 
-        }
+        //back btn
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                navView.setVisibility(View.VISIBLE);
+                fragmentManager.popBackStack("DraftListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            }
+        });
+
+        return view;
+    }
 
     private List<ParentItem> ParentItemList(String keyword)
     {
@@ -151,20 +161,32 @@ public class EditActivity extends AppCompatActivity {
         return itemList;
     }
 
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btn_edit_back:
-                break;
+    public void onClick(View view){
 
-        }
-
+//        case searchview:
+//          get user typed input, call method below
+//        case item:
+//          change the item on the draft list to the one clicked
+//          end edit_list activity
     }
 
-    public void replaceItem(Grocery newItem){
-        Grocery oldItem = new Grocery();
-        oldItem.setName(itemName);
-        db.deleteItem(oldItem,KEY_CART);
-        db.addItem(newItem,KEY_CART);
+    /**
+     * Categorize the items by Store,
+     * return an object list for the recyclerView adapter.
+     * @param shopList : shopList
+     * @return : Sorted list with Stores name included.
+     */
+//    TODO: change name
+    public List<Object> organizeGroceriesByStore(List<Grocery> shopList) {
+
+        /**
+         * fetch user typed input and string-compare with database items
+         * get the closest relevant matches (limited to 20 items total?)
+         * return the match items in increasing price order per their store
+         * return the match stores in increasing distance (Target -> County Market)
+         */
+
+        return null;
     }
 
 }

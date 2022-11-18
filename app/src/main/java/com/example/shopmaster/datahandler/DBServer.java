@@ -206,9 +206,9 @@ public class DBServer {
         }
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         Object[] arrayOfObject = new Object[2];
-        arrayOfObject[0] = entity.getId();
+        arrayOfObject[0] = entity.getName();
         arrayOfObject[1] = entity.getHistDate();
-        localSQLiteDatabase.execSQL("DELETE FROM "+tableName+" WHERE item_id=? AND date=?",
+        localSQLiteDatabase.execSQL("DELETE FROM "+tableName+" WHERE name=? AND date=?",
                 arrayOfObject);
         localSQLiteDatabase.close();
     }

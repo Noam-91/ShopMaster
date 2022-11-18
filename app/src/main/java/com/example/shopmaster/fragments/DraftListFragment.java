@@ -30,6 +30,7 @@ import java.util.List;
 public class DraftListFragment extends Fragment {
 
     private final String TAG = getClass().getSimpleName();
+    private static final String KEY_CART = "cart";
     private List<Grocery> shopList;
     DBServer db;
 
@@ -58,7 +59,7 @@ public class DraftListFragment extends Fragment {
         btnBack = view.findViewById(R.id.btn_draftlist_back);
         btnAdd = view.findViewById(R.id.btn_draftlist_add);
 
-        shopList = db.findAllItemsInTable("cart");
+        shopList = db.findAllItemsInTable(KEY_CART);
         List<Object> storeShopList = organizeGroceriesByStore(shopList);
 
         DraftListAdapter adapter = new DraftListAdapter(getContext(),storeShopList);
@@ -76,7 +77,7 @@ public class DraftListFragment extends Fragment {
 
     public void onClick(View view){
         Bundle bundle = new Bundle();
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         switch (view.getId()){
             case R.id.btn_draftlist_save:
                 Toast.makeText(getContext(),
@@ -90,7 +91,7 @@ public class DraftListFragment extends Fragment {
                         .commit();
                 break;
             case R.id.btn_draftlist_back:
-                fragmentManager.popBackStack();
+                fragmentManager.popBackStack("OptimizeListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 break;
             case R.id.btn_draftlist_add:
                 Intent intent = new Intent(getActivity(), EditActivity.class);

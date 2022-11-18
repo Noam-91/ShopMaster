@@ -119,10 +119,10 @@ public class OptimizeListFragment extends Fragment {
      */
     public void onClick(View view){
         Bundle bundle = new Bundle();
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         switch (view.getId()){
             case R.id.btn_optimizelist_back:
-                fragmentManager.popBackStack();
+                fragmentManager.popBackStack("NewListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 break;
             case R.id.btn_optimizelist_next:
                 // Optimize Plan

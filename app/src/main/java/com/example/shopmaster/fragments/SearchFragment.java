@@ -2,14 +2,11 @@ package com.example.shopmaster.fragments;
 
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
+
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +19,6 @@ import android.widget.Toast;
 import com.example.shopmaster.R;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
@@ -32,7 +26,7 @@ public class SearchFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     List<String> allKeywords;
     private FragmentManager fragmentManager;
-    private final String KEY_CART = "cart";
+    private final String KEY_NEWLIST = "newlist";
 
     private SearchView searchView;
     private ListView listView;
@@ -51,8 +45,8 @@ public class SearchFragment extends Fragment {
         if (bundle!= null) {
         }
         db = new DBServer(getContext());
-        allKeywords = getAllKeywords();
-        fragmentManager = getParentFragmentManager();
+        allKeywords = Grocery.getAllKeywords();
+        fragmentManager = getActivity().getSupportFragmentManager();
     }
 
     @Override
@@ -67,10 +61,7 @@ public class SearchFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                fragmentManager.popBackStack("NewListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
@@ -81,7 +72,7 @@ public class SearchFragment extends Fragment {
                 Grocery item = new Grocery();
                 item.setName(itemName);
                 item.setQuantity(1);
-                db.addItem(item,KEY_CART);
+                db.addItem(item,KEY_NEWLIST);
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, null)
                         .setReorderingAllowed(true)
@@ -120,9 +111,5 @@ public class SearchFragment extends Fragment {
         return view;
     }
 
-    public List<String> getAllKeywords(){
-        // TODO: Create keyword list
-        String[] str = {"Beef","Banana","Bread"};
-        return Arrays.asList(str);
-    }
+
 }

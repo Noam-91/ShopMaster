@@ -12,9 +12,7 @@
         style="@style/TitleStyle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="SETTINGS"
-        android:fontFamily="@font/open_sans"
-        android:textSize="30sp" />
+        android:text="SETTINGS" />
 
     <LinearLayout
         android:layout_width="match_parent"

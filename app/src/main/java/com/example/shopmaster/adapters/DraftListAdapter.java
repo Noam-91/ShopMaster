@@ -1,8 +1,11 @@
 package com.example.shopmaster.adapters;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,19 +15,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.example.shopmaster.EditActivity;
 import com.example.shopmaster.R;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
+
+import com.example.shopmaster.fragments.EditFragment;
+
 
 import java.util.List;
 
 public class DraftListAdapter extends RecyclerView.Adapter{
     private static final String TAG = DraftListAdapter.class.getSimpleName();
+    private static final String KEY_ITEM_NAME = "item name";
+    private static final String KEY_CART = "cart";
     private static final int VIEW_TYPE_TITLE = 0;
     private static final int VIEW_TYPE_ITEM = 1;
 
@@ -83,7 +95,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                 item.setQuantity(newQuantity);
                 ((Grocery) storeShopList.get(pos)).setQuantity(newQuantity);
                 notifyItemChanged(pos);
-                db.updateItemQuantity(item,"cart",newQuantity);
+                db.updateItemQuantity(item,KEY_CART,newQuantity);
             });
             ((ItemHolder)holder).btn_dec.setOnClickListener(view -> {
                 int newQuantity = item.getQuantity()-1;
@@ -95,7 +107,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                     alert.setTitle("Delete Item");
                     alert.setMessage("Are you sure you want to delete?");
                     alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                        db.deleteItem(item,"cart");
+                        db.deleteItem(item,KEY_CART);
                         storeShopList.remove(item);
                         notifyItemRemoved(pos);
                     });
@@ -108,12 +120,24 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                     item.setQuantity(newQuantity);
                     Log.d(TAG,"Quantity decrement: "+item.getQuantity());
                     notifyItemChanged(pos);
-                    db.updateItemQuantity(item,"cart",newQuantity);
+                    db.updateItemQuantity(item,KEY_CART,newQuantity);
                 }
 
             });
             ((ItemHolder)holder).btn_alt.setOnClickListener(view -> {
-                //TODO: Link to Edit List.
+//                Intent intent = new Intent(view.getContext(), EditActivity.class);
+//                intent.putExtra(KEY_ITEM_NAME,item.getName());
+//                view.getContext().startActivity(intent);
+                FragmentManager fragmentManager = ((AppCompatActivity)mContext).getSupportFragmentManager();
+                Bundle bundle = new Bundle();
+                EditFragment editFragment = new EditFragment();
+                bundle.putString(KEY_ITEM_NAME, item.getName());
+                editFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, editFragment, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(TAG)
+                        .commit();
             });
 
         }

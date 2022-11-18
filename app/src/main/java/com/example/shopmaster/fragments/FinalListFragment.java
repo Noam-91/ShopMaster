@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.List;
 
 public class FinalListFragment extends Fragment {
-
+    private static final String KEY_CART = "cart";
     private final String TAG = getClass().getSimpleName();
     private List<Grocery> shopList;
     DBServer db;
@@ -53,7 +53,7 @@ public class FinalListFragment extends Fragment {
         btnDone = view.findViewById(R.id.btn_finallist_done);
         btnBack = view.findViewById(R.id.btn_finallist_back);
 
-        shopList = db.findAllItemsInTable("cart");
+        shopList = db.findAllItemsInTable(KEY_CART);
         List<Object> storeShopList = organizeGroceriesByStore(shopList);
         FinalListAdapter adapter = new FinalListAdapter(getContext(),storeShopList);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -67,7 +67,7 @@ public class FinalListFragment extends Fragment {
     }
 
     public void onClick(View view){
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         Bundle bundle = new Bundle();
         switch (view.getId()){
             case R.id.btn_finallist_done:
@@ -81,19 +81,18 @@ public class FinalListFragment extends Fragment {
                         Toast.LENGTH_SHORT).show();
                 // Reset Cart
                 db.clearCart();
+                db.clearNewList();
                 //Reset Cart navigation to NewListFragment.
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, null)
                         .setReorderingAllowed(true)
                         .commit();
-                // Destroy all Fragments in stack.
-                fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 // Switch to Home.
                 BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
                 navView.setSelectedItemId(R.id.navigation_home);
                 break;
             case R.id.btn_finallist_back:
-                fragmentManager.popBackStack();
+                fragmentManager.popBackStack("DraftListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
     }
 

@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -132,6 +133,8 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
                     Grocery cartItem = db.findItemById(id, "-1", "grocery");
                     cartItem.setQuantity(1);
                     db.addItem(cartItem, "newList");
+                    Toast.makeText(histContext,cartItem.getName()+" has been " +
+                            "added to current shopping list.",Toast.LENGTH_SHORT).show();
                     return true;
                 case R.id.action_cancel:
                     Log.d("GAUTHAM", "Selected Cancel");

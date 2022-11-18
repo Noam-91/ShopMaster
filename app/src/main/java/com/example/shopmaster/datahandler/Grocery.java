@@ -2,7 +2,9 @@ package com.example.shopmaster.datahandler;
 
 import androidx.annotation.NonNull;
 
+import java.util.Arrays;
 import java.util.Comparator;
+import java.util.List;
 
 public class Grocery {
     private Integer item_id;
@@ -80,6 +82,7 @@ public class Grocery {
         return "Grocery Item--->"+"Id: "+item_id+",  name: "+name+", category: "+cate
                 +", Store: "+store+", Quantity: "+quantity+", History Date: "+date;
     }
+
     public static class SortbyStoreCate implements Comparator<Grocery>
     {
 
@@ -91,5 +94,16 @@ public class Grocery {
             }
             return c;
         }
+    }
+
+    public static List<String> getAllKeywords(){
+        String[] str = {"Muffins","Cake","Cheesecake","Carrot","Tiramisu","Donut","Cookie","Bread",
+                "Garlic","Pie","Sugar","Banana","Nut","Brownies","Mousse","Buns","Rolls",
+                "Croissants","Bagels","Pancakes","Pastries","Taco","Shrimp","Bean","Mussels",
+                "Turkey","Fillets","Steaks","Salmon","Chicken","Salmon","Burgers","Beef","Bacon",
+                "Meatballs","Pork","Ham","Tofu","Sirloin","Duck","Crab","Salad","Oysters","Tomato",
+                "Mango","Onions","Potatoes","Corn","Apples","Peppers","Lettuce","Lemon","Avocado",
+                "Melon","Blueberries","Eggplant","Broccoli" };
+        return Arrays.asList(str);
     }
 }

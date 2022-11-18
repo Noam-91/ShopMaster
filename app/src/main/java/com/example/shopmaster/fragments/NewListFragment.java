@@ -63,7 +63,7 @@ public class NewListFragment extends Fragment {
         shopList = db.findAllItemsInTable(KEY_NEWLIST);
         Log.d(TAG,"onCreate, shopList = "+shopList);
 
-        fragmentManager = getParentFragmentManager();
+        fragmentManager = getActivity().getSupportFragmentManager();
 
 
 
@@ -112,7 +112,6 @@ public class NewListFragment extends Fragment {
         switch (view.getId()){
             case R.id.btn_newlist_next:
                 // Switch fragment.
-
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, OptimizeListFragment.class, null)
                         .setReorderingAllowed(true)
@@ -201,80 +200,56 @@ public class NewListFragment extends Fragment {
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_shrimp:
                 item.setName("Shrimp");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_bread:
                 item.setName("Bread");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_toast:
                 item.setName("Toast");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_apple:
                 item.setName("Apple");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_banana:
                 item.setName("Banana");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_tomato:
                 item.setName("Tomato");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
             case R.id.ll_newlist_popular_corn:
                 item.setName("Corn");
                 item.setQuantity(1);
                 db.addItem(item,KEY_NEWLIST);
                 popularItems.dismiss();
-                fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
-                        .setReorderingAllowed(true)
-                        .commit();
+                refreshRecyclerView();
                 break;
         }
     }
@@ -282,7 +257,7 @@ public class NewListFragment extends Fragment {
     public void TEST_shortList(){
         db.clearNewList();
         Grocery item = new Grocery();
-        String[] itemNames = {"Banana", "Beef", "Bread",""};
+        String[] itemNames = {"Banana", "Beef", "Bread"};
         for (String itemName : itemNames){
             item.setName(itemName);
             item.setQuantity(new Random().nextInt(10)+1);
