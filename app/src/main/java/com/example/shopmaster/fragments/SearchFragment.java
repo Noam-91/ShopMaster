@@ -2,13 +2,18 @@ package com.example.shopmaster.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.ListAdapter;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,13 +21,19 @@ import android.widget.Toast;
 
 import com.example.shopmaster.R;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class SearchFragment extends Fragment {
 
     private final String TAG = getClass().getSimpleName();
+    private static final String KEY_NEW_SHOPPING_LIST_NAME = "New Shopping List Name";
+    private static final String KEY_NEW_SHOPPING_LIST_QUANTITY = "New Shopping List Quantity";
+    private static List<String> keywordList = new ArrayList<>();
+    private static List<Integer> quantityList = new ArrayList<>();
     List<String> allKeywords;
+    private FragmentManager fragmentManager;
 
     private SearchView searchView;
     private ListView listView;
@@ -36,10 +47,14 @@ public class SearchFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-
+        Bundle bundle = this.getArguments();
+        if (bundle!= null) {
+            keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
+            quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
         }
+        Log.d(TAG,"Search Created. shop list length: "+keywordList.size());
         allKeywords = getAllKeywords();
+        fragmentManager = getParentFragmentManager();
     }
 
     @Override
@@ -49,7 +64,45 @@ public class SearchFragment extends Fragment {
 
         listView = view.findViewById(R.id.lv_search);
         searchView = view.findViewById(R.id.sv_search);
+        btnBack = view.findViewById(R.id.btn_search_back);
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle bundle = new Bundle();
+                NewListFragment newListFragment = new NewListFragment();
+                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME,
+                        (ArrayList<String>) keywordList);
+                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY,
+                        (ArrayList<Integer>) quantityList);
+                newListFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String itemName = (String)parent.getItemAtPosition(position);
+                keywordList.add(itemName);
+                quantityList.add(1);
+                Bundle bundle = new Bundle();
+                NewListFragment newListFragment = new NewListFragment();
+                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME,
+                        (ArrayList<String>) keywordList);
+                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY,
+                        (ArrayList<Integer>) quantityList);
+                newListFragment.setArguments(bundle);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .commit();
+            }
+        });
+        // SearchView filter
         searchView.setActivated(true);
         searchView.setQueryHint("Type your keyword here");
         searchView.onActionViewExpanded();

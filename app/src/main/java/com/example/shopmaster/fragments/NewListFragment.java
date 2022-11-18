@@ -41,7 +41,6 @@ public class NewListFragment extends Fragment {
     private final String TAG = getClass().getSimpleName();
     private static final String KEY_NEW_SHOPPING_LIST_NAME = "New Shopping List Name";
     private static final String KEY_NEW_SHOPPING_LIST_QUANTITY = "New Shopping List Quantity";
-    private final static String KEY_CART = "cart";
     private static List<String> keywordList = new ArrayList<>();
     private static List<Integer> quantityList = new ArrayList<>();
     private DBServer db;
@@ -64,10 +63,10 @@ public class NewListFragment extends Fragment {
             keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
             quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
         }
+
         Log.d(TAG, "onCreate: keywordList length = "+keywordList.size());
         db = new DBServer(getContext());
         fragmentManager = getParentFragmentManager();
-
 
         // TEST !!!
 //        TEST_randomCart();
@@ -87,12 +86,6 @@ public class NewListFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_new_list, container, false);
-        Log.d(TAG,"View created, receive bundle=null?"+(savedInstanceState==null));
-        if (savedInstanceState != null) {
-            // Restore last state for checked position.
-            keywordList = savedInstanceState.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
-            quantityList = savedInstanceState.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
-        }
         btnNext = view.findViewById(R.id.btn_newlist_next);
         btnSave = view.findViewById(R.id.btn_newlist_save);
         btnDiscard = view.findViewById(R.id.btn_newlist_discard);
@@ -109,13 +102,14 @@ public class NewListFragment extends Fragment {
         btnDiscard.setOnClickListener(this::onClick);
         btnHistory.setOnClickListener(this::onClick);
         searchView.setOnClickListener(this::onClick);
+        searchView.onActionViewCollapsed();
 
         NewListAdapter adapter = new NewListAdapter(getContext(),keywordList,quantityList);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.addItemDecoration(getRecyclerViewDivider(R.drawable.inset_recyclerview_divider));
         rv.setAdapter(adapter);
 
-
+        //TODO: new list in Home cleans up db cart but not the string list.
 
         return view;
     }
@@ -166,6 +160,12 @@ public class NewListFragment extends Fragment {
                 showPopularItems();
                 break;
             case R.id.sv_newlist:
+                SearchFragment searchFragment = new SearchFragment();
+                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME,
+                        (ArrayList<String>) keywordList);
+                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY,
+                        (ArrayList<Integer>) quantityList);
+                searchFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, SearchFragment.class, null)
                         .setReorderingAllowed(true)

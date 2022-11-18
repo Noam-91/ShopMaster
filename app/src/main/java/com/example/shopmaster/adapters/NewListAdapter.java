@@ -57,7 +57,6 @@ public class NewListAdapter extends RecyclerView.Adapter{
         ((NewListAdapter.ItemHolder)holder).btn_dec.setOnClickListener(view -> {
             // quantity=0, delete item.
             if(quantity==1){
-                Log.d(TAG,"TRigger");
                 AlertDialog.Builder alert = new AlertDialog.Builder(mContext);
                 alert.setTitle("Delete Item");
                 alert.setMessage("Are you sure you want to delete?");
