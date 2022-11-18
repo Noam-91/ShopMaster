@@ -74,7 +74,7 @@ public class HomeFragment extends Fragment {
             case R.id.ibtn_home_settings:
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), SettingsActivity.class);
-                getActivity().startActivity(intent);
+                startActivity(intent);
                 break;
         }
     }
