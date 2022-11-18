@@ -123,10 +123,12 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         try{
             ArrayAdapter<String> dropDownAdapter;
             ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
+            unique_dates.add(0, "Choose a Date");
 
             dropDownAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, unique_dates);
+//            dateDropDown.setPrompt("Choose a Date");
             dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dateDropDown.setSelection(1);
+            dateDropDown.setSelection(0);
             dateDropDown.setAdapter(dropDownAdapter);
             dateDropDown.setOnItemSelectedListener(this);
         } catch(Exception e){
@@ -219,7 +221,9 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         String date = adapterView.getItemAtPosition(position).toString();
         DBServer db = new DBServer(getContext());
         List<Grocery> date_data = db.findAllByDate(date);
-        itemList = getItems(date_data);
+        if (position!=0) {
+            itemList = getItems(date_data);
+        }
         setShoppingHistoryLayout(itemList);
 //        Log.d("GAUTHAM", "Date Selected: "+ date);
 //        Log.d("GAUTHAM", "Size for Date: "+ date_data.size());
