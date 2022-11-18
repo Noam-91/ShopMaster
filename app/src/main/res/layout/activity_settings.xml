@@ -2,141 +2,188 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="8dp"
     tools:context=".SettingsActivity">
-
-    <!-- TODO: Update blank fragment layout -->
     <TextView
         style="@style/TitleStyle"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="40dp"
         android:text="SETTINGS" />
 
-    <LinearLayout
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp"
-        tools:context=".SettingsActivity">
+        app:cardCornerRadius="20dp"
+        android:layout_margin="8dp"
+        android:backgroundTint="@color/gainsboro"
+        android:padding="15dp">
 
-
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="App Settings"
-            android:textColor="@color/purple_700"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:padding="15dp"
+            tools:context=".SettingsActivity">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="Big Font Mode"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="17sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="8dp"
+                android:text="App Settings"
+                android:textColor="@color/purple_700"
+                android:fontFamily="@font/open_sans"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="Dark/Light Mode"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="17sp" />
+            <TextView
+                android:id="@+id/tv_settings_bigfontmode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Big Font Mode"
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="Update (Version 1.1.2)"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="17sp" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_settings_darkmode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Dark/Light Mode"
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
 
-    <LinearLayout
+            <TextView
+                android:id="@+id/tv_settings_update"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Update (Version 1.1.2)"
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="15dp"
-        tools:context=".SettingsActivity">
+        android:layout_margin="8dp"
+        app:cardCornerRadius="20dp"
+        android:backgroundTint="@color/gainsboro"
+        android:padding="15dp">
 
-        <!-- TODO: Update blank fragment layout -->
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="Communication"
-            android:textColor="@color/purple_700"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:padding="15dp"
+            tools:context=".SettingsActivity">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="Help"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="17sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="8dp"
+                android:text="Communication"
+                android:textColor="@color/purple_700"
+                android:fontFamily="@font/open_sans"
+                android:textSize="20sp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="Report"
-            android:fontFamily="@font/oldenburg"
-            android:textSize="17sp" />
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="40dp"
-            android:gravity="top"
-            android:hint="Feedback" />
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:layout_gravity="end"
-            android:text="Send" />
-    </LinearLayout>
+            <TextView
+                android:id="@+id/tv_settings_help"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Help"
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
 
-    <LinearLayout
+            <TextView
+                android:id="@+id/tv_settings_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Report"
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
+            <TextView
+                android:id="@+id/tv_settings_feedback"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="Feedback"
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cv_settings_reset"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:layout_margin="8dp"
         android:layout_marginTop="80dp"
-        android:gravity="bottom"
-        android:padding="12dp"
-        tools:context=".SettingsActivity">
+        app:cardCornerRadius="20dp"
+        android:clickable="true"
+        android:backgroundTint="@color/gainsboro"
+        android:padding="15dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="15dp"
+            android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="8dp"
+                android:text="Reset App Data"
+                android:textColor="@color/red"
+                android:fontFamily="@font/open_sans"
+                android:textSize="20sp"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:layout_marginBottom="5dp"
+                android:text="This will delete all the data from within the app."
+                android:fontFamily="@font/open_sans"
+                android:textSize="17sp" />
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:textColor="@color/white"
-            android:layout_gravity="center_horizontal"
-            android:text="Reset App Data"
-            />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
 
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="8dp"
+        android:layout_marginTop="80dp"
+        app:cardCornerRadius="20dp"
+        android:clickable="true"
+        android:backgroundTint="@color/gainsboro"
+        android:padding="15dp">
 
-
-        <TextView
+        <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingHorizontal="30dp"
-            android:text="This will delete all the data from  the app"
-            android:layout_gravity="center_horizontal"
+            android:background="@color/transparent"
+            android:text="Back to Home"/>
+    </androidx.cardview.widget.CardView>
 
-            android:fontFamily="@font/oldenburg"
-            android:textSize="13sp" />
 
-    </LinearLayout>
 
 </LinearLayout>

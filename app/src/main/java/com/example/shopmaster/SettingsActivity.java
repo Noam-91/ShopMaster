@@ -3,8 +3,11 @@ package com.example.shopmaster;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 public class SettingsActivity extends AppCompatActivity {
+    Button btnBack;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
