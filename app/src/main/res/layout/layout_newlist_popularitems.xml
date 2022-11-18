@@ -9,9 +9,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Popular Items"
-        android:textColor="@color/black"
+        android:textColor="@color/dark_green"
         android:textSize="18sp"/>
 
     <GridLayout
@@ -209,12 +210,13 @@
         </LinearLayout>
 
     </GridLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
+        android:layout_margin="5dp"
         android:text="@string/more"
         android:typeface="sans"
-        android:gravity="center"
-        android:textColor="@color/azure"/>
+        android:gravity="center_horizontal"
+        android:textColor="@color/black"/>
 </LinearLayout>

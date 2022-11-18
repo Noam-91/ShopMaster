@@ -53,8 +53,8 @@ public class PlanCalculator {
         Log.d(TAG,"ResultList length = "+resultList.size());
         // User chooses time.
         if (primaryFactor.equals("time")){
-            String[] stores = {"Target", "County Market","",""};
-            if(numOfStops==1){stores = new String[]{"Target","","",""};}
+            String[] stores = {"County Market","Target","",""};
+            if(numOfStops==1){stores = new String[]{"County Market","","",""};}
 
             DBServer db = new DBServer(context);
             for (int i=0; i<nameList.size();i++){
@@ -66,7 +66,8 @@ public class PlanCalculator {
                     resultList.add(item);
                 }
                 else{
-                    throw new RuntimeException("The item \""+itemName+"\" does not exist in Target/County Market");
+                    throw new RuntimeException("The item \""+itemName+"\" does not exist" +
+                            " in County Market or Target");
                 }
             }
         }
