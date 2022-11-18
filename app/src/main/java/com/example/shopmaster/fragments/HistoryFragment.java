@@ -107,12 +107,10 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         buyAgainList = view.findViewById(R.id.history_list);
         dateDropDown = (Spinner) view.findViewById(R.id.date_dropdown);
 
-
-
-
         DBServer db = new DBServer(getContext());
 
-//
+//        Uncomment the below Function Call to populate History table
+//        TEST_addItemsToHistoryTable();
 
         historyList = db.findAllItemsInTable("history");
 
@@ -235,7 +233,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 
 
 
-    private void TESTE_addItemsToHistoryTable(){
+    private void TEST_addItemsToHistoryTable(){
 
 
 //        historyList = db.findAllItemsInTable("grocery");
