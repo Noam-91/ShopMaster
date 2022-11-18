@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.widget.SearchView;
@@ -14,7 +13,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.shopmaster.EditActivity;
 import com.example.shopmaster.R;
 import com.example.shopmaster.adapters.ParentItemAdapter;
 import com.example.shopmaster.datahandler.ChildItem;
@@ -65,7 +63,7 @@ public class EditFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.activity_edit, container, false);
+        View view = inflater.inflate(R.layout.fragment_edit, container, false);
         parentRecyclerView = view.findViewById(R.id.parent_recyclerview);
         btnBack = view.findViewById(R.id.btn_edit_back);
         searchView = view.findViewById(R.id.sv_edit);

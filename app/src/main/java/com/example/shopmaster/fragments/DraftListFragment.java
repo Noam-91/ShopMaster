@@ -1,6 +1,5 @@
 package com.example.shopmaster.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -16,8 +15,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.example.shopmaster.EditActivity;
-import com.example.shopmaster.EditListActivity;
 import com.example.shopmaster.R;
 import com.example.shopmaster.adapters.DraftListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
@@ -94,8 +91,11 @@ public class DraftListFragment extends Fragment {
                 fragmentManager.popBackStack("OptimizeListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 break;
             case R.id.btn_draftlist_add:
-                Intent intent = new Intent(getActivity(), EditActivity.class);
-                startActivity(intent);
+                fragmentManager.beginTransaction()
+                        .replace(R.id.navHostFragment, EditFragment.class, null)
+                        .setReorderingAllowed(true)
+                        .addToBackStack(TAG)
+                        .commit();
                 break;
         }
     }
