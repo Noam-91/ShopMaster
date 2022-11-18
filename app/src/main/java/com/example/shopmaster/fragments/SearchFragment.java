@@ -20,6 +20,8 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.shopmaster.R;
+import com.example.shopmaster.datahandler.DBServer;
+import com.example.shopmaster.datahandler.Grocery;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,16 +30,14 @@ import java.util.List;
 public class SearchFragment extends Fragment {
 
     private final String TAG = getClass().getSimpleName();
-    private static final String KEY_NEW_SHOPPING_LIST_NAME = "New Shopping List Name";
-    private static final String KEY_NEW_SHOPPING_LIST_QUANTITY = "New Shopping List Quantity";
-    private static List<String> keywordList = new ArrayList<>();
-    private static List<Integer> quantityList = new ArrayList<>();
     List<String> allKeywords;
     private FragmentManager fragmentManager;
+    private final String KEY_CART = "cart";
 
     private SearchView searchView;
     private ListView listView;
     private Button btnBack;
+    private DBServer db;
 
     public SearchFragment() {
         // Required empty public constructor
@@ -49,10 +49,8 @@ public class SearchFragment extends Fragment {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
         if (bundle!= null) {
-            keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
-            quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
         }
-        Log.d(TAG,"Search Created. shop list length: "+keywordList.size());
+        db = new DBServer(getContext());
         allKeywords = getAllKeywords();
         fragmentManager = getParentFragmentManager();
     }
@@ -69,13 +67,6 @@ public class SearchFragment extends Fragment {
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Bundle bundle = new Bundle();
-                NewListFragment newListFragment = new NewListFragment();
-                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME,
-                        (ArrayList<String>) keywordList);
-                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY,
-                        (ArrayList<Integer>) quantityList);
-                newListFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, null)
                         .setReorderingAllowed(true)
@@ -87,15 +78,10 @@ public class SearchFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String itemName = (String)parent.getItemAtPosition(position);
-                keywordList.add(itemName);
-                quantityList.add(1);
-                Bundle bundle = new Bundle();
-                NewListFragment newListFragment = new NewListFragment();
-                bundle.putStringArrayList(KEY_NEW_SHOPPING_LIST_NAME,
-                        (ArrayList<String>) keywordList);
-                bundle.putIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY,
-                        (ArrayList<Integer>) quantityList);
-                newListFragment.setArguments(bundle);
+                Grocery item = new Grocery();
+                item.setName(itemName);
+                item.setQuantity(1);
+                db.addItem(item,KEY_CART);
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, null)
                         .setReorderingAllowed(true)

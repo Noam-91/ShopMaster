@@ -21,6 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_NAME_GROC = "grocery";
     private static final String TABLE_NAME_CART = "cart";
     private static final String TABLE_NAME_HIST = "history";
+    private static final String TABLE_NAME_NEWLIST = "newlist";
     public static final String COLUMN_NAME = "name";
     public static final String _ID = "item_id";
     public static final String COLUMN_CATEGORY = "cate";
@@ -34,6 +35,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private final String grocSQL;
     private final String histSQL;
     private final String cartSQL;
+    private final String newlistSQL;
+
 
     public DBHelper(Context context) {
         // When user create/edit shopping cart
@@ -53,7 +56,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_STORE + " VARCHAR NOT NULL,"
                 + COLUMN_IMGURL + " VARCHAR NOT NULL,"
                 + COLUMN_QUANTITY + " INTEGER NOT NULL,"
-                + COLUMN_DATE + " VARCHAR NOT NULL"+ ");";
+                + COLUMN_DATE + " VARCHAR"+ ");";
         histSQL = "CREATE TABLE IF NOT EXISTS "
                 + TABLE_NAME_HIST +"("
                 + _ID + " INTEGER NOT NULL,"
@@ -72,8 +75,18 @@ public class DBHelper extends SQLiteOpenHelper {
                 + COLUMN_PRICE + " VARCHAR NOT NULL,"
                 + COLUMN_STORE + " VARCHAR NOT NULL,"
                 + COLUMN_IMGURL + " VARCHAR NOT NULL,"
-                + COLUMN_QUANTITY + " INTEGER NOT NULL,"
-                + COLUMN_DATE + " VARCHAR NOT NULL"+ ");";
+                + COLUMN_QUANTITY + " INTEGER,"
+                + COLUMN_DATE + " VARCHAR"+ ");";
+        newlistSQL = "CREATE TABLE IF NOT EXISTS "
+                + TABLE_NAME_NEWLIST + "("
+                + _ID + " INTEGER,"
+                + COLUMN_NAME + " VARCHAR NOT NULL,"
+                + COLUMN_CATEGORY + " VARCHAR,"
+                + COLUMN_PRICE + " VARCHAR,"
+                + COLUMN_STORE + " VARCHAR,"
+                + COLUMN_IMGURL + " VARCHAR,"
+                + COLUMN_QUANTITY + " INTEGER,"
+                + COLUMN_DATE + " VARCHAR"+ ");";
     }
 
     @Override
@@ -85,6 +98,8 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d(TAG, "Create/Open table 'cart'.");
         db.execSQL(histSQL);
         Log.d(TAG, "Create/Open table 'history'.");
+        db.execSQL(newlistSQL);
+        Log.d(TAG, "Create/Open table 'newlist'.");
     }
 
     @Override

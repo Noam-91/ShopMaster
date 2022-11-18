@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
 
     public void onClick(View view){
         Bundle bundle = new Bundle();
-        FragmentManager fragmentManager = getParentFragmentManager();
+        FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         switch (view.getId()){
             case R.id.btn_home_newlist:
                 // If previous cart exist pop delete alert

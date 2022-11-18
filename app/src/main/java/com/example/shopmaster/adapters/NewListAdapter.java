@@ -13,6 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.shopmaster.R;
+import com.example.shopmaster.datahandler.DBServer;
+import com.example.shopmaster.datahandler.Grocery;
 
 import java.util.List;
 
@@ -20,22 +22,24 @@ import java.util.List;
 public class NewListAdapter extends RecyclerView.Adapter{
     private static final String TAG = NewListAdapter.class.getSimpleName();
     private static final String EMPTY_LIST_HINT="The cart is empty now.";
+    private static final String KEY_NEWLIST="newlist";
     private final Context mContext;
+    private DBServer db;
+    private List<Grocery> shopList;
     private LayoutInflater mInflater;
-    private List<String> keywordList;
-    private static List<Integer> quantityList;
 
-    public NewListAdapter(Context context, List<String> keywordList,List<Integer> quantityList){
+    public NewListAdapter(Context context, List<Grocery>shopList){
         this.mContext = context;
-        this.keywordList = keywordList;
-        this.quantityList= quantityList;
+        this.shopList = shopList;
+        db = new DBServer(mContext);
+        Log.d(TAG,"shopList length = "+shopList.size());
 
     }
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         Log.d(TAG,"Draft List View Holder activated.");
-        RecyclerView.ViewHolder viewHolder=null;
+        RecyclerView.ViewHolder viewHolder;
         mInflater = LayoutInflater.from(mContext);
         viewHolder = new NewListAdapter.ItemHolder(mInflater.inflate(R.layout.layout_newlist_items, parent, false));
         return viewHolder;
@@ -44,14 +48,15 @@ public class NewListAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int pos = holder.getAdapterPosition();
-
-        String name = keywordList.get(pos);
-        Integer quantity = quantityList.get(pos);
+        Grocery item = shopList.get(pos);
+        String name = item.getName();
+        Integer quantity = item.getQuantity();
         ((NewListAdapter.ItemHolder) holder).tv_name.setText(name);
         ((NewListAdapter.ItemHolder) holder).tv_quantity.setText(String.valueOf(quantity));
 
         ((NewListAdapter.ItemHolder)holder).btn_inc.setOnClickListener(view -> {
-            quantityList.set(pos,quantity+1);
+            shopList.get(pos).setQuantity(quantity+1);
+            db.updateItemQuantity(item,KEY_NEWLIST,quantity+1);
             notifyItemChanged(pos);
         });
         ((NewListAdapter.ItemHolder)holder).btn_dec.setOnClickListener(view -> {
@@ -61,8 +66,8 @@ public class NewListAdapter extends RecyclerView.Adapter{
                 alert.setTitle("Delete Item");
                 alert.setMessage("Are you sure you want to delete?");
                 alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
-                    keywordList.remove(pos);
-                    quantityList.remove(pos);
+                    shopList.remove(item);
+                    db.deleteItem(item,KEY_NEWLIST);
                     notifyItemRemoved(pos);
                     notifyDataSetChanged();
                 });
@@ -72,7 +77,8 @@ public class NewListAdapter extends RecyclerView.Adapter{
                 });
                 alert.show();
             }else{
-                quantityList.set(pos,quantity-1);
+                shopList.get(pos).setQuantity(quantity-1);
+                db.updateItemQuantity(item,KEY_NEWLIST,quantity-1);
                 notifyItemChanged(pos);
             }
         });
@@ -80,8 +86,8 @@ public class NewListAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        Log.d(TAG,"getItemCount: "+keywordList.size());
-        return keywordList.size();
+
+        return shopList.size();
     }
 
 

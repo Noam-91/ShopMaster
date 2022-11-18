@@ -26,11 +26,9 @@ import java.util.List;
 public class OptimizeListFragment extends Fragment {
 
     private final String TAG = getClass().getSimpleName();
-    private static final String KEY_NEW_SHOPPING_LIST_NAME = "New Shopping List Name";
-    private static final String KEY_NEW_SHOPPING_LIST_QUANTITY = "New Shopping List Quantity";
     private final static String KEY_CART = "cart";
-    private static List<String> keywordList = new ArrayList<>();
-    private static List<Integer> quantityList = new ArrayList<>();
+    private final static String KEY_NEWLIST = "newlist";
+    private List<Grocery> shopList;
     private String primaryFactor = "time";
     private int numOfStops = 1;
     DBServer db;
@@ -47,14 +45,11 @@ public class OptimizeListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle bundle = this.getArguments();
-        Log.d(TAG,"bundle is empty? "+ (getArguments() != null ? getArguments().isEmpty() : false));
         if (bundle!= null) {
-            keywordList = bundle.getStringArrayList(KEY_NEW_SHOPPING_LIST_NAME);
-            quantityList = bundle.getIntegerArrayList(KEY_NEW_SHOPPING_LIST_QUANTITY);
         }
         db = new DBServer(getContext());
-        Log.d(TAG, "Get shop list with length = "+keywordList.size());
 
+        shopList = db.findAllItemsInTable(KEY_NEWLIST);
 
     }
 
@@ -130,9 +125,8 @@ public class OptimizeListFragment extends Fragment {
                 fragmentManager.popBackStack();
                 break;
             case R.id.btn_optimizelist_next:
-                Log.d(TAG,"key word list: "+keywordList.toString());
                 // Optimize Plan
-                PlanCalculator calculator = new PlanCalculator(getContext(),keywordList,quantityList,primaryFactor,numOfStops);
+                PlanCalculator calculator = new PlanCalculator(getContext(),primaryFactor,numOfStops);
                 try {
                     List<Grocery> shopList = calculator.calculate();
                     db.clearCart();

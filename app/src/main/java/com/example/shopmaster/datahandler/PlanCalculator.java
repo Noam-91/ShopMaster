@@ -13,19 +13,20 @@ import java.util.Set;
 
 public class PlanCalculator {
     private static final String TAG = PlanCalculator.class.getSimpleName();
-    private final List<String> nameList;
-    private final List<Integer> quantityList;
+    private final static String KEY_NEWLIST = "newlist";
+    private final List<Grocery> shopList;
     private final String primaryFactor;
     private final Integer numOfStops;
     private final Context context;
+    private DBServer db;
     String[] allStores = {"Target","Walmart","Costco","County Market"};
 
-    public PlanCalculator(Context context,List<String> nameList,List<Integer> quantityList, String primaryFactor,Integer numOfStops){
-        this.nameList=nameList;
-        this.quantityList=quantityList;
+    public PlanCalculator(Context context,String primaryFactor,Integer numOfStops){
         this.primaryFactor=primaryFactor;
         this.numOfStops=numOfStops;
         this.context = context;
+        db = new DBServer(context);
+        this.shopList = db.findAllItemsInTable(KEY_NEWLIST);
     }
 
     /**
@@ -36,11 +37,8 @@ public class PlanCalculator {
      */
     public List<Grocery> calculate()
     {
-        if (nameList.size()==0){
+        if (shopList.size()==0){
             throw new ArrayIndexOutOfBoundsException("Shopping list is empty.");
-        }
-        if (nameList.size()!=quantityList.size()){
-            throw new ArrayIndexOutOfBoundsException("Shopping list and Quantity list have different length.");
         }
         if (!(primaryFactor.equals("time")||primaryFactor.equals("money"))){
             throw new IllegalArgumentException("The primary factor should be either time or money.");
@@ -49,20 +47,20 @@ public class PlanCalculator {
             throw new IllegalArgumentException("The number of stops should be between 1 and 4.");
         }
 
-        List<Grocery> resultList = new ArrayList<>(nameList.size());
+        List<Grocery> resultList = new ArrayList<>(shopList.size());
         Log.d(TAG,"ResultList length = "+resultList.size());
         // User chooses time.
         if (primaryFactor.equals("time")){
             String[] stores = {"County Market","Target","",""};
             if(numOfStops==1){stores = new String[]{"County Market","","",""};}
 
-            DBServer db = new DBServer(context);
-            for (int i=0; i<nameList.size();i++){
-                String itemName = nameList.get(i);
+            for (int i=0; i<shopList.size();i++){
+                String itemName = shopList.get(i).getName();
+                Integer quantity = shopList.get(i).getQuantity();
                 List<Grocery> itemList = db.findItemByNameAndStores(itemName,stores);
                 if (!itemList.isEmpty()){
                     Grocery item = itemList.get(0);
-                    item.setQuantity(quantityList.get(i));
+                    item.setQuantity(quantity);
                     resultList.add(item);
                 }
                 else{
@@ -75,14 +73,15 @@ public class PlanCalculator {
         else {
             Set<String> stores = new HashSet<>(numOfStops);
             DBServer db = new DBServer(context);
-            for (int j=0; j<nameList.size();j++) {
-                String itemName = nameList.get(j);
+            for (int j=0; j<shopList.size();j++) {
+                String itemName = shopList.get(j).getName();
+                Integer quantity = shopList.get(j).getQuantity();
                 List<Grocery> itemList = db.findItemByName(itemName);
                 if (!itemList.isEmpty()) {
                     int i = 0;
                     while (i < itemList.size()) {
                         Grocery foundItem = itemList.get(i);
-                        foundItem.setQuantity(quantityList.get(j));
+                        foundItem.setQuantity(quantity);
                         if (stores.contains(foundItem.getStore())) {
                             resultList.add(foundItem);
                             break;

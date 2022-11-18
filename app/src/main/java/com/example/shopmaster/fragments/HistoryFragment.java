@@ -146,7 +146,6 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 //        gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
 //        buyAgainList.setLayoutManager(gridLayoutManager);
 //        buyAgainList.setAdapter(adapter);
-
         return view;
     }
 
@@ -235,7 +234,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 
 
 
-    private void TESTE_addItemsToHistoryTable(){
+    private void TEST_addItemsToHistoryTable(){
 
 
 //        historyList = db.findAllItemsInTable("grocery");
