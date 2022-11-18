@@ -318,9 +318,9 @@ public class DBServer {
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         Cursor localCursor = localSQLiteDatabase.rawQuery("select * from "+tableName, null);
         if (localCursor.getCount()>0){
-            return true;
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
