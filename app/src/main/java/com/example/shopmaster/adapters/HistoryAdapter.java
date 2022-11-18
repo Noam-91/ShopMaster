@@ -128,20 +128,10 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch(menuItem.getItemId()){
                 case R.id.action_add:
-                    Log.d("GAUTHAM", "Selected Add");
-                    String addCartTitle = String.valueOf(title.getText());
-                    String addCartPrice = String.valueOf(price.getText()).substring(2);
-                    String addCartStore = String.valueOf(store.getText());
                     DBServer db = new DBServer(histContext);
-
-                    List<Grocery> a = db.findAllItemsInTable("cart");
-                    Log.d("GAUTHAM", "Size of Cart before: "+ a.size());
                     Grocery cartItem = db.findItemById(id, "-1", "grocery");
-                    db.addItem(cartItem, "cart");
-                    a = db.findAllItemsInTable("cart");
-                    Log.d("GAUTHAM", "Size of Cart after: "+ a.size());
-
-                    Log.d("GAUTHAM", addCartTitle + " --> " + addCartPrice + " --> " + title.getText());
+                    cartItem.setQuantity(1);
+                    db.addItem(cartItem, "newList");
                     return true;
                 case R.id.action_cancel:
                     Log.d("GAUTHAM", "Selected Cancel");
