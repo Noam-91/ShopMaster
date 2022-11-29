@@ -118,7 +118,7 @@ public class NewListFragment extends Fragment {
                         .addToBackStack(TAG)
                         .commit();
                 break;
-            case R.id.btn_draftlist_save:
+            case R.id.btn_newlist_save:
                 Toast.makeText(getContext(),"Your shopping cart has been saved.",
                         Toast.LENGTH_SHORT).show();
                 break;
