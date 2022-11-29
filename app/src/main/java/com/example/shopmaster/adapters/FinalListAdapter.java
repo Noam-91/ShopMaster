@@ -1,6 +1,8 @@
 package com.example.shopmaster.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +58,15 @@ public class FinalListAdapter extends RecyclerView.Adapter{
         if (storeShopList.get(pos) instanceof String){
             String storeName = (String) storeShopList.get(pos);
             ((FinalListAdapter.TitleHolder)holder).tv_store.setText(storeName);
+            ((TitleHolder)holder).btn_map.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Uri gmmIntentUri = Uri.parse("google.navigation:q="+storeName+",+Champaign+U.S.");
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                    mapIntent.setPackage("com.google.android.apps.maps");
+                    mContext.startActivity(mapIntent);
+                }
+            });
         }
         else{
             Grocery item = (Grocery) storeShopList.get(pos);
@@ -94,7 +105,7 @@ public class FinalListAdapter extends RecyclerView.Adapter{
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_store, tv_name, tv_price,tv_cate,tv_quantity;
         public ImageView iv_image;
-        public Button btn_done;
+        public Button btn_done,btn_map;
         public ViewHolder(View itemView) {
             super(itemView);
         }
@@ -104,6 +115,7 @@ public class FinalListAdapter extends RecyclerView.Adapter{
         public TitleHolder(View viewHolder) {
             super(viewHolder);
             tv_store= viewHolder.findViewById(R.id.tv_finallist_store);
+            btn_map= viewHolder.findViewById(R.id.btn_finallist_map);
         }
     }
 

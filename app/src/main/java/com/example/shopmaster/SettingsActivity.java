@@ -11,10 +11,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.shopmaster.datahandler.DBServer;
+
 public class SettingsActivity extends AppCompatActivity {
     Button btnBack;
     TextView tvBigFont, tvDarkLight, tvUpdate, tvHelp, tvReport, tvFeedback;
     CardView cvReset;
+    DBServer db;
 
 
     @Override
@@ -29,6 +32,8 @@ public class SettingsActivity extends AppCompatActivity {
         tvUpdate = findViewById(R.id.tv_settings_update);
         tvFeedback = findViewById(R.id.tv_settings_feedback);
         cvReset = findViewById(R.id.cv_settings_reset);
+
+        db = new DBServer(this);
 
         btnBack.setOnClickListener(this::onClick);
         tvBigFont.setOnClickListener(this::onClick);
@@ -52,6 +57,9 @@ public class SettingsActivity extends AppCompatActivity {
                 alert.setTitle("Reset App");
                 alert.setMessage("Are you sure you want to reset the app?");
                 alert.setPositiveButton(android.R.string.yes, (dialog, which) -> {
+                    db.clearNewList();
+                    db.clearCart();
+                    db.clearHistory();
                     Toast.makeText(this,"You have reset the app.",Toast.LENGTH_SHORT).show();
                 });
                 alert.setNegativeButton(android.R.string.no, (dialog, which) -> {

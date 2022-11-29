@@ -229,6 +229,14 @@ public class DBServer {
         localSQLiteDatabase.delete("newlist","1=1",null);
         localSQLiteDatabase.close();
     }
+    /**
+     * Remove all items from history.
+     */
+    public void clearHistory() {
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        localSQLiteDatabase.delete("history","1=1",null);
+        localSQLiteDatabase.close();
+    }
 
     /**
      * Update the quantity of an item.
