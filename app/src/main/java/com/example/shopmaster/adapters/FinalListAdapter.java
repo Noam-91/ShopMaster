@@ -58,6 +58,7 @@ public class FinalListAdapter extends RecyclerView.Adapter{
         if (storeShopList.get(pos) instanceof String){
             String storeName = (String) storeShopList.get(pos);
             ((FinalListAdapter.TitleHolder)holder).tv_store.setText(storeName);
+            // Btn_map invoke Google Map Application and show the route
             ((TitleHolder)holder).btn_map.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

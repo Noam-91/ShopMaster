@@ -99,6 +99,7 @@ public class OptimizeListFragment extends Fragment {
             numberPicker.setMaxValue(4);
             numberPicker.setWrapSelectorWheel(false);
             numberPicker.isVerticalFadingEdgeEnabled();
+            numberPicker.setOnLongPressUpdateInterval(600);
             numberPicker.setOnValueChangedListener(new NumberPicker.OnValueChangeListener() {
                 @Override
                 public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
