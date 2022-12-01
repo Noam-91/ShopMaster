@@ -361,7 +361,29 @@ public class DBServer {
         return localArrayList;
     }
 
-    //TODO: counter of items - Varma
+    @SuppressLint("Range")
+    public List<Grocery> findPopularHistoryItems(){
+        List<Grocery> localArrayList=new ArrayList<>();
+        SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
+        Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT item_id, name, cate,price," +
+                "store,imgurl,quantity,date, SUM(quantity) AS cnt FROM history GROUP BY item_id ORDER BY cnt DESC", null);
+        while (localCursor.moveToNext())
+        {
+            Grocery temp=new Grocery();
+            temp.setId(localCursor.getInt(localCursor.getColumnIndex("item_id")));
+            temp.setName(localCursor.getString(localCursor.getColumnIndex("name")));
+            temp.setCate(localCursor.getString(localCursor.getColumnIndex("cate")));
+            temp.setPrice(localCursor.getString(localCursor.getColumnIndex("price")));
+            temp.setStore(localCursor.getString(localCursor.getColumnIndex("store")));
+            temp.setImgUrl(localCursor.getString(localCursor.getColumnIndex("imgurl")));
+            temp.setQuantity(localCursor.getInt(localCursor.getColumnIndex("quantity")));
+            temp.setHistDate(localCursor.getString(localCursor.getColumnIndex("date")));
+            localArrayList.add(temp);
+        }
+        localSQLiteDatabase.close();
+        localCursor.close();
+        return localArrayList;
+    }
 
 
 }
