@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_bubble"
         android:paddingBottom="8dp"
-        android:text="Add\nNew List"
+        android:text="Create\nNew List"
         android:textAllCaps="false"
         android:textColor="@color/black"
         android:textSize="12sp"
