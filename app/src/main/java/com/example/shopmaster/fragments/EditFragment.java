@@ -46,24 +46,28 @@ public class EditFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemName = getArguments().getString(KEY_ITEM_NAME);
+        if (getArguments()!=null){
+            itemName = getArguments().getString(KEY_ITEM_NAME);
+        }
         Log.d(TAG,"onCreate: get itemName: "+itemName);
 
         db = new DBServer(getContext());
         // Extract itemName
-        String[] substrList =  itemName.split(" ");
-        for (String substr: substrList){
-            for (String candidate : Grocery.getAllKeywords()){
-                if (substr.toLowerCase().contains(candidate.toLowerCase()) ){
-                    keyword = candidate;
-                    break;
-                }
+         if (itemName==null){
+                    itemName="";
+         }else{
+             String[] substrList =  itemName.split(" ");
+             for (String substr: substrList){
+                 for (String candidate : Grocery.getAllKeywords()){
+                     if (substr.toLowerCase().contains(candidate.toLowerCase()) ){
+                         keyword = candidate;
+                         break;
+                     }
 
-            }
-        }
-        if (keyword==null){
-            keyword="";
-        }
+                 }
+             }
+         }
+
         Log.d(TAG,"Get keyword: "+keyword);
     }
 
@@ -95,14 +99,14 @@ public class EditFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                navView.setVisibility(View.INVISIBLE);
+                navView.setVisibility(View.VISIBLE);
                 fragmentManager.popBackStack("DraftListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });
 
         return view;
     }
-
+//TODO: Add button in DraftList will need search function.
     private List<ParentItem> ParentItemList(String keyword)
     {
         List<Grocery> relatedItems = db.findItemByName(keyword);

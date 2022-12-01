@@ -129,7 +129,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, editFragment, null)
                         .setReorderingAllowed(true)
-                        .addToBackStack(TAG)
+                        .addToBackStack("DraftListFragment")
                         .commit();
             });
 
