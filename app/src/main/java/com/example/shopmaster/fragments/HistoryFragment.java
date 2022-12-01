@@ -110,7 +110,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         DBServer db = new DBServer(getContext());
 
 //        Uncomment the below Function Call to populate History table
-//        TEST_addItemsToHistoryTable();
+        TEST_addItemsToHistoryTable();
 
         historyList = db.findAllItemsInTable("history");
 
@@ -123,7 +123,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         try{
             ArrayAdapter<String> dropDownAdapter;
             ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
-            unique_dates.add(0, "Choose a Date");
+            unique_dates.add(0, "All Dates");
 
             dropDownAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, unique_dates);
 //            dateDropDown.setPrompt("Choose a Date");
