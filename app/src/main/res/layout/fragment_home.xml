@@ -34,7 +34,6 @@
         android:id="@+id/btn_home_newlist"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="340dp"
         android:background="@drawable/dialog_bubble"
         android:paddingBottom="8dp"
         android:text="Add\nNew List"
