@@ -59,7 +59,7 @@ public class EditFragment extends Fragment {
              String[] substrList =  itemName.split(" ");
              for (String substr: substrList){
                  for (String candidate : Grocery.getAllKeywords()){
-                     if (substr.toLowerCase().contains(candidate.toLowerCase()) ){
+                     if (substr.toLowerCase().contains(candidate) ){
                          keyword = candidate;
                          break;
                      }
@@ -92,7 +92,12 @@ public class EditFragment extends Fragment {
         parentRecyclerView.setLayoutManager(layoutManager);
 
         // SearchView
-        searchView.setQueryHint(keyword);
+        if (keyword!=null){
+            searchView.setQueryHint(keyword);
+        }else{
+
+        }
+
 
         //back btn
         btnBack.setOnClickListener(new View.OnClickListener() {

@@ -98,13 +98,14 @@ public class Grocery {
     }
 
     public static List<String> getAllKeywords(){
-        String[] str = {"Muffins","Cake","Cheesecake","Carrot","Tiramisu","Donut","Cookie","Bread",
-                "Garlic","Pie","Sugar","Banana","Nut","Brownies","Mousse","Buns","Rolls",
-                "Croissants","Bagels","Pancakes","Pastries","Taco","Shrimp","Bean","Mussels",
-                "Turkey","Fillets","Steaks","Salmon","Chicken","Salmon","Burgers","Beef","Bacon",
-                "Meatballs","Pork","Ham","Tofu","Sirloin","Duck","Crab","Salad","Oysters","Tomato",
-                "Mango","Onions","Potatoes","Corn","Apples","Peppers","Lettuce","Lemon","Avocado",
-                "Melon","Blueberries","Eggplant","Broccoli" };
+        String[] str = {"muffins", "cake", "cheesecake", "carrot", "tiramisu", "donut", "cookie",
+                "bread", "garlic", "pie", "sugar", "banana", "nut", "brownies", "mousse", "buns",
+                "rolls", "croissants", "bagels", "pancakes", "pastries", "taco", "shrimp", "bean",
+                "mussels", "turkey", "fillets", "steaks", "salmon", "chicken", "salmon", "burgers",
+                "beef", "bacon", "meatballs", "pork", "ham", "tofu", "sirloin", "duck", "crab",
+                "salad", "oysters", "tomato", "mango", "onions", "potatoes", "corn", "apples",
+                "peppers", "lettuce", "lemon", "avocado", "melon", "blueberries", "eggplant",
+                "broccoli"};
         return Arrays.asList(str);
     }
 }

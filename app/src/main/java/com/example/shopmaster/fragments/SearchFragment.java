@@ -93,7 +93,7 @@ public class SearchFragment extends Fragment {
             public boolean onQueryTextSubmit(String query) {
                 // If the list contains the search query than filter the adapter
                 // using the filter method with the query as its argument
-                if (allKeywords.contains(query)) {
+                if (allKeywords.contains(query.toLowerCase())) {
                     searchAdapter.getFilter().filter(query);
                 } else {
                     // Search query not found in List View
@@ -104,7 +104,7 @@ public class SearchFragment extends Fragment {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-//                searchAadapter.getFilter().filter(newText);
+                searchAdapter.getFilter().filter(newText);
                 return false;
             }
         });
