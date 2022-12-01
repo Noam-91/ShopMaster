@@ -20,8 +20,12 @@ import com.example.shopmaster.adapters.HistoryAdapter;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -48,16 +52,8 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 
     List<Grocery> historyList;
 
-    List<Grocery> og_list;
-
-//    List<String> titles;
-//    List<String> prices;
-//    List<String> images;
-
-//    List<String> itemNames;
-//    List<String> itemPrices;
-//    List<String> imageUrls;
-//    List<String> stores;
+    final private String OLD_DATE_FORMAT = "yyyy-MM-d";
+    final private String NEW_DATE_FORMAT = "dd MMM, yyyy - E";
 
     List<List<String>> itemList;
 
@@ -115,18 +111,31 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         historyList = db.findAllItemsInTable("history");
 
 
-        Log.d("GAUTHAM", "Entries in History table : "+ historyList.size());
+        Log.d("SHOPPING_HISTORY", "Entries in History table : "+ historyList.size());
 
         itemList = getItems(historyList);
 
         // For populating the Spinner where the Dates will be dropped down
+        SimpleDateFormat sdf;
         try{
             ArrayAdapter<String> dropDownAdapter;
             ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
+            ArrayList<Date> history_dates = new ArrayList<>();
+            for (String date: unique_dates){
+                sdf = new SimpleDateFormat(OLD_DATE_FORMAT);
+                Date d = sdf.parse(date);
+                history_dates.add(d);
+            }
+            Collections.sort(history_dates);
+
+            unique_dates = new ArrayList<>();
+            for (Date d: history_dates){
+                sdf = new SimpleDateFormat(NEW_DATE_FORMAT);
+                unique_dates.add(sdf.format(d));
+            }
             unique_dates.add(0, "All Dates");
 
             dropDownAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, unique_dates);
-//            dateDropDown.setPrompt("Choose a Date");
             dropDownAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dateDropDown.setSelection(0);
             dateDropDown.setAdapter(dropDownAdapter);
@@ -134,18 +143,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         } catch(Exception e){
             Log.d("SHOPPING_HISTORY", "ERROR: Issue creating adapter for Spinner. Check whether ItemLists has data.");
         }
-
         setShoppingHistoryLayout(itemList);
-//        adapter = new HistoryAdapter(
-//                getContext(),
-//                itemList,
-//                this);
-//
-//
-//        GridLayoutManager gridLayoutManager;
-//        gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
-//        buyAgainList.setLayoutManager(gridLayoutManager);
-//        buyAgainList.setAdapter(adapter);
         return view;
     }
 
@@ -207,7 +205,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         return result;
     }
 
-//
+
 
     @Override
     public void onHistCardClick(int position, View view) {
@@ -219,13 +217,26 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
     public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
         String date = adapterView.getItemAtPosition(position).toString();
         DBServer db = new DBServer(getContext());
-        List<Grocery> date_data = db.findAllByDate(date);
+        List<Grocery> date_data;
         if (position!=0) {
+            try {
+                SimpleDateFormat sdf = new SimpleDateFormat(NEW_DATE_FORMAT);
+                Date d = sdf.parse(date);
+                sdf = new SimpleDateFormat(OLD_DATE_FORMAT);
+                String req_d = sdf.format(d);
+                date = req_d;
+            } catch (ParseException e) {
+                Log.d("SHOPPING_HISTORY", "Error while trying to change Date Format");
+                e.printStackTrace();
+            }
+            date_data = db.findAllByDate(date);
+            itemList = getItems(date_data);
+        }
+        else{
+            date_data = db.findAllItemsInTable("history");
             itemList = getItems(date_data);
         }
         setShoppingHistoryLayout(itemList);
-//        Log.d("GAUTHAM", "Date Selected: "+ date);
-//        Log.d("GAUTHAM", "Size for Date: "+ date_data.size());
     }
 
     @Override
@@ -237,10 +248,6 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 
 
     private void TEST_addItemsToHistoryTable(){
-
-
-//        historyList = db.findAllItemsInTable("grocery");
-//        og_list = db.findAllItemsInTable("history");
 
         DBServer db = new DBServer(getContext());
 
@@ -279,7 +286,5 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         randomItem = db.findItemById(115, "-1", "grocery");
         randomItem.setHistDate("2022-10-14");
         db.addItem(randomItem, "history");
-
-//        og_list = db.findAllItemsInTable("history");
     }
 }
