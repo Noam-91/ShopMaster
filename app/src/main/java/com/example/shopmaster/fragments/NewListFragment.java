@@ -65,12 +65,6 @@ public class NewListFragment extends Fragment {
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
-
-
-        // TEST !!!
-//        TEST_randomCart();
-
-
     }
 
     @Override

@@ -13,7 +13,7 @@
         android:id="@+id/ll_draftlist_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/light_gray"
+        android:background="#F2F3F2"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -61,7 +61,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -71,16 +71,12 @@
 
         <Button
             android:id="@+id/btn_draftlist_add"
-            android:background="@drawable/bg_button_rounded"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            style="@style/BottomButton"
             android:layout_marginEnd="40dp"
             android:text="@string/add"/>
         <Button
             android:id="@+id/btn_draftlist_save"
-            android:background="@drawable/bg_button_rounded"
-            android:layout_width="100dp"
-            android:layout_height="40dp"
+            style="@style/BottomButton"
             android:text="@string/save" />
 
 

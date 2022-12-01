@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -93,13 +93,13 @@ public class NewListAdapter extends RecyclerView.Adapter{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_name,tv_quantity;
-        public Button btn_inc, btn_dec;
+        public ImageButton btn_inc, btn_dec;
         public ViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    public class ItemHolder extends DraftListAdapter.ViewHolder {
+    public class ItemHolder extends NewListAdapter.ViewHolder {
 
         public ItemHolder(final View viewHolder) {
             super(viewHolder);

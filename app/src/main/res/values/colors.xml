@@ -19,6 +19,7 @@
     <color name="light_gray">#37808080</color>
     <color name="dark_green">#466F6B</color>
     <color name="red">#E9F40606</color>
+    <color name="yellow">#DCA555</color>
 
     <color name="toggle_hover">@color/gray</color>
     <color name="toggle_normal">@color/gainsboro</color>

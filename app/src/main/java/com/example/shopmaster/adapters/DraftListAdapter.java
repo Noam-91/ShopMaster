@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -154,7 +155,8 @@ public class DraftListAdapter extends RecyclerView.Adapter{
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_store, tv_name, tv_price,tv_cate,tv_quantity;
         public ImageView iv_image;
-        public Button btn_inc, btn_dec, btn_alt;
+        public ImageButton btn_inc, btn_dec;
+        public Button btn_alt;
         public ViewHolder(View itemView) {
             super(itemView);
         }
