@@ -108,8 +108,8 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 //        Uncomment the below Function Call to populate History table
         TEST_addItemsToHistoryTable();
 
-        historyList = db.findAllItemsInTable("history");
-
+//        historyList = db.findAllItemsInTable("history");
+        historyList = db.findPopularHistoryItems();
 
         Log.d("SHOPPING_HISTORY", "Entries in History table : "+ historyList.size());
 
@@ -233,7 +233,8 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
             itemList = getItems(date_data);
         }
         else{
-            date_data = db.findAllItemsInTable("history");
+//            date_data = db.findAllItemsInTable("history");
+            date_data = db.findPopularHistoryItems();
             itemList = getItems(date_data);
         }
         setShoppingHistoryLayout(itemList);
