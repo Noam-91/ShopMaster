@@ -23,6 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class EditFragment extends Fragment {
 
@@ -52,10 +53,16 @@ public class EditFragment extends Fragment {
         // Extract itemName
         String[] substrList =  itemName.split(" ");
         for (String substr: substrList){
-            if (Grocery.getAllKeywords().contains(substr)){
-                keyword = substr;
-                break;
+            for (String candidate : Grocery.getAllKeywords()){
+                if (substr.toLowerCase().contains(candidate.toLowerCase()) ){
+                    keyword = candidate;
+                    break;
+                }
+
             }
+        }
+        if (keyword==null){
+            keyword="";
         }
         Log.d(TAG,"Get keyword: "+keyword);
     }
@@ -88,7 +95,7 @@ public class EditFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                navView.setVisibility(View.VISIBLE);
+                navView.setVisibility(View.INVISIBLE);
                 fragmentManager.popBackStack("DraftListFragment", FragmentManager.POP_BACK_STACK_INCLUSIVE);
             }
         });

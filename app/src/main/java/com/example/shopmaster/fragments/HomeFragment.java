@@ -44,8 +44,6 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         ibtnSettings = view.findViewById(R.id.ibtn_home_settings);
         btnNewlist = view.findViewById(R.id.btn_home_newlist);
-
-
         ibtnSettings.setOnClickListener(this::onClick);
         btnNewlist.setOnClickListener(this::onClick);
         return view;

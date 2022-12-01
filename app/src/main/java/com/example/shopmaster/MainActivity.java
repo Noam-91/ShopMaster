@@ -1,6 +1,7 @@
 package com.example.shopmaster;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -19,14 +20,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         //Initialize Bottom Navigation View.
         BottomNavigationView navView = findViewById(R.id.bottomNav_view);
-
-        //Pass the ID's of Different destinations
-//        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-//                R.id.navigation_home, R.id.navigation_menu, R.id.navigation_back).build();
-        //Initialize NavController.
         NavController navController = Navigation.findNavController(this, R.id.navHostFragment);
-//        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
+        navView.setVisibility(View.VISIBLE);
 
     }
 
