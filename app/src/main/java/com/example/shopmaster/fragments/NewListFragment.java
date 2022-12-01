@@ -83,6 +83,9 @@ public class NewListFragment extends Fragment {
 
         popularItems = new BottomSheetDialog(getContext());
 
+        shopList = db.findAllItemsInTable(KEY_NEWLIST);
+        Log.d(TAG,"onCreate, shopList = "+shopList);
+
         btnNext.setOnClickListener(this::onClick);
         btnSave.setOnClickListener(this::onClick);
         btnPopular.setOnClickListener(this::onClick);

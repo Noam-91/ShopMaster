@@ -55,8 +55,11 @@ public class NewListAdapter extends RecyclerView.Adapter{
         ((NewListAdapter.ItemHolder) holder).tv_quantity.setText(String.valueOf(quantity));
 
         ((NewListAdapter.ItemHolder)holder).btn_inc.setOnClickListener(view -> {
+            item.setQuantity(quantity+1);
             shopList.get(pos).setQuantity(quantity+1);
             db.updateItemQuantity(item,KEY_NEWLIST,quantity+1);
+            Log.d(TAG,"Current item "+name+" quantity = "+(quantity+1));
+            Log.d(TAG, "db updated?"+db.findAllItemsInTable(KEY_NEWLIST));
             notifyItemChanged(pos);
         });
         ((NewListAdapter.ItemHolder)holder).btn_dec.setOnClickListener(view -> {
@@ -79,6 +82,7 @@ public class NewListAdapter extends RecyclerView.Adapter{
             }else{
                 shopList.get(pos).setQuantity(quantity-1);
                 db.updateItemQuantity(item,KEY_NEWLIST,quantity-1);
+                Log.d(TAG,"Current item "+name+" quantity = "+(quantity-1));
                 notifyItemChanged(pos);
             }
         });
