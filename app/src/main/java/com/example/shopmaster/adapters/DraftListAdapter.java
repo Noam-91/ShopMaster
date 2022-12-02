@@ -35,7 +35,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
     private static final String TAG = DraftListAdapter.class.getSimpleName();
     private static final String KEY_ITEM_NAME = "item name";
     private static final String KEY_STORES = "list stores"; ///
-    private static ArrayList<String> listStores = new ArrayList<String>();
+    private static ArrayList<String> existedStores = new ArrayList<String>();
     private static final String KEY_CART = "cart";
     private static final int VIEW_TYPE_TITLE = 0;
     private static final int VIEW_TYPE_ITEM = 1;
@@ -73,7 +73,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
         if (storeShopList.get(pos) instanceof String){
             String storeName = (String) storeShopList.get(pos);
             ((TitleHolder)holder).tv_store.setText(storeName);
-            listStores.add(storeName); ///
+            existedStores.add(storeName); ///
         }
         else{
             Grocery item = (Grocery) storeShopList.get(pos);
@@ -130,7 +130,7 @@ public class DraftListAdapter extends RecyclerView.Adapter{
                 Bundle bundle = new Bundle();
                 EditFragment editFragment = new EditFragment();
                 bundle.putString(KEY_ITEM_NAME, item.getName());
-                bundle.putStringArrayList(KEY_STORES, listStores); ///
+                bundle.putStringArrayList(KEY_STORES, existedStores); ///
                 editFragment.setArguments(bundle);
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, editFragment, null)
