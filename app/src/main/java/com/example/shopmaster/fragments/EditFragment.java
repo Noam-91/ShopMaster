@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -42,8 +43,6 @@ public class EditFragment extends Fragment {
     private String keyword = null;
     private DBServer db;
     Grocery itemRemoving = new Grocery();
-
-
 
     SearchView searchView;
     ImageButton btnBack;
@@ -98,23 +97,39 @@ public class EditFragment extends Fragment {
         BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
         navView.setVisibility(View.INVISIBLE);
 
-        // RecyclerView
-        LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
-        List<ParentItem> parentItemList = ParentItemList(keyword);
-        ParentItemAdapter parentItemAdapter= new ParentItemAdapter(getContext(),
-                parentItemList,itemRemoving);
-        parentRecyclerView.setAdapter(parentItemAdapter);
-        parentRecyclerView.setLayoutManager(layoutManager);
-
-        // SearchView
+        // Keyword!=null: find alternative.
+        // Keyword==null: search and add.
         if (keyword!=null){
             searchView.setQueryHint(keyword);
+            // RecyclerView
+            LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
+            List<ParentItem> parentItemList = ParentItemList(keyword);
+            ParentItemAdapter parentItemAdapter= new ParentItemAdapter(getContext(),
+                    parentItemList,itemRemoving);
+            parentRecyclerView.setAdapter(parentItemAdapter);
+            parentRecyclerView.setLayoutManager(layoutManager);
         }else{
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    // RecyclerView
+                    LinearLayoutManager layoutManager= new LinearLayoutManager(getContext());
+                    List<ParentItem> parentItemList = ParentItemList(query);
+                    ParentItemAdapter parentItemAdapter= new ParentItemAdapter(getContext(),
+                            parentItemList,null);
+                    parentRecyclerView.setAdapter(parentItemAdapter);
+                    parentRecyclerView.setLayoutManager(layoutManager);
+                    return false;
+                }
 
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
         }
 
-
-        //back btn
+        //back button
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,10 +141,10 @@ public class EditFragment extends Fragment {
 
         return view;
     }
-//TODO: Add button in DraftList will need search function.
+
     private List<ParentItem> ParentItemList(String keyword)
     {
-        List<Grocery> relatedItems = db.findItemByName(keyword);
+        List<Grocery> relatedItems = db.findItemByName(keyword.toLowerCase());
         List<ChildItem> targetList = new ArrayList<>();
         List<ChildItem> countyList = new ArrayList<>();
         List<ChildItem> walmartList = new ArrayList<>();
@@ -169,8 +184,6 @@ public class EditFragment extends Fragment {
         }
 
         List<ParentItem> itemList = new ArrayList<>();
-        ///
-
         if (!targetList.isEmpty()){
             String storeName = "Target";
             String currStore = checkStoreDist(2, storeName);

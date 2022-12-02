@@ -79,7 +79,9 @@ public class ChildItemAdapter extends RecyclerView.Adapter<ChildItemAdapter.Chil
             @Override
             public void onClick(View view) {
                 Grocery itemAdding = db.findItemByName(childItem.getChildItemName()).get(0);
-                db.deleteItem(itemRemoving,KEY_CART);
+                if (itemRemoving!=null){
+                    db.deleteItem(itemRemoving,KEY_CART);
+                }
                 db.addItem(itemAdding,KEY_CART);
                 FragmentManager fragmentManager = ((AppCompatActivity)context).getSupportFragmentManager();
                 fragmentManager.beginTransaction()

@@ -65,12 +65,6 @@ public class NewListFragment extends Fragment {
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
-
-
-        // TEST !!!
-//        TEST_randomCart();
-
-
     }
 
     @Override
@@ -88,6 +82,9 @@ public class NewListFragment extends Fragment {
         rv = view.findViewById(R.id.rv_newlist);
 
         popularItems = new BottomSheetDialog(getContext());
+
+        shopList = db.findAllItemsInTable(KEY_NEWLIST);
+        Log.d(TAG,"onCreate, shopList = "+shopList);
 
         btnNext.setOnClickListener(this::onClick);
         btnSave.setOnClickListener(this::onClick);

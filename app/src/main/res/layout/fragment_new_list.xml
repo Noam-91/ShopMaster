@@ -111,7 +111,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
@@ -122,20 +122,14 @@
 
         <Button
             android:id="@+id/btn_newlist_save"
-            android:layout_width="wrap_content"
-            android:minWidth="110dp"
-            android:layout_height="40dp"
+            style="@style/BottomButton"
             android:layout_marginEnd="40dp"
-            android:background="@drawable/bg_button_rounded"
             android:text="Save" />
 
         <Button
             android:id="@+id/btn_newlist_discard"
-            android:layout_width="wrap_content"
-            android:minWidth="110dp"
-            android:layout_height="40dp"
-            android:background="@drawable/bg_button_rounded"
-            android:text="Discard" />
+            android:text="Discard"
+            style="@style/BottomButton"/>
 
 
     </LinearLayout>

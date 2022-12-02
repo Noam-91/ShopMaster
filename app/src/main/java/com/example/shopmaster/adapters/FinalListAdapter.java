@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -106,7 +107,8 @@ public class FinalListAdapter extends RecyclerView.Adapter{
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_store, tv_name, tv_price,tv_cate,tv_quantity;
         public ImageView iv_image;
-        public Button btn_done,btn_map;
+        public Button btn_done;
+        public ImageButton btn_map;
         public ViewHolder(View itemView) {
             super(itemView);
         }

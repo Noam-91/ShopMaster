@@ -6,7 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -55,8 +55,11 @@ public class NewListAdapter extends RecyclerView.Adapter{
         ((NewListAdapter.ItemHolder) holder).tv_quantity.setText(String.valueOf(quantity));
 
         ((NewListAdapter.ItemHolder)holder).btn_inc.setOnClickListener(view -> {
+            item.setQuantity(quantity+1);
             shopList.get(pos).setQuantity(quantity+1);
             db.updateItemQuantity(item,KEY_NEWLIST,quantity+1);
+            Log.d(TAG,"Current item "+name+" quantity = "+(quantity+1));
+            Log.d(TAG, "db updated?"+db.findAllItemsInTable(KEY_NEWLIST));
             notifyItemChanged(pos);
         });
         ((NewListAdapter.ItemHolder)holder).btn_dec.setOnClickListener(view -> {
@@ -79,6 +82,7 @@ public class NewListAdapter extends RecyclerView.Adapter{
             }else{
                 shopList.get(pos).setQuantity(quantity-1);
                 db.updateItemQuantity(item,KEY_NEWLIST,quantity-1);
+                Log.d(TAG,"Current item "+name+" quantity = "+(quantity-1));
                 notifyItemChanged(pos);
             }
         });
@@ -93,13 +97,13 @@ public class NewListAdapter extends RecyclerView.Adapter{
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView tv_name,tv_quantity;
-        public Button btn_inc, btn_dec;
+        public ImageButton btn_inc, btn_dec;
         public ViewHolder(View itemView) {
             super(itemView);
         }
     }
 
-    public class ItemHolder extends DraftListAdapter.ViewHolder {
+    public class ItemHolder extends NewListAdapter.ViewHolder {
 
         public ItemHolder(final View viewHolder) {
             super(viewHolder);

@@ -20,6 +20,7 @@ import com.example.shopmaster.adapters.DraftListAdapter;
 import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,6 +29,7 @@ public class DraftListFragment extends Fragment {
 
     private final String TAG = getClass().getSimpleName();
     private static final String KEY_CART = "cart";
+    private static final String KEY_NEWLIST = "newlist";
     private List<Grocery> shopList;
     DBServer db;
 
@@ -77,6 +79,13 @@ public class DraftListFragment extends Fragment {
         FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
         switch (view.getId()){
             case R.id.btn_draftlist_save:
+                // Copy the DraftList to NewList.
+                db.clearNewList();
+                try {
+                    db.addList(shopList,KEY_NEWLIST);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
                 Toast.makeText(getContext(),
                         "Your shopping list has been saved.",Toast.LENGTH_SHORT).show();
                 break;

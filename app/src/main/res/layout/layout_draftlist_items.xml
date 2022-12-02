@@ -3,7 +3,10 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="5dp">
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
 
     <ImageView
         android:id="@+id/iv_draftlist_image"
@@ -16,7 +19,8 @@
         android:contentDescription="Image of grocery item" />
 
     <LinearLayout
-        android:layout_width="190dp"
+        android:layout_width="0dp"
+        android:layout_weight="5"
         android:layout_height="90dp"
         android:orientation="vertical"
         android:layout_marginLeft="5dp"
@@ -66,7 +70,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center">
@@ -75,13 +79,15 @@
             android:layout_height="30dp"
             android:orientation="horizontal"
             android:layout_gravity="center"
+            android:layout_marginBottom="8dp"
             android:gravity="right|center">
 
-            <Button
+            <ImageButton
                 android:id="@+id/btn_draftlist_decrement"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_remove_24"/>
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_baseline_remove_24"
+                android:background="@drawable/btn_circle"/>
             <TextView
                 android:id="@+id/tv_draftlist_quantity"
                 android:layout_width="wrap_content"
@@ -91,11 +97,12 @@
                 android:gravity="center"
                 android:text="@string/database_qty"
                 android:textSize="15sp"/>
-            <Button
+            <ImageButton
                 android:id="@+id/btn_draftlist_increment"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/ic_baseline_add_24"/>
+                android:layout_width="26dp"
+                android:layout_height="26dp"
+                android:src="@drawable/ic_baseline_add_24"
+                android:background="@drawable/btn_circle"/>
 
         </LinearLayout>
 

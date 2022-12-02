@@ -253,10 +253,10 @@ public class DBServer {
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         Object[] arrayOfObject = new Object[3];
         arrayOfObject[0] = newQuantity;
-        arrayOfObject[1] = entity.getId();
+        arrayOfObject[1] = entity.getName();
         arrayOfObject[2] = entity.getHistDate();
         localSQLiteDatabase.execSQL("UPDATE "+tableName+" SET quantity=?" +
-                "  WHERE item_id=? AND date=?", arrayOfObject);
+                "  WHERE name=? AND date=?", arrayOfObject);
         localSQLiteDatabase.close();
     }
 

@@ -7,8 +7,10 @@
 
     <TextView
         android:id="@+id/tv_newlist_name"
-        android:layout_width="300dp"
+        android:layout_width="0dp"
+        android:layout_weight="9"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
         android:paddingRight="10dp"
         android:text="@string/database_name"
         android:textSize="15sp"
@@ -17,17 +19,20 @@
         android:singleLine="false"/>
 
     <LinearLayout
-        android:layout_width="70dp"
+        android:layout_width="0dp"
+        android:layout_weight="4"
         android:layout_height="30dp"
+        android:layout_marginRight="30dp"
         android:orientation="horizontal"
         android:layout_gravity="center"
         android:gravity="right|center">
 
-        <Button
+        <ImageButton
             android:id="@+id/btn_newlist_decrement"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_baseline_remove_24"/>
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/ic_baseline_remove_24"
+            android:background="@drawable/btn_circle"/>
         <TextView
             android:id="@+id/tv_newlist_quantity"
             android:layout_width="wrap_content"
@@ -37,11 +42,12 @@
             android:gravity="center"
             android:text="@string/database_qty"
             android:textSize="15sp"/>
-        <Button
+        <ImageButton
             android:id="@+id/btn_newlist_increment"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:background="@drawable/ic_baseline_add_24"/>
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:src="@drawable/ic_baseline_add_24"
+            android:background="@drawable/btn_circle"/>
     </LinearLayout>
 
 </LinearLayout>

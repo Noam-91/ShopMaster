@@ -3,7 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="16dp">
 
     <!--Title-->
     <TextView
@@ -12,7 +15,9 @@
         android:layout_height="wrap_content"
         android:padding="12sp"
         android:text="Store"
-        android:textSize="18sp"
+        android:fontFamily="@font/baloo_bhai"
+        android:textColor="@color/dark_green"
+        android:textSize="25sp"
         />
 
     <LinearLayout
