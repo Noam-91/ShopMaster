@@ -21,6 +21,7 @@ import com.example.shopmaster.datahandler.DBServer;
 import com.example.shopmaster.datahandler.Grocery;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -73,8 +74,10 @@ public class FinalListFragment extends Fragment {
             case R.id.btn_finallist_done:
                 //Save shopping history.
                 Date date = new java.sql.Date(System.currentTimeMillis());
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-d");
+                String h_date = sdf.format(date);
                 for (Grocery item : shopList){
-                    item.setHistDate(date.toString());
+                    item.setHistDate(h_date);
                     db.addItem(item,"history");
                 }
                 Toast.makeText(getContext(), "Your shopping history on "+date+" has been saved",
