@@ -1,6 +1,6 @@
 <vector
     android:height="24dp"
-    android:tint="#000000"
+    android:tint="@color/arrow_color"
     android:viewportHeight="24"
     android:viewportWidth="8"
     android:width="8dp"
@@ -11,6 +11,6 @@
         android:pivotY="10"
         android:scaleX=".75"
         android:scaleY=".75">
-        <path android:fillColor="@android:color/white" android:pathData="M15.41,7.41L14,6l-6,6 6,6 1.41,-1.41L10.83,12z"/>
+        <path android:fillColor="@color/arrow_color" android:pathData="M15.41,7.41L14,6l-6,6 6,6 1.41,-1.41L10.83,12z"/>
     </group>
 </vector>

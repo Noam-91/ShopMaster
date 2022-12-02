@@ -28,7 +28,7 @@
         <item name="android:paddingRight">40dp</item>
         <item name="android:text">Back</item>
         <item name="android:textSize">11sp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="NextButton">
@@ -41,7 +41,7 @@
         <item name="android:paddingLeft">40dp</item>
         <item name="android:text">Next</item>
         <item name="android:textSize">11sp</item>
-        <item name="android:textColor">@color/black</item>
+        <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="BottomButton">

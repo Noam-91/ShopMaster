@@ -24,5 +24,6 @@
     // color for Dark/Light Mode
     <color name="text_color_bottom_button">@color/white</color>
     <color name="background_color">@color/white</color>
+    <color name="arrow_color">@color/black</color>
 
 </resources>

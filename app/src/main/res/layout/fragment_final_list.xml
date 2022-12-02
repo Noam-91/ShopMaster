@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="fill_horizontal"
-    android:background="#FFF"
+    android:background="@color/background_color"
     tools:context=".fragments.FinalListFragment">
 
     <LinearLayout

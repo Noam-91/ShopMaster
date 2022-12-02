@@ -13,7 +13,6 @@
         android:id="@+id/ll_draftlist_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F2F3F2"
         android:gravity="center"
         android:orientation="horizontal"
         app:layout_constraintLeft_toLeftOf="parent"
