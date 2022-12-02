@@ -119,6 +119,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
         SimpleDateFormat sdf;
         try{
             ArrayAdapter<String> dropDownAdapter;
+            Log.d("GAUTHAM", String.valueOf(itemList.get(7)));
             ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
             ArrayList<Date> history_dates = new ArrayList<>();
             for (String date: unique_dates){
