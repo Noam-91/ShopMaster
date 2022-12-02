@@ -6,6 +6,7 @@ public class ParentItem {
 
     // Declaration of the variables
     private String ParentItemStore;
+    private String ParentItemStoreDist;
     private List<ChildItem> ChildItemList;
 
     public ParentItem(String parentItemStore, List<ChildItem> childItemList) {
@@ -20,6 +21,10 @@ public class ParentItem {
     public void setParentItemStore(String parentItemStore) {
         ParentItemStore = parentItemStore;
     }
+
+//    public String getParentItemStoreDist() { return ParentItemStoreDist; }
+
+//    public void setParentItemStoreDist(String parentItemStoreDist) { ParentItemStoreDist = parentItemStoreDist; }
 
     public List<ChildItem> getChildItemList() {
         return ChildItemList;
