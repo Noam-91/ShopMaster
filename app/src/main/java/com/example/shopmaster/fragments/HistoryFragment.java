@@ -51,11 +51,13 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
     private RecyclerView buyAgainList;
 
     List<Grocery> historyList;
+    List<Grocery> entireHistoryList;
 
     final private String OLD_DATE_FORMAT = "yyyy-MM-d";
     final private String NEW_DATE_FORMAT = "dd MMM, yyyy - E";
 
     List<List<String>> itemList;
+    List<List<String>> entireItemList;
 
 
     HistoryAdapter adapter;
@@ -108,19 +110,19 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
 //        Uncomment the below Function Call to populate History table
         TEST_addItemsToHistoryTable();
 
-//        historyList = db.findAllItemsInTable("history");
+        entireHistoryList = db.findAllItemsInTable("history");
         historyList = db.findPopularHistoryItems();
 
         Log.d("SHOPPING_HISTORY", "Entries in History table : "+ historyList.size());
 
         itemList = getItems(historyList);
+        entireItemList = getItems(entireHistoryList);
 
         // For populating the Spinner where the Dates will be dropped down
         SimpleDateFormat sdf;
         try{
             ArrayAdapter<String> dropDownAdapter;
-            Log.d("GAUTHAM", String.valueOf(itemList.get(7)));
-            ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) itemList.get(7)));
+            ArrayList<String> unique_dates = new ArrayList<String>(new HashSet<String>((ArrayList<String>) entireItemList.get(7)));
             ArrayList<Date> history_dates = new ArrayList<>();
             for (String date: unique_dates){
                 sdf = new SimpleDateFormat(OLD_DATE_FORMAT);
@@ -224,6 +226,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
                 SimpleDateFormat sdf = new SimpleDateFormat(NEW_DATE_FORMAT);
                 Date d = sdf.parse(date);
                 sdf = new SimpleDateFormat(OLD_DATE_FORMAT);
+//                sdf = new SimpleDateFormat("yyyy-MM-dd");
                 String req_d = sdf.format(d);
                 date = req_d;
             } catch (ParseException e) {
