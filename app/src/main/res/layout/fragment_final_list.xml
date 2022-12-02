@@ -62,7 +62,7 @@
         android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"
-        android:background="@drawable/bg_button_rounded"
+        style="@style/BottomButton"
         android:text="@string/done"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintLeft_toLeftOf="parent"

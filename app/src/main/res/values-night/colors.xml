@@ -22,7 +22,7 @@
     <color name="yellow">#DCA555</color>
 
     // color for Dark/Light Mode
-    <color name="text_color_bottom_button">@color/white</color>
-    <color name="background_color">@color/white</color>
+    <color name="text_color_bottom_button">@color/black</color>
+    <color name="background_color">#811B1B1B</color>
 
 </resources>

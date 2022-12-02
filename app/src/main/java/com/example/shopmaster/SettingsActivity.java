@@ -1,13 +1,19 @@
 package com.example.shopmaster;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.cardview.widget.CardView;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,7 +21,8 @@ import com.example.shopmaster.datahandler.DBServer;
 
 public class SettingsActivity extends AppCompatActivity {
     Button btnBack, btnSubmitReport, btnSubmitFeedback;
-    TextView tvBigFont, tvDarkLight, tvUpdate, tvHelp, tvReport, tvFeedback;
+    TextView tvUpdate, tvHelp, tvReport, tvFeedback;
+    Switch switchBigFont,switchDarkMode;
     CardView cvReset;
     DBServer db;
 
@@ -25,8 +32,8 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         btnBack = findViewById(R.id.btn_settings_back);
-        tvBigFont = findViewById(R.id.switchBigFont);
-        tvDarkLight = findViewById(R.id.switchDarkMode);
+        switchBigFont = findViewById(R.id.switch_settings_bigfont);
+        switchDarkMode = findViewById(R.id.switch_settings_darkmode);
         tvHelp = findViewById(R.id.tv_settings_help);
         tvReport = findViewById(R.id.tv_settings_report);
         tvUpdate = findViewById(R.id.tv_settings_update);
@@ -38,8 +45,6 @@ public class SettingsActivity extends AppCompatActivity {
         db = new DBServer(this);
 
         btnBack.setOnClickListener(this::onClick);
-        tvBigFont.setOnClickListener(this::onClick);
-        tvDarkLight.setOnClickListener(this::onClick);
         tvHelp.setOnClickListener(this::onClick);
         tvReport.setOnClickListener(this::onClick);
         tvUpdate.setOnClickListener(this::onClick);
@@ -47,6 +52,34 @@ public class SettingsActivity extends AppCompatActivity {
         cvReset.setOnClickListener(this::onClick);
         btnSubmitReport.setOnClickListener(this::onClick);
         btnSubmitFeedback.setOnClickListener(this::onClick);
+
+        // Dark Mode
+        int currentMode = getResources().getConfiguration().uiMode &
+                Configuration.UI_MODE_NIGHT_MASK;
+        Log.d("Dark Mode", "currentMode: "+currentMode);
+        switch(currentMode){
+            case Configuration.UI_MODE_NIGHT_NO:
+                switchDarkMode.setChecked(false);
+                break;
+            case Configuration.UI_MODE_NIGHT_YES:
+                switchDarkMode.setChecked(true);
+                break;
+        }
+
+        switchDarkMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if (isChecked){
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }else{
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                Log.d("Dark Mode", "After switched, currentMode: "+(getResources().getConfiguration().uiMode &
+                        Configuration.UI_MODE_NIGHT_MASK));
+                recreate();
+
+            }
+        });
     }
 
     public void onClick(View view){
@@ -72,17 +105,24 @@ public class SettingsActivity extends AppCompatActivity {
                 });
                 alert.show();
                 break;
-            case R.id.switchBigFont:
-            case R.id.switchDarkMode:
-                break;
             case R.id.btn_report_submit:
                 Toast.makeText(this,"Thank you for reporting!",Toast.LENGTH_SHORT).show();
+                break;
 
             case R.id.btn_feedback_submit:
                 Toast.makeText(this,"Thank you for your feedback!",Toast.LENGTH_SHORT).show();
+                break;
 
 
         }
 
+    }
+    @Override
+    public void recreate() {
+        finish();
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+
+        startActivity(getIntent());
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 }

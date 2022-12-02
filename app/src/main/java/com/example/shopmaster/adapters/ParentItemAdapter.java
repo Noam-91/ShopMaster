@@ -16,6 +16,7 @@ import com.example.shopmaster.datahandler.Grocery;
 import com.example.shopmaster.datahandler.ParentItem;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.ParentViewHolder> {
@@ -25,6 +26,7 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
     private List<ParentItem> itemList;
     Grocery itemRemoving;
     Context context;
+    List<String> existedStores = new ArrayList<>();
 
     public ParentItemAdapter(Context context, List<ParentItem> itemList,Grocery itemRemoving)
     {
@@ -40,6 +42,11 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
         View view = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.layout_edit_child_container,viewGroup, false);
+
+        for (ParentItem parentItem: itemList){
+            existedStores.add(parentItem.getParentItemStore());
+        }
+
         return new ParentViewHolder(view);
     }
 
@@ -56,11 +63,16 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
         if(itemRemoving!=null){
             String startStore = itemRemoving.getStore();
             String endStore = parentItem.getParentItemStore();
-            try {
-                travelTime = Grocery.getTravalTime(startStore,endStore);
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (existedStores.contains(endStore)){
+                travelTime=0;
+            }else{
+                try {
+                    travelTime = Grocery.getTravalTime(startStore,endStore);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+
         }else{
             parentViewHolder.tvExtraTime.setVisibility(View.INVISIBLE);
         }

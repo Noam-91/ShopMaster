@@ -44,29 +44,47 @@
                     android:fontFamily="@font/open_sans"
                     android:textSize="20sp" />
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchBigFont"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingHorizontal="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="Big Font Mode"
-                    android:fontFamily="@font/open_sans"
-                    android:textSize="17sp"
-                    android:clickable="true"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Big Font Mode"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="17sp"
+                        android:clickable="true"/>
+                    <Switch
+                        android:id="@+id/switch_settings_bigfont"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"/>
 
-                <androidx.appcompat.widget.SwitchCompat
-                    android:id="@+id/switchDarkMode"
-                    android:layout_width="wrap_content"
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="left"
-                    android:paddingHorizontal="20dp"
-                    android:layout_marginBottom="5dp"
-                    android:text="Dark Mode"
-                    android:fontFamily="@font/open_sans"
-                    android:textSize="17sp"
-                    android:clickable="true"/>
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:paddingHorizontal="20dp"
+                        android:layout_marginBottom="5dp"
+                        android:text="Dark Mode"
+                        android:fontFamily="@font/open_sans"
+                        android:textSize="17sp"
+                        android:clickable="true"/>
+                    <Switch
+                        android:id="@+id/switch_settings_darkmode"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center"/>
 
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_settings_update"

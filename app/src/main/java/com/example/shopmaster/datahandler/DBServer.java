@@ -366,7 +366,8 @@ public class DBServer {
         List<Grocery> localArrayList=new ArrayList<>();
         SQLiteDatabase localSQLiteDatabase = this.dbhelper.getWritableDatabase();
         Cursor localCursor = localSQLiteDatabase.rawQuery("SELECT item_id, name, cate,price," +
-                "store,imgurl,quantity,date, SUM(quantity) AS cnt FROM history GROUP BY item_id ORDER BY cnt DESC", null);
+                "store,imgurl,quantity,date, SUM(quantity) AS cnt FROM history " +
+                "GROUP BY item_id ORDER BY cnt DESC", null);
         while (localCursor.moveToNext())
         {
             Grocery temp=new Grocery();

@@ -1,0 +1,29 @@
+<resources>
+    <string name="app_name">ShopMaster</string>
+    // database
+    <string name="database_id">Item ID</string>
+    <string name="database_name">Name</string>
+    <string name="database_cate">Category</string>
+    <string name="database_store">Store</string>
+    <string name="database_price">Price</string>
+    <string name="database_qty">Quantity</string>
+    <string name="database_date">History Date</string>
+    <string name="btn_jumpToDB">Jump to Database Test</string>
+    // AlertDialog
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+    // Bottom Navigation
+    <string name="title_home">Home</string>
+    <string name="title_back">Cart</string>
+    <string name="title_history">History</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="shopping_history">Shopping History</string>
+    <string name="image_of_grocery_item">Image of grocery item</string>
+    <string name="final_shopping_list">Final Shopping List</string>
+    <string name="done">Done</string>
+    <string name="shopping_list_draft">Shopping List Draft</string>
+    <string name="add">Add</string>
+    <string name="save">Save</string>
+    <string name="category">Category</string>
+    <string name="more"> <u>More</u> </string>
+</resources>
