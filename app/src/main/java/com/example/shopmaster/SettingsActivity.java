@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.example.shopmaster.datahandler.DBServer;
 
 public class SettingsActivity extends AppCompatActivity {
-    Button btnBack;
+    Button btnBack, btnSubmitReport, btnSubmitFeedback;
     TextView tvBigFont, tvDarkLight, tvUpdate, tvHelp, tvReport, tvFeedback;
     CardView cvReset;
     DBServer db;
@@ -25,13 +25,15 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         btnBack = findViewById(R.id.btn_settings_back);
-        tvBigFont = findViewById(R.id.tv_settings_bigfontmode);
-        tvDarkLight = findViewById(R.id.tv_settings_darkmode);
+        tvBigFont = findViewById(R.id.switchBigFont);
+        tvDarkLight = findViewById(R.id.switchDarkMode);
         tvHelp = findViewById(R.id.tv_settings_help);
         tvReport = findViewById(R.id.tv_settings_report);
         tvUpdate = findViewById(R.id.tv_settings_update);
         tvFeedback = findViewById(R.id.tv_settings_feedback);
         cvReset = findViewById(R.id.cv_settings_reset);
+        btnSubmitReport = findViewById(R.id.btn_report_submit);
+        btnSubmitFeedback = findViewById(R.id.btn_feedback_submit);
 
         db = new DBServer(this);
 
@@ -43,6 +45,8 @@ public class SettingsActivity extends AppCompatActivity {
         tvUpdate.setOnClickListener(this::onClick);
         tvFeedback.setOnClickListener(this::onClick);
         cvReset.setOnClickListener(this::onClick);
+        btnSubmitReport.setOnClickListener(this::onClick);
+        btnSubmitFeedback.setOnClickListener(this::onClick);
     }
 
     public void onClick(View view){
@@ -68,8 +72,15 @@ public class SettingsActivity extends AppCompatActivity {
                 });
                 alert.show();
                 break;
-            case R.id.tv_settings_bigfontmode:
+            case R.id.switchBigFont:
+            case R.id.switchDarkMode:
                 break;
+            case R.id.btn_report_submit:
+                Toast.makeText(this,"Thank you for reporting!",Toast.LENGTH_SHORT).show();
+
+            case R.id.btn_feedback_submit:
+                Toast.makeText(this,"Thank you for your feedback!",Toast.LENGTH_SHORT).show();
+
 
         }
 

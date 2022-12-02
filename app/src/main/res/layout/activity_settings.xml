@@ -38,25 +38,29 @@
                 android:fontFamily="@font/open_sans"
                 android:textSize="20sp" />
 
-            <TextView
-                android:id="@+id/tv_settings_bigfontmode"
-                android:layout_width="match_parent"
+            <Switch
+                android:id="@+id/switchBigFont"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="20dp"
                 android:layout_marginBottom="5dp"
                 android:text="Big Font Mode"
                 android:fontFamily="@font/open_sans"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:clickable="true"/>
 
-            <TextView
-                android:id="@+id/tv_settings_darkmode"
-                android:layout_width="match_parent"
+            <Switch
+                android:id="@+id/switchDarkMode"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="left"
                 android:paddingHorizontal="20dp"
                 android:layout_marginBottom="5dp"
-                android:text="Dark/Light Mode"
+                android:text="Dark Mode"
                 android:fontFamily="@font/open_sans"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:clickable="true"/>
+
 
             <TextView
                 android:id="@+id/tv_settings_update"
@@ -103,27 +107,49 @@
                 android:paddingHorizontal="20dp"
                 android:layout_marginBottom="5dp"
                 android:text="Help"
+                android:textIsSelectable="true"
                 android:fontFamily="@font/open_sans"
                 android:textSize="17sp" />
 
-            <TextView
+            <EditText
                 android:id="@+id/tv_settings_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
-                android:text="Report"
                 android:fontFamily="@font/open_sans"
+                android:hint="Report"
+                android:paddingHorizontal="20dp"
                 android:textSize="17sp" />
-            <TextView
+
+            <Button
+                android:id="@+id/btn_report_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/purple_500"
+                android:text="Submit"
+                android:onClick="sendMessage"/>
+
+            <EditText
                 android:id="@+id/tv_settings_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="20dp"
+                android:layout_marginLeft="10dp"
                 android:layout_marginBottom="5dp"
-                android:text="Feedback"
                 android:fontFamily="@font/open_sans"
+                android:hint="Feedback"
+                android:paddingHorizontal="20dp"
                 android:textSize="17sp" />
+
+            <Button
+                android:id="@+id/btn_feedback_submit"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:textColor="@color/purple_500"
+                android:text="Submit"/>
+
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
