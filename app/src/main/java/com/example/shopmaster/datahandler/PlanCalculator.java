@@ -50,6 +50,7 @@ public class PlanCalculator {
         List<Grocery> resultList = new ArrayList<>(shopList.size());
         Log.d(TAG,"ResultList length = "+resultList.size());
         // User chooses time.
+        // Mock up: It only consider inventory of County Market and Target.
         if (primaryFactor.equals("time")){
             String[] stores = {"County Market","Target","",""};
             if(numOfStops==1){stores = new String[]{"County Market","","",""};}
