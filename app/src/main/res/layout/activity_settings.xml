@@ -35,6 +35,7 @@
                 tools:context=".SettingsActivity">
 
                 <TextView
+                    android:id="@+id/tv_settings_appsettings"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -49,6 +50,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/tv_settings_bigfont"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingHorizontal="20dp"
@@ -69,6 +71,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
                     <TextView
+                        android:id="@+id/tv_settings_darkmode"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="left"
@@ -115,6 +118,7 @@
                 tools:context=".SettingsActivity">
 
                 <TextView
+                    android:id="@+id/tv_settings_communication"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -195,6 +199,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_settings_reset"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
@@ -204,6 +209,7 @@
                     android:fontFamily="@font/open_sans"
                     android:textSize="20sp"/>
                 <TextView
+                    android:id="@+id/tv_settings_resethint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingHorizontal="20dp"

@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -21,7 +22,7 @@ import com.example.shopmaster.datahandler.DBServer;
 
 public class SettingsActivity extends AppCompatActivity {
     Button btnBack, btnSubmitReport, btnSubmitFeedback;
-    TextView tvUpdate, tvHelp, tvReport, tvFeedback;
+    TextView tvUpdate, tvHelp, tvReport, tvFeedback,tvAppSettings,tvBigFont,tvDark,tvComm,tvReset,tvResetHint;
     Switch switchBigFont,switchDarkMode;
     CardView cvReset;
     DBServer db;
@@ -38,6 +39,12 @@ public class SettingsActivity extends AppCompatActivity {
         tvReport = findViewById(R.id.tv_settings_report);
         tvUpdate = findViewById(R.id.tv_settings_update);
         tvFeedback = findViewById(R.id.tv_settings_feedback);
+        tvAppSettings = findViewById(R.id.tv_settings_appsettings);
+        tvBigFont = findViewById(R.id.tv_settings_bigfont);
+        tvDark=findViewById(R.id.tv_settings_darkmode);
+        tvComm=findViewById(R.id.tv_settings_communication);
+        tvReset=findViewById(R.id.tv_settings_reset);
+        tvResetHint=findViewById(R.id.tv_settings_resethint);
         cvReset = findViewById(R.id.cv_settings_reset);
         btnSubmitReport = findViewById(R.id.btn_report_submit);
         btnSubmitFeedback = findViewById(R.id.btn_feedback_submit);
@@ -80,6 +87,43 @@ public class SettingsActivity extends AppCompatActivity {
 
             }
         });
+
+        //Big Font Mode
+        switchBigFont.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                if(isChecked){
+                    tvAppSettings.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvAppSettings.getTextSize()+5);
+                    tvBigFont.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvBigFont.getTextSize()+5);
+                    tvDark.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvDark.getTextSize()+5);
+                    tvUpdate.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvUpdate.getTextSize()+5);
+                    tvComm.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvComm.getTextSize()+5);
+                    tvHelp.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvHelp.getTextSize()+5);
+                    tvReport.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvReport.getTextSize()+5);
+                    tvFeedback.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvFeedback.getTextSize()+5);
+                    tvReset.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvReset.getTextSize()+5);
+                    tvResetHint.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvResetHint.getTextSize()+5);
+                    btnBack.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnBack.getTextSize()+5);
+                    btnSubmitFeedback.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnSubmitFeedback.getTextSize()+5);
+                    btnSubmitReport.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnSubmitReport.getTextSize()+5);
+                }else{
+                    tvAppSettings.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvAppSettings.getTextSize()-5);
+                    tvBigFont.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvBigFont.getTextSize()-5);
+                    tvDark.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvDark.getTextSize()-5);
+                    tvUpdate.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvUpdate.getTextSize()-5);
+                    tvComm.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvComm.getTextSize()-5);
+                    tvHelp.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvHelp.getTextSize()-5);
+                    tvReport.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvReport.getTextSize()-5);
+                    tvFeedback.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvFeedback.getTextSize()-5);
+                    tvReset.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvReset.getTextSize()-5);
+                    tvResetHint.setTextSize(TypedValue.COMPLEX_UNIT_PX,tvResetHint.getTextSize()-5);
+                    btnBack.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnBack.getTextSize()-5);
+                    btnSubmitFeedback.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnSubmitFeedback.getTextSize()-5);
+                    btnSubmitReport.setTextSize(TypedValue.COMPLEX_UNIT_PX,btnSubmitReport.getTextSize()-5);
+                }
+            }
+        });
+
     }
 
     public void onClick(View view){

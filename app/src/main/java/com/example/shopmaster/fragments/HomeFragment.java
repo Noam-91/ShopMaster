@@ -61,7 +61,6 @@ public class HomeFragment extends Fragment {
                 // Switch Navigation tab
                 BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
                 navView.setSelectedItemId(R.id.navigation_cart);
-
                 // transfer fragment.
                 fragmentManager.beginTransaction()
                         .replace(R.id.navHostFragment, NewListFragment.class, bundle)
