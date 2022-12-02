@@ -25,8 +25,11 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.PriorityQueue;
 
 public class EditFragment extends Fragment {
 
@@ -187,21 +190,51 @@ public class EditFragment extends Fragment {
 
         List<ParentItem> itemList = new ArrayList<>();
         List<String> storeList = Arrays.asList(Grocery.getStoreList());
+
+        class StoreEntry implements Comparable<StoreEntry>{
+            private String storeName;
+            private int extraTime;
+
+            public StoreEntry(String storeName, int extraTime) {
+                this.storeName = storeName;
+                this.extraTime = extraTime;
+            }
+
+            public String getStoreName() {
+                return storeName;
+            }
+
+            public int getExtraTime() {
+                return extraTime;
+            }
+
+            public void setExtraTime(int extraTime) {
+                this.extraTime = extraTime;
+            }
+
+            @Override
+            public int compareTo(StoreEntry otherStoreEntry) {
+                return this.getExtraTime()-otherStoreEntry.getExtraTime();
+            }
+        }
+
         int travelTime;
+        List<StoreEntry> storeEntryList = new ArrayList<>();
+
         if(itemRemoving!=null){
             String startStore = itemRemoving.getStore();
             for (String endStore:storeList){
                 try {
                     travelTime = Grocery.getTravalTime(startStore,endStore);
+                    StoreEntry temp = new StoreEntry(endStore,travelTime);
+                    storeEntryList.add(temp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-
-
             }
+            Collections.sort(storeEntryList);
+            Log.d("Sorting", "result: "+storeEntryList.get(0).getExtraTime()+storeEntryList.get(1).getExtraTime()+storeEntryList.get(2).getExtraTime()+storeEntryList.get(3).getExtraTime());
         }
-
-
 
         if (!targetList.isEmpty()){
             String storeName = "Target";
