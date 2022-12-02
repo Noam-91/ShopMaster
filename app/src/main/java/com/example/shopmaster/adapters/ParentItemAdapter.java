@@ -17,7 +17,9 @@ import com.example.shopmaster.datahandler.ParentItem;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.ParentViewHolder> {
 
@@ -26,7 +28,6 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
     private List<ParentItem> itemList;
     Grocery itemRemoving;
     Context context;
-    List<String> existedStores = new ArrayList<>();
 
     public ParentItemAdapter(Context context, List<ParentItem> itemList,Grocery itemRemoving)
     {
@@ -42,10 +43,6 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
         View view = LayoutInflater
                 .from(viewGroup.getContext())
                 .inflate(R.layout.layout_edit_child_container,viewGroup, false);
-
-        for (ParentItem parentItem: itemList){
-            existedStores.add(parentItem.getParentItemStore());
-        }
 
         return new ParentViewHolder(view);
     }
@@ -63,24 +60,20 @@ public class ParentItemAdapter extends RecyclerView.Adapter<ParentItemAdapter.Pa
         if(itemRemoving!=null){
             String startStore = itemRemoving.getStore();
             String endStore = parentItem.getParentItemStore();
-            if (existedStores.contains(endStore)){
-                travelTime=0;
-            }else{
-                try {
-                    travelTime = Grocery.getTravalTime(startStore,endStore);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
+
+            travelTime = parentItem.getParentItemExtraTime();
+            Log.d(TAG,"Get travel time: "+travelTime);
 
         }else{
             parentViewHolder.tvExtraTime.setVisibility(View.INVISIBLE);
+            Log.d(TAG,"itemRemoving is null");
         }
 
         if (travelTime!=0){
             parentViewHolder.tvExtraTime.setText("+ "+travelTime+" min");
         }else{
             parentViewHolder.tvExtraTime.setVisibility(View.INVISIBLE);
+            Log.d(TAG,"Travel time is 0");
         }
         // Load adapter for items in the store.
         LinearLayoutManager layoutManager= new LinearLayoutManager(parentViewHolder

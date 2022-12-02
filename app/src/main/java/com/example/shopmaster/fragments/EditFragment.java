@@ -218,48 +218,111 @@ public class EditFragment extends Fragment {
             }
         }
 
-        int travelTime;
+        int travelTime=0;
         List<StoreEntry> storeEntryList = new ArrayList<>();
+
+//        if(itemRemoving!=null){
+//            String startStore = itemRemoving.getStore();
+//            for (String endStore:storeList){
+//                try {
+//                    travelTime = Grocery.getTravalTime(startStore,endStore);
+//                    StoreEntry temp = new StoreEntry(endStore,travelTime);
+//                    storeEntryList.add(temp);
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//            Collections.sort(storeEntryList);
+//            Log.d("Sorting", "result: "+storeEntryList.get(0).getStoreName()+storeEntryList.get(1).getStoreName()+storeEntryList.get(2).getStoreName()+storeEntryList.get(3).getStoreName());
+//        }
 
         if(itemRemoving!=null){
             String startStore = itemRemoving.getStore();
             for (String endStore:storeList){
+
                 try {
                     travelTime = Grocery.getTravalTime(startStore,endStore);
-                    StoreEntry temp = new StoreEntry(endStore,travelTime);
-                    storeEntryList.add(temp);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                if (listStores.contains(endStore)){travelTime=0;}
+                if (endStore.equals("Target")&&!targetList.isEmpty()){
+                    ParentItem parentItem= new ParentItem(endStore, targetList);
+                    parentItem.setParentItemExtraTime(travelTime);
+                    itemList.add(parentItem);
+                    continue;
+                }
+                if (endStore.equals("County Market")&&!countyList.isEmpty()){
+                    ParentItem parentItem= new ParentItem(endStore, countyList);
+                    parentItem.setParentItemExtraTime(travelTime);
+                    itemList.add(parentItem);
+                    continue;
+                }
+                if (endStore.equals("Walmart")&&!walmartList.isEmpty()){
+                    ParentItem parentItem= new ParentItem(endStore, walmartList);
+                    parentItem.setParentItemExtraTime(travelTime);
+                    itemList.add(parentItem);
+                    continue;
+                }
+                if (endStore.equals("Costco")&&!costcoList.isEmpty()){
+                    ParentItem parentItem= new ParentItem(endStore, costcoList);
+                    parentItem.setParentItemExtraTime(travelTime);
+                    itemList.add(parentItem);
+                    continue;
+                }
             }
-            Collections.sort(storeEntryList);
-            Log.d("Sorting", "result: "+storeEntryList.get(0).getExtraTime()+storeEntryList.get(1).getExtraTime()+storeEntryList.get(2).getExtraTime()+storeEntryList.get(3).getExtraTime());
+            Collections.sort(itemList);
+//            Log.d("Sorting", "result: "+storeEntryList.get(0).getStoreName()+storeEntryList.get(1).getStoreName()+storeEntryList.get(2).getStoreName()+storeEntryList.get(3).getStoreName());
         }
 
-        if (!targetList.isEmpty()){
-            String storeName = "Target";
-            String currStore = checkStoreDist(2, storeName);
-            ParentItem parentItem= new ParentItem(currStore, targetList);
-            itemList.add(parentItem);
-        }
-        if (!countyList.isEmpty()){
-            String storeName = "County Market";
-            String currStore = checkStoreDist(1, storeName);
-            ParentItem parentItem= new ParentItem(currStore,countyList);
-            itemList.add(parentItem);
-        }
-        if (!walmartList.isEmpty()){
-            String storeName = "Walmart";
-            String currStore = checkStoreDist(3, storeName);
-            ParentItem parentItem= new ParentItem(currStore,walmartList);
-            itemList.add(parentItem);
-        }
-        if (!costcoList.isEmpty()){
-            String storeName = "Costco";
-            String currStore = checkStoreDist(0, storeName);
-            ParentItem parentItem= new ParentItem(currStore, costcoList);
-            itemList.add(parentItem);
-        }
+//        for (StoreEntry storeEntry : storeEntryList){
+//            if (storeEntry.getStoreName().equals("Target")&&!targetList.isEmpty()){
+//                ParentItem parentItem= new ParentItem(storeEntry.getStoreName(), targetList);
+//                parentItem.setParentItemExtraTime(storeEntry.getExtraTime());
+//                itemList.add(parentItem);
+//                continue;
+//            }
+//            if (storeEntry.getStoreName().equals("County Market")&&!countyList.isEmpty()){
+//                ParentItem parentItem= new ParentItem(storeEntry.getStoreName(), countyList);
+//                itemList.add(parentItem);
+//                continue;
+//            }
+//            if (storeEntry.getStoreName().equals("Walmart")&&!walmartList.isEmpty()){
+//                ParentItem parentItem= new ParentItem(storeEntry.getStoreName(), walmartList);
+//                itemList.add(parentItem);
+//                continue;
+//            }
+//            if (storeEntry.getStoreName().equals("Costco")&&!costcoList.isEmpty()){
+//                ParentItem parentItem= new ParentItem(storeEntry.getStoreName(), costcoList);
+//                itemList.add(parentItem);
+//                continue;
+//            }
+//        }
+
+//        if (!targetList.isEmpty()){
+//            String storeName = "Target";
+//            String currStore = checkStoreDist(2, storeName);
+//            ParentItem parentItem= new ParentItem(currStore, targetList);
+//            itemList.add(parentItem);
+//        }
+//        if (!countyList.isEmpty()){
+//            String storeName = "County Market";
+//            String currStore = checkStoreDist(1, storeName);
+//            ParentItem parentItem= new ParentItem(currStore,countyList);
+//            itemList.add(parentItem);
+//        }
+//        if (!walmartList.isEmpty()){
+//            String storeName = "Walmart";
+//            String currStore = checkStoreDist(3, storeName);
+//            ParentItem parentItem= new ParentItem(currStore,walmartList);
+//            itemList.add(parentItem);
+//        }
+//        if (!costcoList.isEmpty()){
+//            String storeName = "Costco";
+//            String currStore = checkStoreDist(0, storeName);
+//            ParentItem parentItem= new ParentItem(currStore, costcoList);
+//            itemList.add(parentItem);
+//        }
         Log.d(TAG,"four store list length: "+targetList.size()+" "+countyList.size()+" "+walmartList.size()+" "+costcoList.size()+" ");
         Log.d(TAG,"first child list size: "+itemList.get(0).getChildItemList().size());
         return itemList;

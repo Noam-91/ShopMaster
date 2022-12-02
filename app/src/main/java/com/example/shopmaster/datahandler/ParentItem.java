@@ -1,12 +1,13 @@
 package com.example.shopmaster.datahandler;
 
+import java.util.Comparator;
 import java.util.List;
 
-public class ParentItem {
+public class ParentItem implements Comparable<ParentItem> {
 
     // Declaration of the variables
     private String ParentItemStore;
-    private String ParentItemStoreDist;
+    private int ParentItemExtraTime;
     private List<ChildItem> ChildItemList;
 
     public ParentItem(String parentItemStore, List<ChildItem> childItemList) {
@@ -22,9 +23,13 @@ public class ParentItem {
         ParentItemStore = parentItemStore;
     }
 
-//    public String getParentItemStoreDist() { return ParentItemStoreDist; }
+    public int getParentItemExtraTime() {
+        return ParentItemExtraTime;
+    }
 
-//    public void setParentItemStoreDist(String parentItemStoreDist) { ParentItemStoreDist = parentItemStoreDist; }
+    public void setParentItemExtraTime(int parentItemExtraTime) {
+        ParentItemExtraTime = parentItemExtraTime;
+    }
 
     public List<ChildItem> getChildItemList() {
         return ChildItemList;
@@ -32,5 +37,10 @@ public class ParentItem {
 
     public void setChildItemList(List<ChildItem> childItemList) {
         ChildItemList = childItemList;
+    }
+
+    @Override
+    public int compareTo(ParentItem otherStoreEntry) {
+        return this.getParentItemExtraTime()-otherStoreEntry.getParentItemExtraTime();
     }
 }
