@@ -126,7 +126,7 @@ public class HistoryFragment extends Fragment implements HistoryAdapter.OnHistCa
                 Date d = sdf.parse(date);
                 history_dates.add(d);
             }
-            Collections.sort(history_dates);
+            Collections.sort(history_dates, Collections.reverseOrder());
 
             unique_dates = new ArrayList<>();
             for (Date d: history_dates){
