@@ -3,6 +3,7 @@ package com.example.shopmaster.fragments;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,15 +56,15 @@ public class HomeFragment extends Fragment {
         switch (view.getId()){
             case R.id.btn_home_newlist:
                 // If previous cart exist, pop delete alert
-                if (!db.tableIsEmpty(KEY_NEWLIST)){discardExistedCartAlert ();}
-
+                if (!db.tableIsEmpty(KEY_NEWLIST)){bundle.putBoolean("RESET",true);}
+                Log.d("New List bundle","Get bundle? "+bundle);
                 // Switch Navigation tab
                 BottomNavigationView navView = getActivity().findViewById(R.id.bottomNav_view);
                 navView.setSelectedItemId(R.id.navigation_cart);
 
                 // transfer fragment.
                 fragmentManager.beginTransaction()
-                        .replace(R.id.navHostFragment, NewListFragment.class, null)
+                        .replace(R.id.navHostFragment, NewListFragment.class, bundle)
                         .setReorderingAllowed(true)
                         .addToBackStack(TAG)
                         .commit();

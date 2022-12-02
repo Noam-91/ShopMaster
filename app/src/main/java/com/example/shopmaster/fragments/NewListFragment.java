@@ -55,15 +55,18 @@ public class NewListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Bundle bundle = this.getArguments();
-        if (bundle!= null) {
-        }
+
 
         db = new DBServer(getContext());
         shopList = db.findAllItemsInTable(KEY_NEWLIST);
         Log.d(TAG,"onCreate, shopList = "+shopList);
 
         fragmentManager = getActivity().getSupportFragmentManager();
+        getParentFragmentManager()
+                .beginTransaction()
+                .detach(NewListFragment.this)
+                .attach(NewListFragment.this)
+                .commit();
 
     }
 
@@ -81,6 +84,8 @@ public class NewListFragment extends Fragment {
         searchView = view.findViewById(R.id.sv_newlist);
         rv = view.findViewById(R.id.rv_newlist);
 
+
+
         popularItems = new BottomSheetDialog(getContext());
 
         shopList = db.findAllItemsInTable(KEY_NEWLIST);
@@ -94,12 +99,18 @@ public class NewListFragment extends Fragment {
         searchView.setOnClickListener(this::onClick);
         searchView.onActionViewCollapsed();
 
-
         NewListAdapter adapter = new NewListAdapter(getContext(),shopList);
         rv.setLayoutManager(new LinearLayoutManager(getActivity()));
         rv.addItemDecoration(getRecyclerViewDivider(R.drawable.inset_recyclerview_divider));
         rv.setAdapter(adapter);
 
+        Bundle bundle = this.getArguments();
+        if (bundle!= null) {
+            if(bundle.getBoolean("RESET")){
+                Log.d("New List bundle","Get bundle? "+bundle);
+                discardExistedCartAlert();
+            }
+        }
         return view;
     }
 
