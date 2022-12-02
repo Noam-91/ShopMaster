@@ -2,10 +2,13 @@ package com.example.shopmaster.datahandler;
 
 import androidx.annotation.NonNull;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class Grocery {
     private Integer item_id;
@@ -16,8 +19,25 @@ public class Grocery {
     private String store;
     private Integer quantity=1;
     private String date="-1";
+    private static Map<String[], Integer> travelTimeDict = new HashMap<>();
     public static String [] cateList = {"Meat & Seafood","Bakery & Bread","Produce"};
     public static String [] storeList = {"Target","County Market","Walmart","Costco"};
+
+    public Grocery(){
+        String[] countyTarget = {"County Market", "Target"};
+        String[] countyWalmart = {"County Market", "Walmart"};
+        String[] countyCostco = {"County Market", "Costco"};
+        String[] targetWalmart = {"County Market", "Walmart"};
+        String[] targetCostco = {"County Market", "Costco"};
+        String[] walmartCostco = {"Walmart", "Costco"};
+
+        travelTimeDict.put(countyTarget,3);
+        travelTimeDict.put(countyWalmart,9);
+        travelTimeDict.put(countyCostco,8);
+        travelTimeDict.put(walmartCostco,4);
+        travelTimeDict.put(targetCostco,10);
+        travelTimeDict.put(targetWalmart,12);
+    }
 
     public Integer getId() {
         return item_id;
@@ -107,5 +127,24 @@ public class Grocery {
                 "peppers", "lettuce", "lemon", "avocado", "melon", "blueberries", "eggplant",
                 "broccoli"};
         return Arrays.asList(str);
+    }
+
+    public static Integer getTravalTime(String store1, String store2) throws IOException {
+        if(store1.equals(store2)){return 0;}
+        int travelTime = 0;
+        if(!Arrays.asList(storeList).contains(store1)||!Arrays.asList(storeList).contains(store2))
+        {
+            throw new IOException("Input stores do not exist.");
+        }else{
+            for (String[] storePair : travelTimeDict.keySet()){
+                if (Arrays.asList(storePair).contains(store1)
+                        &&Arrays.asList(storePair).contains(store2)){
+                    travelTime = travelTimeDict.get(storePair);
+                    break;
+                }
+            }
+        }
+        return travelTime;
+
     }
 }

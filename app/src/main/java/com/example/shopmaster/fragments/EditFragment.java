@@ -22,7 +22,9 @@ import com.example.shopmaster.datahandler.Grocery;
 import com.example.shopmaster.datahandler.ParentItem;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -171,6 +173,23 @@ public class EditFragment extends Fragment {
         }
 
         List<ParentItem> itemList = new ArrayList<>();
+        List<String> storeList = Arrays.asList(Grocery.getStoreList());
+        int travelTime;
+        if(itemRemoving!=null){
+            String startStore = itemRemoving.getStore();
+            for (String endStore:storeList){
+                try {
+                    travelTime = Grocery.getTravalTime(startStore,endStore);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                //TODO:
+
+            }
+        }
+
+
+
         if (!targetList.isEmpty()){
             ParentItem parentItem= new ParentItem("Target",targetList);
             itemList.add(parentItem);
